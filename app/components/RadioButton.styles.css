@@ -1,0 +1,22 @@
+.radio-component {
+  margin-bottom: 5px;
+}
+
+.label {
+  color: #7f8892;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  max-width: 100%;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.radio {
+  margin-right: 10px;
+}
+
+input[disabled] {
+  color: #bbc3cb;
+  background: #F0F0F0;
+}

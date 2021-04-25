@@ -1,0 +1,37 @@
+.menu-item {
+  border-bottom: 1px solid #eee;
+}
+
+.menu-item:hover {
+  background-color: #fafafa;
+}
+
+.link {
+  display: flex;
+  border-left: 6px solid transparent;
+  align-items: center;
+  padding: 4px 14px;
+  color: #919191;
+  font-size: 18px;
+  line-height: 2.5;
+}
+
+.selected {
+  background-color: #1395f0;
+  color: #fff;
+}
+
+.label {
+  padding-left: 14px;
+  font-size: 18px;
+}
+
+.icon {
+  font-size: 24px;
+  color: #1395f0;
+  width: 25px;
+}
+
+.selected .icon {
+  color: #fff;
+}

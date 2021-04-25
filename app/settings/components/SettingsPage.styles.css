@@ -1,0 +1,17 @@
+.container {
+  padding: 20px 20px 40px;
+}
+
+.title {
+  display: block;
+  font-weight: bold;
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+.button-container{
+  bottom: 15px;
+  position: absolute;
+  right: 15px;
+  width: 120px;
+}

@@ -1,0 +1,27 @@
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  color: #f68d38 !important;
+}
+
+.running {
+  color: #a4c639 !important;
+}
+
+.icon {
+  margin: 0 3px;
+  font-size: 26px !important;
+  width: auto !important;
+}
+
+.disabled {
+  color: #dadde2;
+}
+
+.hover:hover:not(.disabled) {
+  cursor: pointer;
+}

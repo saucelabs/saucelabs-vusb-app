@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+}
+
+.data-wrapper {
+  flex: 1;
+}
+
+.explain-wrapper {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.explain {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.label {
+  color: #7f8892;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  max-width: 100%;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.link {
+  color: #2874b2;
+}

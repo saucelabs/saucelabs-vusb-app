@@ -1,0 +1,9 @@
+.label {
+  color: #7f8892;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  max-width: 100%;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}

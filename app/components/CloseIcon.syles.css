@@ -1,0 +1,8 @@
+.icon {
+  margin: 0 3px;
+  font-size: 26px !important;
+}
+
+.icon.hover:hover:not(.disabled) {
+  cursor: pointer;
+}

@@ -1,0 +1,153 @@
+.container {
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  padding: 5px 5px;
+  height: 180px;
+  width: 308px;
+  margin: 1px;
+  position: relative;
+}
+
+.device-tile{
+  box-shadow: 0 1px 3px hsla(0,0%,66.3%,.5);
+  border-radius: 2px;
+  color: #444;
+  font-size: 12px;
+  position: relative;
+  background: #fff;
+  padding: 6px;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+.error {
+  border: 1px solid #f68d38;
+  box-shadow: 0 1px 3px hsla(0, 0%, 66.3%, 0.5);
+}
+
+.header {
+  position: relative;
+}
+
+.private-device-label {
+  color: #2874b2;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: absolute;
+  top: -5px;
+  right: 0;
+}
+
+.title {
+  display: block;
+  color: #555;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-wrapper::before,
+.image-wrapper::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: #fff;
+}
+.image-wrapper::before {
+  top: -4px;
+  bottom: -4px;
+  left: 1em;
+  right: 1em;
+}
+.image-wrapper::after {
+  left: -4px;
+  right: -4px;
+  top: 1em;
+  bottom: 1em;
+}
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 88px;
+  height: 88px;
+  margin-right: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 2px;
+  position: relative;
+}
+
+.image-wrapper img {
+  display: block;
+  max-width: 88px;
+  max-height: 88px;
+  position: relative;
+  z-index: 1;
+}
+
+.device-data-wrapper {
+  color: #646464;
+  font-size: 12px;
+  height: 100px;
+}
+
+.link {
+  text-transform: uppercase;
+  color: #555;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 2px 0;
+  color: #fff;
+  cursor: default;
+  font-size: .7rem;
+  font-weight: 600;
+  left: 15px;
+  line-height: 1;
+  padding: 4px;
+  position: absolute;
+  text-transform: uppercase;
+  text-align: center;
+  top: 43px;
+  z-index: 10;
+}
+
+.busy {
+  justify-content: center;
+  background-color: #f68c38;
+}
+
+.inUse {
+  justify-content: center;
+  background-color: #f68c38;
+  width: 80px;
+}
+
+.device-action-wrapper {
+  margin-top: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+  display: flex;
+}
+
+.details-link {
+  color: #555;
+  font-size: 14px;
+  font-weight: 700;
+}

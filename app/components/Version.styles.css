@@ -1,0 +1,24 @@
+.version-image {
+  margin-bottom: 0;
+}
+
+.version-container {
+  /* display: flex; */
+
+  /* flex-direction: column; */
+}
+.version-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.version-title {
+  color: #dadde2;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.version-number {
+  color: #dadde2;
+  font-size: 18px;
+}

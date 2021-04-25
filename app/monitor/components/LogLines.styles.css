@@ -1,0 +1,28 @@
+.logLine {
+  font-size: 14px;
+  display: flex;
+  justify-items: left;
+}
+
+.icon {
+  font-size: 14px !important;
+  margin-right: 5px;
+}
+
+.debug {
+  color: #009a00;
+}
+.error {
+  color: #eb3f47;
+}
+.warn {
+  color: #f68d38;
+}
+
+.info {
+  color: #1395f0;
+}
+
+.transparent {
+  color: transparent;
+}
