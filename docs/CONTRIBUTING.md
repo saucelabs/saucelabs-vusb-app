@@ -67,10 +67,24 @@ When creating a pull request, its description should reference the corresponding
 
 ### Sign your work / Developer certificate of origin
 All contributions (including pull requests) must agree to the Developer Certificate of Origin (DCO) version 1.1. This is 
-exactly the same one created and used by the Linux kernel developers and posted on http://developercertificate.org/. This is a developer's certification that he or she has the right to submit the patch for inclusion into the project. Simply submitting a contribution implies this agreement, however, please include a "Signed-off-by" tag in every patch (this tag is a conventional way to confirm that you agree to the DCO) - you can automate this with a [Git hook](https://stackoverflow.com/questions/15015894/git-add-signed-off-by-line-using-format-signoff-not-working)
+exactly the same one created and used by the Linux kernel developers and posted on http://developercertificate.org/. 
+This is a developer's certification that he or she has the right to submit the patch for inclusion into the project. Simply submitting a contribution implies this agreement, however, please include a "Signed-off-by" tag in every patch (this tag is a conventional way to confirm that you agree to the DCO) - you can automate this with a [Git hook](https://stackoverflow.com/questions/15015894/git-add-signed-off-by-line-using-format-signoff-not-working)
 
 ```
 git commit -s -m "adding X to change Y"
 ```
+
+## Create release
+This GUI can be build for three platforms, we have Mac OSX, Linux and Windows. Use the following commands to create a 
+release for one of them.
+
+### Mac OSX
+Run `yarn package`. This will create all needed files in the [release](../release/)-folder.
+
+### Linux
+Run `yarn package-linux`. This will create all needed files in the [release](../release/)-folder.
+
+### Windows
+Run `yarn package-win`. This will create all needed files in the [release](../release/)-folder.
 
 **Have fun, and happy hacking!**

@@ -54,7 +54,7 @@
     ]
   },
   "build": {
-    "productName": "Sauce Labs vUSB Gui",
+    "productName": "Sauce Labs vUSB GUI",
     "appId": "org.saucelabs.vusb",
     "files": [
       "dist/",
