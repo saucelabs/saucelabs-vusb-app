@@ -124,11 +124,11 @@
   "contributors": [
     {
       "name": "Wim Selles",
-      "email": "wim@wswebcreation.nl",
+      "email": "wim.selles@saucelabs.com",
       "url": "https://github.com/wswebcreation"
     }
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/saucelabs/saucelabs-vusb-app/issues"
   },
