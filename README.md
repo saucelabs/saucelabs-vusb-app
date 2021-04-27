@@ -3,7 +3,9 @@ This project is an Open Source Virtual USB (vUSB) GUI for
 [Sauce Labs vUSB](https://docs.saucelabs.com/mobile-apps/virtual-usb). It provides a simple GUI to start an Android or 
 iOS vUSB session with only a few clicks.
 
-![Server active](./docs/assets/server-active.png)
+[![License](https://img.shields.io/github/license/saucelabs/saucelabs-vusb-app.svg?color=success&style=flat-square&label=License)](https://github.com/saucelabs/saucelabs-vusb-appl/blob/main/LICENSE)
+
+![VUSB example](./docs/assets/vusb.gif)
 
 > vUSB  is a mobile app debugging tool that simulates connecting a Sauce Labs real device directly to your local machine
 > with a USB cable. It integrates into your development environment as if the device is connected directly to your
@@ -13,13 +15,26 @@ iOS vUSB session with only a few clicks.
 > Customer Success Manager if you have more questions about Sauce Labs private devices.
 
 ## Features
-- Connect to an existing manual device session
-- Start a **new** vUSB session through the UI
-- Easily change vUSB server settings through the UI
-- Automatically connect to ADB
-- Save logs into files
-- Use some most used buttons to control the device from the right menu
-- and many more!
+- :octocat: **Open Source**. So if you have any recommendations, want to see new features or want to help fix a bug,
+  then please feel free to do so. Check our [contributing](./docs/CONTRIBUTING.md)-docs on how to start.
+- :link: **Connect to an existing manual device session**, see 
+  [here](./docs/SCREENS.md#connected-device-from-an-already-opened-device-session). This will allow you to easily take
+  over the device under test, push your app to it and interact with it like you would normally do during a live manual
+  session.
+- :iphone: **Start a NEW vUSB session through the UI**, see 
+  [here](./docs/SCREENS.md#connected-device-from-a-clean-session). With this option you can start interacting with the
+  device without even to have a Sauce Labs browser window open, just do everything from this app.
+- :gear: **Easily change vUSB server settings through the UI**, see [here](./docs/SCREENS.md#settings). This will
+  prevent remembering all options that you need to type in the command line, the vUSB GUI will store and re-use them 
+  each time you use the app.
+- :computer: **Automatically connect to ADB, see [here](./docs/SCREENS.md#automatically-connect-adb).** No need to open
+  extra terminals, by default it will automatically connect to ADB for you.
+- :inbox_tray: **Save logs into files, see [here](./docs/SCREENS.md#write-logs-to-file).** Logs for and the server and
+  each device can be saved to a file for you for easy debugging.
+- :radio_button: **Use some most used buttons to control the device from the right menu.** When a fresh session through
+  this vUSB GUI is started you now also have the option to use the Home (Android/iOS), Rotate (Android/iOS), 
+  Menu (Android) and Back (Android) buttons through the UI.
+- :bulb: and many more!
 
 ## Prerequisites
 ### Android
