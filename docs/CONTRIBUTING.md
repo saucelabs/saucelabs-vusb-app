@@ -89,4 +89,9 @@ Run `yarn package-linux`. This will create all needed files in the [release](../
 ### Windows
 Run `yarn package-win`. This will create all needed files in the [release](../release/)-folder.
 
+### Upgrade the versions-file
+When a new version has been released the [`versions.json`](../versions.json)-file needs to be updated so people older 
+versions of the GUI can notify the users if there is a new update or if the GUI has been deprecated due to a breaking
+change.
+
 **Have fun, and happy hacking!**
