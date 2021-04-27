@@ -34,6 +34,8 @@ create a new one that you would like work on and discuss your ideas and use case
 
 It is always best to discuss your plans beforehand, to ensure that your contribution is in line with our goals.
 
+- Regardless of the platform you are working on, you will need to have Node.js v14+ installed. You might want to use 
+  [Node Version Manager](https://github.com/creationix/nvm) to be able to switch between the Node.js versions.
 - Fork the repository on GitHub
 
 > **NOTE:** You need to use yarn to be able to work on this project. Information no how to install yarn can be found

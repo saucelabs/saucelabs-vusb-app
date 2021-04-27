@@ -44,7 +44,7 @@ To be able to work with vUSB for Android you need to have the following on your 
 - The latest version of ADB installed on your machine.
 - The latest version of Android Studio installed on your local machine (optional).
 
-Android can run on Linux, Windows and OSX. There is an installable of the vUSB GUI for each platform.
+Android can run on Linux, Windows and OSX.
 
 ### iOS
 To be able to work with iOS you need to have a **Mac** and **XCODE** installed.
