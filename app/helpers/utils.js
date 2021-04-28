@@ -9,6 +9,7 @@ import {
   DATA_CENTER_URLS,
   VUSB_SERVER_VERSION
 } from './constants';
+import { isWindows } from './checks';
 
 const { BrowserWindow, BrowserView } = remote;
 
@@ -67,7 +68,8 @@ export function openDeviceWindow({
   });
   deviceWindow.setBrowserView(menuView);
   // The coordinates where it needs to be placed
-  menuView.setBounds({ x: 829, y: 0, width: 70, height: 1080 });
+  const menuBarPosition = isWindows() ? 814 : 829;
+  menuView.setBounds({ x: menuBarPosition, y: 0, width: 70, height: 1080 });
   menuView.setBackgroundColor('#fff');
   menuView.webContents.loadURL(`file://${__dirname}/app.html`);
   if (
@@ -97,7 +99,13 @@ export function openDeviceWindow({
   // Keep the bar on the right when the page is being resized
   deviceWindow.on('resize', () => {
     const { width } = deviceWindow.getBounds();
-    menuView.setBounds({ x: width - 70, y: 0, width: 70, height: 1080 });
+    const newMenuBarPosition = width - (isWindows() ? 84 : 70);
+    menuView.setBounds({
+      x: newMenuBarPosition,
+      y: 0,
+      width: 70,
+      height: 1080
+    });
   });
 
   deviceWindow.on('closed', () => {
