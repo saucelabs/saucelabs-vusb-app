@@ -5,8 +5,7 @@ iOS vUSB session with only a few clicks.
 
 [![License](https://img.shields.io/github/license/saucelabs/saucelabs-vusb-app.svg?color=success&style=flat-square&label=License)](https://github.com/saucelabs/saucelabs-vusb-appl/blob/main/LICENSE)
 
-https://user-images.githubusercontent.com/11979740/116388296-f7359780-a81b-11eb-82ba-f5d56b339fb6.mp4
-
+https://user-images.githubusercontent.com/11979740/116388432-1df3ce00-a81c-11eb-9d66-fc2d21cec839.mp4
 
 > vUSB  is a mobile app debugging tool that simulates connecting a Sauce Labs real device directly to your local machine
 > with a USB cable. It integrates into your development environment as if the device is connected directly to your
