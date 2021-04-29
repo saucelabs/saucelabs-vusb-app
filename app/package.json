@@ -6,7 +6,7 @@
   "main": "./main.prod.js",
   "author": {
     "name": "Wim Selles",
-    "email": "wim.selles@saucelabs.com",
+    "email": "wim@wswebcreation.com",
     "url": "https://github.com/wswebcreation"
   },
   "scripts": {
