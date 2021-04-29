@@ -30,7 +30,7 @@ You may see a failure opening Sauce vUSB on Big Sur. This can be fixed by:
 - opening a terminal
 - run the following command:
 
-      xattr -rd com.apple.quarantine /Applications/SauceVusbClient.app 
+      xattr -rd com.apple.quarantine /Applications/Sauce\ Labs\ vUSB\ GUI.app
 
 Once done, this should let you open the Sauce vUSB GUI without any further issues.
 
