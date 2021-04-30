@@ -43,6 +43,14 @@ It is always best to discuss your plans beforehand, to ensure that your contribu
 
 - Create a topic branch from where you want to base your work. This is usually `main`.
 - Install all dependencies by using `yarn install` from the root of the project.
+- The [vUSB Client jar](#upgrade-the-vusb-client) file will automatically be downloaded after installing all 
+  dependencies and you should find the following in the logs
+  ```log
+  🚮 Start removing existing vUSB runner.
+  ✔️ No vUSB client found, proceed with downloading.
+  💾 Starting to download the vUSB client.
+  ✅  vUSB client downloaded and can be found here: 'resources/virtual-usb-client.jar'
+  ```
 - Start the development server by using the command `yarn dev`, this will open up the vUSB GUI and the Chrome DevTools
   window which you can use to debug your code.
 - Open a new pull request, label it `work in progress` and outline what you will be contributing
@@ -88,6 +96,11 @@ Run `yarn package-linux`. This will create all needed files in the [release](../
 
 ### Windows
 Run `yarn package-win`. This will create all needed files in the [release](../release/)-folder.
+
+### Upgrade the vUSB client
+After all dependencies are installed the `virtual-usb-client.jar`-file will be downloaded from the Sauce Labs S3 Bucket.
+This can be found in [this postinstall](./../internals/scripts/downloadVusbJar.js) script.
+If a new version of the client is released by Sauce Labs, the url in that file needs to be adjusted.
 
 ### Upgrade the versions-file
 When a new version has been released the [`versions.json`](../versions.json)-file needs to be updated so people older 

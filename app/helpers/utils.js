@@ -4,21 +4,17 @@ import { writeFileSync } from 'fs';
 import axios from 'axios';
 import semver from 'semver';
 import { getGenericStorage } from '../settings/duck/settings.storage';
-import {
-  APP_VERSION,
-  DATA_CENTER_URLS,
-  VUSB_SERVER_VERSION
-} from './constants';
+import { APP_VERSION, DATA_CENTER_URLS, VUSB_SERVER_NAME } from './constants';
 import { isWindows } from './checks';
 
 const { BrowserWindow, BrowserView } = remote;
 
 export function getVusbFilePath() {
-  const runner = VUSB_SERVER_VERSION;
+  const runner = VUSB_SERVER_NAME;
 
   return process.env.NODE_ENV === 'development'
-    ? join(__dirname, '..', 'resources', 'runners', runner)
-    : join(process.resourcesPath, 'runners', runner);
+    ? join(__dirname, '..', 'resources', runner)
+    : join(process.resourcesPath, runner);
 }
 
 /**

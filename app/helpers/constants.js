@@ -40,7 +40,7 @@ export const DEFAULT_SETTINGS = {
   }
 };
 export const SERVER_LOGS = 'server.log';
-export const VUSB_SERVER_VERSION = 'virtual-usb-client-2.0.0.jar';
+export const VUSB_SERVER_NAME = 'virtual-usb-client.jar';
 export const LOCATION = {
   EU: {
     label: 'EU',
