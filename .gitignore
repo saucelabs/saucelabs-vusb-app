@@ -52,3 +52,5 @@ npm-debug.log.*
 
 .tmp/
 package-lock.json
+
+virtual-usb-client.jar
