@@ -9,7 +9,7 @@ const { get } = require('https');
  */
 function downloadFile(url, destination) {
   try {
-    console.log('🚮 Start removing existing vUSB runner.');
+    console.log('🚮 Start removing existing vUSB client.');
     unlinkSync(destination);
     console.log('✅  Existing vUSB runner was successfully removed.');
   } catch (error) {
