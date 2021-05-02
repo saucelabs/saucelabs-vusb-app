@@ -46,7 +46,7 @@ It is always best to discuss your plans beforehand, to ensure that your contribu
 - The [vUSB Client jar](#upgrade-the-vusb-client) file will automatically be downloaded after installing all 
   dependencies and you should find the following in the logs
   ```log
-  🚮 Start removing existing vUSB runner.
+  🚮 Start removing existing vUSB client.
   ✔️ No vUSB client found, proceed with downloading.
   💾 Starting to download the vUSB client.
   ✅  vUSB client downloaded and can be found here: 'resources/virtual-usb-client.jar'
