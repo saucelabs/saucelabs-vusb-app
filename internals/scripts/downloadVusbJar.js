@@ -14,7 +14,7 @@ function downloadFile(url, destination) {
     console.log('✅  Existing vUSB client was successfully removed.');
   } catch (error) {
     if (error.message.includes('no such file or directory')) {
-      console.log('✔️ No vUSB runner found, proceed with downloading.');
+      console.log('✔️ No vUSB client found, proceed with downloading.');
     } else {
       console.log(
         `❗Something went wrong removing '${destination}', please see error: '${error.message}'. Proceed downloading a new file.`
