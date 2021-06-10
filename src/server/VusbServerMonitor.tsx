@@ -2,9 +2,18 @@ import React from 'react';
 import ServerButtons from '../components/ServerButtons';
 import CloseIcon from '../components/CloseIcon';
 import ServerMonitor from './components/ServerMonitor';
-import { VusbMonitorType } from '../types/ComponentTypes';
 
-const VusbServerMonitor: React.FC<VusbMonitorType> = ({
+interface VusbMonitorInterface {
+  clearLogs: () => void;
+  logLines: string[];
+  serverError: boolean;
+  serverStatus: string;
+  startVusbServer: () => void;
+  stopVusbServer: () => void;
+  toggleVusbServerMonitor: () => void;
+}
+
+const VusbServerMonitor: React.FC<VusbMonitorInterface> = ({
   clearLogs,
   logLines,
   serverError,

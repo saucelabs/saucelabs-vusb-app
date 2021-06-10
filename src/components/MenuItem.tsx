@@ -1,9 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Styles from './MenuItem.module.css';
-import { MenuItemType } from '../types/ComponentTypes';
 
-const MenuItem = ({ iconClass, label, route }: MenuItemType) => {
+interface MenuItemInterface {
+  route: string;
+  iconClass: string;
+  label: string;
+}
+
+const MenuItem: React.FC<MenuItemInterface> = ({ iconClass, label, route }) => {
   return (
     <li className={Styles['menu-item']}>
       <NavLink
@@ -20,3 +25,4 @@ const MenuItem = ({ iconClass, label, route }: MenuItemType) => {
 };
 
 export default MenuItem;
+export { MenuItemInterface };

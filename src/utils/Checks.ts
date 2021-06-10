@@ -52,6 +52,13 @@ function isMac(): boolean {
 }
 
 /**
+ * Check if platform is Windows
+ */
+function isWindows(): boolean {
+  return platform().toLowerCase() === 'win32';
+}
+
+/**
  * Check the Android tools
  */
 function AndroidToolCheck(toolName: string, toolPath: string): CheckType {
@@ -107,13 +114,6 @@ function XcodeCheck(): CheckType {
         check: false,
         message: `Cannot be found at '${xcodePath}'!`,
       };
-}
-
-/**
- * Check if platform is Windows
- */
-function isWindows(): boolean {
-  return platform().toLowerCase() === 'win32';
 }
 
 const SYSTEM_CHECKS = {

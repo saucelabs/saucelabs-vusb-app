@@ -9,7 +9,7 @@ import {
 } from '../store/actions/ServerActions';
 import VusbServerMonitor from '../server/VusbServerMonitor';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { state, dispatch } = useContext(StoreContext);
   const {
     devices: { connectedDevices },

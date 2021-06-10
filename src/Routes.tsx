@@ -5,7 +5,7 @@ import Settings from './settings/Settings';
 import DevicesOverview from './devices/DevicesOverview';
 import { ROUTES } from './utils/Constants';
 
-const Routes = () => {
+const Routes: React.FC = () => {
   return (
     <Switch>
       <Route path={ROUTES.SETTINGS} component={Settings} />

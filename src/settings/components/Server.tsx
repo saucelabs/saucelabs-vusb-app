@@ -1,20 +1,12 @@
 import React from 'react';
-import Input from '../../components/Input';
+import Input, { InputType } from '../../components/Input';
 import Styles from './Settings.module.css';
 import Switch from '../../components/Switch';
 import FolderInput from '../../components/FolderInput';
+import { ServerInterface } from '../../store/StorageInterfaces';
 
 type ServerType = {
-  serverData: {
-    adbPortMin: string;
-    adbPortRange: string;
-    autoAdbConnect: boolean;
-    host: string;
-    logsPath: string;
-    logsToFile: boolean;
-    port: string;
-    verboseLogs: boolean;
-  };
+  serverData: ServerInterface;
   onChange: (arg: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -78,14 +70,16 @@ const Server: React.FC<ServerType> = ({ serverData, onChange }) => {
               value={host}
               name="host"
               onChange={onChange}
+              type={InputType.TEXT}
             />
           </div>
           <div className={Styles['form-group']}>
             <Input
               label="vUSB-Server port"
-              value={port}
+              value={(port as unknown) as string}
               name="port"
               onChange={onChange}
+              type={InputType.NUMBER}
             />
           </div>
           <div className={Styles['form-group']}>
@@ -100,17 +94,19 @@ const Server: React.FC<ServerType> = ({ serverData, onChange }) => {
           <div className={Styles['form-group']}>
             <Input
               label="vUSB-Server adb port"
-              value={adbPortMin}
+              value={(adbPortMin as unknown) as string}
               name="adbPortMin"
               onChange={onChange}
+              type={InputType.NUMBER}
             />
           </div>
           <div className={Styles['form-group']}>
             <Input
               label="vUSB-Server adb port range"
-              value={adbPortRange}
+              value={(adbPortRange as unknown) as string}
               name="adbPortRange"
               onChange={onChange}
+              type={InputType.NUMBER}
             />
           </div>
         </div>

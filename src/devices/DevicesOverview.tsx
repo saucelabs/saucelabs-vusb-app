@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DeviceDetails from './components/DeviceDetails';
-import Input from '../components/Input';
-import { Notification, NOTIFICATIONS } from '../components/Notification';
+import Input, { InputType } from '../components/Input';
+import Notification, { NotificationsType } from '../components/Notification';
 import { isAndroidError, isIOSError } from '../utils/Checks';
 import { StoreContext } from '../store/Store';
 import { getInUseDevices, getDevices, getAvailableDevices } from './DevicesAPI';
 import {
-  API_STATUS,
   deviceSearch,
   deviceSessionClearLogs,
   deviceSessionToggleLogs,
@@ -19,6 +18,7 @@ import {
   connectToDeviceSession,
   disconnectDeviceSession,
 } from './DeviceOperations';
+import { ApiStatusEnum } from './DeviceTypes';
 
 const DevicesOverview = () => {
   let fetchInUseDevices: ReturnType<typeof setTimeout>;
@@ -109,7 +109,7 @@ const DevicesOverview = () => {
   return (
     <div className={Styles.container}>
       {(isAndroidError() || isIOSError()) && (
-        <Notification type={NOTIFICATIONS.WARNING} floatingCenter>
+        <Notification type={NotificationsType.WARNING} floatingCenter>
           <span>
             Your {platformErrorMessage} environment {hasHave}{' '}
             <strong>NOT</strong> been set up properly, please check the{' '}
@@ -120,12 +120,12 @@ const DevicesOverview = () => {
       )}
       <span className={Styles.title}>Device Catalog</span>
       {/* eslint-disable-next-line no-nested-ternary */}
-      {apiStatus === API_STATUS.LOADING ||
-      (apiStatus === API_STATUS.IDLE && devices.length === 0) ? (
+      {apiStatus === ApiStatusEnum.LOADING ||
+      (apiStatus === ApiStatusEnum.IDLE && devices.length === 0) ? (
         <div>Loading devices....</div>
       ) : // eslint-disable-next-line no-nested-ternary
-      apiStatus === API_STATUS.ERROR ? (
-        <Notification type={NOTIFICATIONS.ERROR}>
+      apiStatus === ApiStatusEnum.ERROR ? (
+        <Notification type={NotificationsType.ERROR}>
           <div>
             There was an error retrieving the devices, please see below for more
             information.
@@ -133,7 +133,7 @@ const DevicesOverview = () => {
           </div>
         </Notification>
       ) : devices.length === 0 && deviceQuery === '' ? (
-        <Notification type={NOTIFICATIONS.WARNING}>
+        <Notification type={NotificationsType.WARNING}>
           <span>
             No devices could be found. Reasons for this could be that you
             don&lsquo;t have private devices, please contact your Customer
@@ -149,6 +149,7 @@ const DevicesOverview = () => {
                   name="searchDevices"
                   label="Search devices"
                   onChange={handleDeviceSearch}
+                  type={InputType.TEXT}
                   value={deviceQuery}
                 />
               </div>
@@ -162,7 +163,7 @@ const DevicesOverview = () => {
           </div>
           <div className={Styles['devices-wrapper']}>
             {devices.length === 0 ? (
-              <Notification type={NOTIFICATIONS.WARNING}>
+              <Notification type={NotificationsType.WARNING}>
                 <p>No matching devices found</p>
               </Notification>
             ) : (

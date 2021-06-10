@@ -1,22 +1,22 @@
 import React from 'react';
 import Styles from './Notification.module.css';
 
-const NOTIFICATIONS = {
-  ERROR: 'error',
-  INFO: 'info',
-  WARNING: 'warning',
-};
+enum NotificationsType {
+  ERROR = 'error',
+  INFO = 'info',
+  WARNING = 'warning',
+}
 
-type NotificationType = {
+interface NotificationInterface {
   children: JSX.Element;
-  type: string;
+  type: NotificationsType;
   customClass?: string;
   centerText?: boolean;
   floatingCenter?: boolean;
   floatingTop?: boolean;
-};
+}
 
-const Notification: React.FC<NotificationType> = ({
+const Notification: React.FC<NotificationInterface> = ({
   children,
   centerText,
   customClass,
@@ -40,4 +40,5 @@ const Notification: React.FC<NotificationType> = ({
   );
 };
 
-export { Notification, NOTIFICATIONS };
+export default Notification;
+export { NotificationsType };

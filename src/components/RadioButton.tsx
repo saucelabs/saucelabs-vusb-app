@@ -1,16 +1,16 @@
 import React from 'react';
 import Styles from './RadioButton.module.css';
 
-type RadioButtonType = {
+interface RadioButtonInterface {
   currentValue: string;
   disabled?: boolean;
   label: string;
   name: string;
   onChange: (arg: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
-};
+}
 
-const RadioButton: React.FC<RadioButtonType> = ({
+const RadioButton: React.FC<RadioButtonInterface> = ({
   currentValue,
   disabled,
   label,
@@ -20,7 +20,7 @@ const RadioButton: React.FC<RadioButtonType> = ({
 }) => {
   return (
     <div className={Styles['radio-component']}>
-      <label className={Styles.label} htmlFor={name}>
+      <span className={Styles.label}>
         <input
           type="radio"
           onChange={onChange}
@@ -31,7 +31,7 @@ const RadioButton: React.FC<RadioButtonType> = ({
           className={Styles.radio}
         />
         {label}
-      </label>
+      </span>
     </div>
   );
 };

@@ -1,15 +1,15 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Styles from './DeviceDetailsModal.module.css';
-import { DeviceStateType } from '../../types/DeviceTypes';
+import { DeviceStateInterface } from '../DeviceInterfaces';
 
-type DeviceDetailsModalType = {
-  deviceDetails: DeviceStateType;
+interface DeviceDetailsModalInterface {
+  deviceDetails: DeviceStateInterface;
   handleClose: () => void;
   open: boolean;
-};
+}
 
-const DeviceDetailsModal: React.FC<DeviceDetailsModalType> = ({
+const DeviceDetailsModal: React.FC<DeviceDetailsModalInterface> = ({
   deviceDetails,
   handleClose,
   open,

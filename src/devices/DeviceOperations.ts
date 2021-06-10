@@ -2,9 +2,7 @@ import { ChildProcess, spawn } from 'child_process';
 import fixPath from 'fix-path';
 import { getGenericStorage } from '../settings/SettingsStorage';
 import { getVusbFilePath, writeDataToFile } from '../utils/Helpers';
-import { DispatchType } from '../types/StoreTypes';
 import {
-  DEVICE_SESSION_STATUS,
   deviceSessionError,
   deviceSessionStart,
   deviceSessionStopped,
@@ -14,6 +12,8 @@ import {
   deviceSessionStorePort,
 } from '../store/actions/DeviceActions';
 import { storeAdbConnectedDeviceLog } from '../server/ServerOperations';
+import { DispatchType } from '../store/Store';
+import { DeviceSessionStatusEnum } from './DeviceTypes';
 
 fixPath();
 
@@ -68,9 +68,9 @@ function connectToDeviceSession(
     },
     server: { autoAdbConnect, host: serverHost, logsToFile, port: serverPort },
   } = getGenericStorage();
-  const deviceArgs = ['-jar', getVusbFilePath()];
-
-  deviceArgs.push(
+  const deviceArgs = [
+    '-jar',
+    getVusbFilePath(),
     'connect',
     '--username',
     username,
@@ -81,8 +81,8 @@ function connectToDeviceSession(
     '--serverHost',
     serverHost,
     '--serverPort',
-    serverPort
-  );
+    serverPort,
+  ];
 
   // Add proxy args
   if (deviceHost) {
@@ -110,7 +110,10 @@ function connectToDeviceSession(
   }
 
   // Start the device
-  const deviceServerProcess: ChildProcess = spawn('java', deviceArgs);
+  const deviceServerProcess: ChildProcess = spawn(
+    'java',
+    deviceArgs.map((arg) => arg.toString())
+  );
 
   deviceServerProcess.stdout?.on('data', (data) => {
     const parsedData = data.toString();
@@ -213,21 +216,24 @@ function disconnectDeviceSession({
     server: { autoAdbConnect, host: serverHost, logsToFile, port: serverPort },
   } = getGenericStorage();
 
-  if (status !== DEVICE_SESSION_STATUS.CONNECTED) {
+  if (status !== DeviceSessionStatusEnum.CONNECTED) {
     return;
   }
 
-  const deviceServerProcess: ChildProcess = spawn('java', [
-    '-jar',
-    getVusbFilePath(),
-    'disconnect',
-    '--sessionId',
-    sessionId,
-    '--serverHost',
-    serverHost,
-    '--serverPort',
-    serverPort,
-  ]);
+  const deviceServerProcess: ChildProcess = spawn(
+    'java',
+    [
+      '-jar',
+      getVusbFilePath(),
+      'disconnect',
+      '--sessionId',
+      sessionId,
+      '--serverHost',
+      serverHost,
+      '--serverPort',
+      serverPort,
+    ].map((arg) => arg.toString())
+  );
 
   deviceServerProcess.stdout?.on('data', (data) => {
     // Write logs to file if needed

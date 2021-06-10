@@ -15,8 +15,7 @@ const ChecksContainer: React.FC = () => {
         </span>
       </div>
       <div>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className={Styles.label}>
+        <span className={Styles.label}>
           <Icon
             className={`${
               Styles[SYSTEM_CHECKS.JAVA_HOME.check ? 'check' : 'error']
@@ -25,12 +24,11 @@ const ChecksContainer: React.FC = () => {
             }-circle`}
           />
           JAVA_HOME:
-        </label>
+        </span>
         <span>{SYSTEM_CHECKS.JAVA_HOME.message}</span>
       </div>
       <div>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className={Styles.label}>
+        <span className={Styles.label}>
           <Icon
             className={`${
               Styles[SYSTEM_CHECKS.ANDROID_HOME.check ? 'check' : 'error']
@@ -39,31 +37,29 @@ const ChecksContainer: React.FC = () => {
             }-circle`}
           />
           ANDROID_HOME:
-        </label>
+        </span>
         <span>{SYSTEM_CHECKS.ANDROID_HOME.message}</span>
       </div>
       <div>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className={Styles.label}>
+        <span className={Styles.label}>
           <Icon
             className={`${
               Styles[SYSTEM_CHECKS.ADB.check ? 'check' : 'error']
             } far fa-${SYSTEM_CHECKS.ADB.check ? 'check' : 'times'}-circle`}
           />
           ADB:
-        </label>
+        </span>
         <span>{SYSTEM_CHECKS.ADB.message}</span>
       </div>
       <div>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className={Styles.label}>
+        <span className={Styles.label}>
           <Icon
             className={`${
               Styles[SYSTEM_CHECKS.XCODE.check ? 'check' : 'error']
             } far fa-${SYSTEM_CHECKS.XCODE.check ? 'check' : 'times'}-circle`}
           />
           XCODE:
-        </label>
+        </span>
         <span>{SYSTEM_CHECKS.XCODE.message}</span>
       </div>
     </div>

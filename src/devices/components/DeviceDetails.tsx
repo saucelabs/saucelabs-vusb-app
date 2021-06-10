@@ -3,11 +3,11 @@ import Styles from './DeviceDetails.module.css';
 import DeviceServerMonitor from '../../server/DeviceServerMonitor';
 import Switch from '../../components/Switch';
 import DeviceDetailsModal from './DeviceDetailsModal';
-import { DeviceStateType } from '../../types/DeviceTypes';
-import { DEVICE_SESSION_STATUS } from '../../store/actions/DeviceActions';
-import { VUSB_SERVER_STATUS } from '../../store/actions/ServerActions';
+import { DeviceStateInterface } from '../DeviceInterfaces';
+import { VusbServerStatusEnum } from '../../server/ServerTypes';
+import { DeviceSessionStatusEnum } from '../DeviceTypes';
 
-type DeviceDetailsType = {
+interface DeviceDetailsInterface {
   adbAutoConnect: boolean;
   androidError: boolean;
   clearDeviceLogs: (deviceId: string) => void;
@@ -22,19 +22,19 @@ type DeviceDetailsType = {
     sessionId: string;
     status: string;
   }) => void;
-  device: DeviceStateType;
+  device: DeviceStateInterface;
   devicesChecked: boolean;
   iosError: boolean;
   launchTest: (deviceId: string, sessionId: string) => void;
   toggleDeviceLogs: (deviceId: string, showLogs: boolean) => void;
   vusbStatus: string;
-};
-type ConnectMessageType = {
+}
+interface ConnectMessageInterface {
   adbAutoConnect: boolean;
-  device: DeviceStateType;
-};
+  device: DeviceStateInterface;
+}
 
-const DeviceDetails: React.FC<DeviceDetailsType> = ({
+const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
   adbAutoConnect,
   androidError,
   clearDeviceLogs,
@@ -52,9 +52,9 @@ const DeviceDetails: React.FC<DeviceDetailsType> = ({
   const connectedMessage = ({
     adbAutoConnect: adbConnect,
     device: connectedDevice,
-  }: ConnectMessageType) => {
+  }: ConnectMessageInterface) => {
     const { adbConnected, os, port, status } = connectedDevice;
-    const deviceConnected = status === DEVICE_SESSION_STATUS.CONNECTED;
+    const deviceConnected = status === DeviceSessionStatusEnum.CONNECTED;
     const isAndroid = os.toLowerCase() === 'android';
     // eslint-disable-next-line no-nested-ternary
     const adbMessage = adbConnected
@@ -101,11 +101,11 @@ const DeviceDetails: React.FC<DeviceDetailsType> = ({
   const isAndroid = os.toLowerCase() === 'android';
   const isIOS = !isAndroid;
   const platform = isAndroid ? 'Android' : 'iOS';
-  const serverRunning = vusbStatus === VUSB_SERVER_STATUS.RUNNING;
-  const isError = status === DEVICE_SESSION_STATUS.ERROR;
-  const deviceConnecting = status === DEVICE_SESSION_STATUS.CONNECTING;
-  const deviceConnected = status === DEVICE_SESSION_STATUS.CONNECTED;
-  const deviceStopping = status === DEVICE_SESSION_STATUS.STOPPING;
+  const serverRunning = vusbStatus === VusbServerStatusEnum.RUNNING;
+  const isError = status === DeviceSessionStatusEnum.ERROR;
+  const deviceConnecting = status === DeviceSessionStatusEnum.CONNECTING;
+  const deviceConnected = status === DeviceSessionStatusEnum.CONNECTED;
+  const deviceStopping = status === DeviceSessionStatusEnum.STOPPING;
   // eslint-disable-next-line no-nested-ternary
   const switchLabel = isError
     ? 'ERROR'
@@ -114,7 +114,7 @@ const DeviceDetails: React.FC<DeviceDetailsType> = ({
     : // eslint-disable-next-line no-nested-ternary
       `CONNECT${deviceConnecting ? 'ING' : deviceConnected ? 'ED' : ''}`;
   const inCleaningProcess =
-    isBusy && !inUse && status === DEVICE_SESSION_STATUS.STOPPED;
+    isBusy && !inUse && status === DeviceSessionStatusEnum.STOPPED;
 
   return (
     <div>
@@ -167,13 +167,13 @@ const DeviceDetails: React.FC<DeviceDetailsType> = ({
                   {screenSize}&ldquo; ({resolutionWidth} x {resolutionHeight})
                 </div>
                 <div>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                  <a
+                  <button
+                    className={`${Styles['details-link']} ${Styles.detailsButton}`}
                     onClick={handleClickOpenDialog}
-                    className={Styles['details-link']}
+                    type="button"
                   >
                     Details
-                  </a>
+                  </button>
                   <DeviceDetailsModal
                     deviceDetails={device}
                     handleClose={handleClickCloseDialog}
@@ -208,16 +208,16 @@ const DeviceDetails: React.FC<DeviceDetailsType> = ({
             </div>
           </div>
           <div className={Styles['device-action-wrapper']}>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <a
+            <button
               // Only show an active link of the logs if there are logs
-              className={`${Styles.link} ${
+              className={`${Styles.link} ${Styles.detailsButton} ${
                 log.length === 0 ? Styles.disabled : ''
               }`}
               onClick={() => toggleDeviceLogs(descriptorId, showLogs)}
+              type="button"
             >
               View logs
-            </a>
+            </button>
           </div>
         </div>
       </div>

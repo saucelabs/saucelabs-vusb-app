@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Tab from './Tab';
 import Styles from './Tabs.module.css';
 
-type TabsType = {
+interface TabsInterface {
   children: JSX.Element[];
-};
+}
 
-const Tabs: React.FC<TabsType> = ({ children }) => {
+const Tabs: React.FC<TabsInterface> = ({ children }) => {
   const [activeTab, setActiveTab] = useState(children[0].props['data-label']);
 
   const onClickTabItem = (tab: string) => setActiveTab(tab);

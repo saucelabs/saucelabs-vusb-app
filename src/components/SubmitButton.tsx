@@ -1,12 +1,12 @@
 import React from 'react';
 import Styles from './SubmitButton.module.css';
 
-type ButtonType = {
+type SubmitButtonInterface = {
   label: string;
   disabled?: boolean;
 };
 
-const SubmitButton: React.FC<ButtonType> = ({ label, disabled }) => {
+const SubmitButton: React.FC<SubmitButtonInterface> = ({ label, disabled }) => {
   return (
     <button disabled={disabled} className={Styles.button} type="submit">
       {label}

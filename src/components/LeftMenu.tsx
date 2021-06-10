@@ -1,11 +1,10 @@
 import React from 'react';
-import MenuItem from './MenuItem';
+import MenuItem, { MenuItemInterface } from './MenuItem';
 import LogoSL from '../assets/images/sauce-white-logo-small-color.png';
 import Styles from './LeftMenu.module.css';
-import { MenuItemType } from '../types/ComponentTypes';
 import { ROUTES } from '../utils/Constants';
 
-const MenuItems: MenuItemType[] = [
+const MenuItems: MenuItemInterface[] = [
   {
     route: ROUTES.HOME,
     iconClass: 'fas fa-home',

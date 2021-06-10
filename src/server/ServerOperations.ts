@@ -6,7 +6,6 @@ import {
   writeDataToFile,
 } from '../utils/Helpers';
 import {
-  VUSB_SERVER_STATUS,
   vusbServerErrorAction,
   vusbServerIdleAction,
   vusbServerLogAdbAction,
@@ -19,7 +18,8 @@ import {
 } from '../store/actions/ServerActions';
 import { SERVER_LOGS } from '../utils/Constants';
 import { getGenericStorage } from '../settings/SettingsStorage';
-import { DispatchType } from '../types/StoreTypes';
+import { VusbServerStatusEnum } from './ServerTypes';
+import { DispatchType } from '../store/Store';
 
 let serverProcess: ChildProcess | null = null;
 fixPath();
@@ -28,12 +28,23 @@ fixPath();
  * Start the vUSB server
  */
 function startServer(dispatch: DispatchType, status: string) {
-  const { connection, server, proxy } = getGenericStorage();
+  const {
+    connection,
+    server: {
+      adbPortMin: serverAdbPortMin,
+      adbPortRange: serverAdbPortRange,
+      host: serverHost,
+      logsToFile,
+      port: serverPort,
+      verboseLogs,
+    },
+    proxy,
+  } = getGenericStorage();
 
   if (
-    status === VUSB_SERVER_STATUS.IDLE ||
-    status === VUSB_SERVER_STATUS.STOPPED ||
-    status !== VUSB_SERVER_STATUS.STARTING
+    status === VusbServerStatusEnum.IDLE ||
+    status === VusbServerStatusEnum.STOPPED ||
+    status !== VusbServerStatusEnum.STARTING
   ) {
     dispatch(
       vusbServerStartAction(
@@ -51,17 +62,16 @@ function startServer(dispatch: DispatchType, status: string) {
       '--datacenter',
       connection.location.toUpperCase(),
       '--serverHost',
-      server.host,
+      serverHost,
       '--serverPort',
-      server.port,
+      serverPort,
       '--adbPortMin',
-      server.adbPortMin,
+      serverAdbPortMin,
       '--adbPortRange',
-      server.adbPortRange,
+      serverAdbPortRange,
     ];
 
-    // if (server.verboseLogs === 'off') {
-    if (!server.verboseLogs) {
+    if (!verboseLogs) {
       serverArgs.splice(serverArgs.indexOf('-v'), 1);
     }
 
@@ -88,14 +98,17 @@ function startServer(dispatch: DispatchType, status: string) {
     )}'`;
 
     // Write logs to file if needed
-    if (server.logsToFile) {
+    if (logsToFile) {
       writeDataToFile(SERVER_LOGS, startServerMessage);
     }
 
     // Start the server
-    serverProcess = spawn('java', serverArgs);
+    serverProcess = spawn(
+      'java',
+      serverArgs.map((arg) => arg.toString())
+    );
 
-    serverProcess.stdout?.on('data', (data) => {
+    serverProcess?.stdout?.on('data', (data) => {
       // @TODO: Need to find a better way for this to do
       const isStarted = data.toString().match(/(Runner Version)/);
       const isStarting = data
@@ -110,7 +123,7 @@ function startServer(dispatch: DispatchType, status: string) {
       const isStopped = data.toString().match(/(vUSB-Server shut down)/);
 
       // Write logs to file if needed
-      if (server.logsToFile) {
+      if (logsToFile) {
         writeDataToFile(SERVER_LOGS, data);
       }
 
@@ -130,16 +143,16 @@ function startServer(dispatch: DispatchType, status: string) {
       return dispatch(vusbServerRunningAction(data));
     });
 
-    serverProcess.stderr?.on('data', (data) => {
+    serverProcess?.stderr?.on('data', (data) => {
       // Write logs to file if needed
-      if (server.logsToFile) {
+      if (logsToFile) {
         writeDataToFile(SERVER_LOGS, data);
       }
 
       dispatch(vusbServerErrorAction(data));
     });
 
-    serverProcess.on('close', () => {
+    serverProcess?.on('close', () => {
       dispatch(
         vusbServerIdleAction(
           new TextEncoder().encode(

@@ -3,7 +3,7 @@ import CloseIcon from '../components/CloseIcon';
 import ServerMonitor from './components/ServerMonitor';
 import Styles from './DeviceServerMonitor.module.css';
 
-type DeviceServerMonitorType = {
+interface DeviceServerMonitorInterface {
   clearLogs: (arg: string) => void;
   device: string;
   deviceID: string;
@@ -12,9 +12,9 @@ type DeviceServerMonitorType = {
   serverStatus: string;
   showLogs: boolean;
   toggleDeviceLogs: (deviceId: string, showLogs: boolean) => void;
-};
+}
 
-const DeviceServerMonitor: React.FC<DeviceServerMonitorType> = ({
+const DeviceServerMonitor: React.FC<DeviceServerMonitorInterface> = ({
   clearLogs,
   device,
   deviceID,

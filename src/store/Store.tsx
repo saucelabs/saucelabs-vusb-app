@@ -2,24 +2,32 @@ import React, { createContext, useReducer } from 'react';
 import logger from 'use-reducer-logger';
 import { initialServerState, serverReducer } from './reducers/ServerReducer';
 import { devicesReducer, initialDevicesState } from './reducers/DevicesReducer';
-import { InitialStoreState } from '../types/StoreTypes';
-import { DevicesActionType } from '../types/DeviceTypes';
-import { ServerActionType } from '../types/ServerTypes';
+import { DevicesStateInterface } from '../devices/DeviceInterfaces';
+import { ServerActionType } from '../server/ServerTypes';
+import { ServerStateInterface } from '../server/ServerInterfaces';
+import { DevicesActionType } from '../devices/DeviceTypes';
 
-const initialState: InitialStoreState = {
+interface InitialStoreStateInterface {
+  devices: DevicesStateInterface;
+  server: ServerStateInterface;
+}
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+type DispatchType = React.Dispatch<any>;
+
+const initialState: InitialStoreStateInterface = {
   devices: initialDevicesState,
   server: initialServerState,
 };
 const StoreContext = createContext<{
-  state: InitialStoreState;
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  dispatch: React.Dispatch<any>;
+  state: InitialStoreStateInterface;
+  dispatch: DispatchType;
 }>({
   state: initialState,
   dispatch: () => null,
 });
 const mainReducer = (
-  { devices, server }: InitialStoreState,
+  { devices, server }: InitialStoreStateInterface,
   action: DevicesActionType | ServerActionType
 ) => ({
   devices: devicesReducer(devices, action as DevicesActionType),
@@ -38,4 +46,4 @@ const StoreProvider: React.FC = ({ children }) => {
   );
 };
 
-export { StoreContext, StoreProvider };
+export { DispatchType, StoreContext, StoreProvider };

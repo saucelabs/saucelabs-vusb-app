@@ -136,6 +136,15 @@
   display: flex;
 }
 
+.detailsButton {
+  background-color: transparent;
+  border: none;
+}
+
+.detailsButton:focus {
+  outline: 0;
+}
+
 .details-link {
   color: #555;
   font-size: 14px;

@@ -1,16 +1,16 @@
 import { version as APP_VERSION } from '../../package.json';
-import StorageTypes from '../types/StorageTypes';
+import { StorageInterface } from '../store/StorageInterfaces';
 
-type DefaultSettingsType = {
-  [key: string]: StorageTypes;
-};
-type LocationType = {
+interface DefaultSettingsInterface {
+  [key: string]: StorageInterface;
+}
+interface LocationInterface {
   [key: string]: {
     label: string;
     value: string;
     endpoint: string;
   };
-};
+}
 
 // Maximum amount of logs to keep in memory
 const MAX_LOG_LINES = 10000;
@@ -19,7 +19,7 @@ const MOBILE_OS = {
   IOS: 'IOS',
 };
 const STORAGE_FILE_NAME = 'saucelabs-up-vusb-config-v2';
-const DEFAULT_SETTINGS: DefaultSettingsType = {
+const DEFAULT_SETTINGS: DefaultSettingsInterface = {
   generic: {
     connection: {
       username: '',
@@ -28,24 +28,24 @@ const DEFAULT_SETTINGS: DefaultSettingsType = {
     },
     proxy: {
       host: '',
-      port: '',
+      port: undefined,
       username: '',
       password: '',
     },
     server: {
-      adbPortMin: '7000',
-      adbPortRange: '100',
+      adbPortMin: 7000,
+      adbPortRange: 100,
       autoAdbConnect: true,
       host: 'http://127.0.0.1',
       logsToFile: false,
       logsPath: '',
-      port: '33657',
+      port: 33657,
       verboseLogs: false,
     },
     device: {
       proxy: {
         host: '',
-        port: '',
+        port: undefined,
         username: '',
         password: '',
       },
@@ -54,7 +54,7 @@ const DEFAULT_SETTINGS: DefaultSettingsType = {
 };
 const SERVER_LOGS = 'server.log';
 const VUSB_SERVER_NAME = 'virtual-usb-client.jar';
-const LOCATION: LocationType = {
+const LOCATION: LocationInterface = {
   EU: {
     label: 'EU',
     value: 'eu',

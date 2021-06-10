@@ -1,22 +1,23 @@
 import {
-  API_STATUS,
-  DEVICE_SESSION_STATUS,
-  DeviceActionTypes as ACTIONS,
-} from '../actions/DeviceActions';
+  DevicesStateInterface,
+  InUseDevicesInterface,
+} from '../../devices/DeviceInterfaces';
+import { trimLogArray } from '../../utils/Helpers';
 import {
+  ApiStatusEnum,
+  DeviceActionEnum as ACTIONS,
   DevicesActionType,
-  DevicesStateType,
-  InUseDevicesType,
-} from '../../types/DeviceTypes';
+  DeviceSessionStatusEnum,
+} from '../../devices/DeviceTypes';
 
 /**
  * Filter all devices that are in use, meaning all devices that have a manual /
  * automated session running.
  */
 function filterInUseDevices(
-  state: DevicesStateType,
-  inUseDevices: InUseDevicesType[]
-): DevicesStateType {
+  state: DevicesStateInterface,
+  inUseDevices: InUseDevicesInterface[]
+): DevicesStateInterface {
   const processedDevices = state.devices.map((device) => {
     const matchingDevice = inUseDevices.filter(
       (inUseDevice) => inUseDevice.deviceDescriptorId === device.descriptorId
@@ -33,8 +34,8 @@ function filterInUseDevices(
           }
         : {}),
       // When the device is not being used reset it
-      ...(device.status !== DEVICE_SESSION_STATUS.CONNECTING &&
-      device.status !== DEVICE_SESSION_STATUS.ERROR &&
+      ...(device.status !== DeviceSessionStatusEnum.CONNECTING &&
+      device.status !== DeviceSessionStatusEnum.ERROR &&
       matchingDevice.length === 0
         ? {
             inUse: false,
@@ -57,7 +58,7 @@ function filterInUseDevices(
  * UI as busy
  */
 function filterBusyDevices(
-  state: DevicesStateType,
+  state: DevicesStateInterface,
   availableDevices: string[]
 ) {
   return {
@@ -74,7 +75,7 @@ function filterBusyDevices(
 /**
  * Filter the devices based on a search string
  */
-function filterDevices(state: DevicesStateType, query: string) {
+function filterDevices(state: DevicesStateInterface, query: string) {
   const processedDevices = state.devices.map((device) => {
     const queryArray = query
       .split(' ')
@@ -130,10 +131,10 @@ function determineNewDeviceState({
   connectDevice?: boolean;
   deviceId: string;
   error?: boolean;
-  log?: string | undefined;
+  log?: string[] | undefined;
   port?: number | undefined;
   showLogs?: boolean;
-  state: DevicesStateType;
+  state: DevicesStateInterface;
   status?: string;
 }) {
   const connectedDevices =
@@ -165,19 +166,18 @@ function determineNewDeviceState({
                 ...(typeof adbConnected === 'boolean' ? { adbConnected } : {}),
                 ...(typeof error === 'boolean' ? { error } : {}),
                 // Clear or add new log
-                // eslint-disable-next-line no-nested-ternary
-                log: clearLogs ? [] : log ? device.log.concat(log) : device.log,
+                log: clearLogs ? [] : log || device.log,
                 ...(typeof port === 'number' ? { port } : {}),
                 ...(typeof showLogs === 'boolean' ? { showLogs } : {}),
                 ...(status
                   ? {
                       status:
-                        (device.status === DEVICE_SESSION_STATUS.CONNECTING &&
-                          status !== DEVICE_SESSION_STATUS.CONNECTED) ||
-                        (device.status === DEVICE_SESSION_STATUS.STOPPING &&
-                          status !== DEVICE_SESSION_STATUS.STOPPED) ||
-                        (device.status === DEVICE_SESSION_STATUS.STOPPED &&
-                          status === DEVICE_SESSION_STATUS.CONNECTED)
+                        (device.status === DeviceSessionStatusEnum.CONNECTING &&
+                          status !== DeviceSessionStatusEnum.CONNECTED) ||
+                        (device.status === DeviceSessionStatusEnum.STOPPING &&
+                          status !== DeviceSessionStatusEnum.STOPPED) ||
+                        (device.status === DeviceSessionStatusEnum.STOPPED &&
+                          status === DeviceSessionStatusEnum.CONNECTED)
                           ? device.status
                           : status,
                     }
@@ -190,8 +190,8 @@ function determineNewDeviceState({
   };
 }
 
-const initialDevicesState: DevicesStateType = {
-  status: API_STATUS.IDLE,
+const initialDevicesState: DevicesStateInterface = {
+  status: ApiStatusEnum.IDLE,
   deviceQuery: '',
   devices: [],
   error: null,
@@ -199,62 +199,80 @@ const initialDevicesState: DevicesStateType = {
   devicesChecked: false,
 };
 const devicesReducer = (
-  state: DevicesStateType = initialDevicesState,
+  state: DevicesStateInterface = initialDevicesState,
   action: DevicesActionType
 ) => {
+  let currentLogs: string[] = [];
+  let logLineArray: string[] = [];
+  if ('deviceId' in action) {
+    const currentDevice = state.devices.find(
+      (device) => device.descriptorId === action.deviceId
+    );
+    currentLogs = currentDevice?.log || currentLogs;
+    const actionLog = 'log' in action ? action.log : '';
+    const logLine =
+      typeof actionLog === 'string'
+        ? actionLog
+        : new TextDecoder('utf-8').decode(actionLog);
+    logLineArray =
+      logLine.length > 0
+        ? logLine.split('\n').filter((entry: string) => entry)
+        : [];
+  }
+
   switch (action.type) {
     case ACTIONS.DEVICE_SESSION_ERROR:
       return determineNewDeviceState({
         deviceId: action.deviceId,
         error: true,
-        log: action.log,
+        log: trimLogArray(currentLogs.concat(logLineArray)),
         state,
-        status: DEVICE_SESSION_STATUS.ERROR,
+        status: DeviceSessionStatusEnum.ERROR,
       });
     case ACTIONS.DEVICE_SESSION_SET_PORT:
       return determineNewDeviceState({
         connectDevice: true,
         deviceId: action.deviceId,
-        log: action.log,
+        log: trimLogArray(currentLogs.concat(logLineArray)),
         port: action.port,
         state,
-        status: DEVICE_SESSION_STATUS.CONNECTED,
+        status: DeviceSessionStatusEnum.CONNECTED,
       });
     case ACTIONS.DEVICE_SESSION_LOGS:
       return determineNewDeviceState({
         deviceId: action.deviceId,
-        log: action.log,
+        log: trimLogArray(currentLogs.concat(logLineArray)),
         state,
-        status: DEVICE_SESSION_STATUS.CONNECTED,
+        status: DeviceSessionStatusEnum.CONNECTED,
       });
     case ACTIONS.DEVICE_SESSION_ADB_CONNECTED:
       return determineNewDeviceState({
         deviceId: action.deviceId,
         adbConnected: true,
         state,
-        status: DEVICE_SESSION_STATUS.CONNECTED,
+        status: DeviceSessionStatusEnum.CONNECTED,
       });
     case ACTIONS.DEVICE_SESSION_START:
       return determineNewDeviceState({
         deviceId: action.deviceId,
-        log: action.log,
+        log: trimLogArray(currentLogs.concat(logLineArray)),
         state,
-        status: DEVICE_SESSION_STATUS.CONNECTING,
+        status: DeviceSessionStatusEnum.CONNECTING,
       });
     case ACTIONS.DEVICE_SESSION_STOPPING:
       return determineNewDeviceState({
         deviceId: action.deviceId,
-        log: action.log,
+        log: trimLogArray(currentLogs.concat(logLineArray)),
         state,
-        status: DEVICE_SESSION_STATUS.STOPPING,
+        status: DeviceSessionStatusEnum.STOPPING,
       });
     case ACTIONS.DEVICE_SESSION_STOPPED:
       return determineNewDeviceState({
         connectDevice: false,
         deviceId: action.deviceId,
-        log: action.log,
+        log: trimLogArray(currentLogs.concat(logLineArray)),
         state,
-        status: DEVICE_SESSION_STATUS.STOPPED,
+        status: DeviceSessionStatusEnum.STOPPED,
       });
     case ACTIONS.DEVICE_LOG_TOGGLE:
       return determineNewDeviceState({

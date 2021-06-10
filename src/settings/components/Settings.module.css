@@ -38,3 +38,7 @@ pre {
 .link {
   color: #2874b2;
 }
+
+.bold {
+  font-weight: bold;
+}

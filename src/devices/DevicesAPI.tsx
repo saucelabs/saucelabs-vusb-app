@@ -1,19 +1,24 @@
 import axios from 'axios';
 import {
-  DEVICE_SESSION_STATUS,
-  DeviceActionTypes as ACTIONS,
-} from '../store/actions/DeviceActions';
-import { DevicesActionType, DeviceStateType } from '../types/DeviceTypes';
+  DevicesApiInterface,
+  DeviceStateInterface,
+  ExtraDeviceStateInterface,
+} from './DeviceInterfaces';
 import { isLinux, isMac, isWindows } from '../utils/Checks';
 import { LOCATION, MOBILE_OS } from '../utils/Constants';
-import { VUSB_SERVER_STATUS } from '../store/actions/ServerActions';
 import { getGenericStorage } from '../settings/SettingsStorage';
+import { VusbServerStatusEnum } from '../server/ServerTypes';
+import {
+  DeviceActionEnum as ACTIONS,
+  DevicesActionType,
+  DeviceSessionStatusEnum,
+} from './DeviceTypes';
 
 const upDevicesUrl = 'saucelabs.com/v1/rdc/devices/filtered?dataCenterId=';
 const upAvailableDevicesUrl = 'saucelabs.com/v1/rdc/devices/available';
-const EXTRA_INITIAL_DEVICE_STATE = {
+const EXTRA_INITIAL_DEVICE_STATE: ExtraDeviceStateInterface = {
   adbConnected: false,
-  error: null,
+  error: false,
   inUse: false,
   isBusy: false,
   log: [],
@@ -22,7 +27,7 @@ const EXTRA_INITIAL_DEVICE_STATE = {
   sessionID: '',
   showDevice: true,
   showLogs: false,
-  status: DEVICE_SESSION_STATUS.IDLE,
+  status: DeviceSessionStatusEnum.IDLE,
 };
 
 /**
@@ -55,22 +60,21 @@ async function getDevices(dispatch: (object: DevicesActionType) => void) {
   dispatch({ type: ACTIONS.FETCH_DEVICES_LOADING });
 
   try {
-    const response = await axios.get(
-      `https://api.${dcEndpoint}.${upDevicesUrl}${location}`,
-      {
+    const response: DevicesApiInterface[] = (
+      await axios.get(`https://api.${dcEndpoint}.${upDevicesUrl}${location}`, {
         method: 'GET',
         headers: {
           authorization: `Basic ${auth}`,
           'Cache-Control': 'no-store',
         },
         ...(proxyHost && proxyPort ? proxy : {}),
-      }
-    );
+      })
+    ).data.entities;
 
-    const devices: DeviceStateType[] = response.data.entities
+    const devices: DeviceStateInterface[] = response
       // Find all private devices
       .filter(
-        (device: DeviceStateType) =>
+        (device) =>
           device.cloudType.toUpperCase() === 'PRIVATE' &&
           (((isWindows() || isLinux()) &&
             device.os.toUpperCase() === MOBILE_OS.ANDROID) ||
@@ -78,12 +82,14 @@ async function getDevices(dispatch: (object: DevicesActionType) => void) {
               (device.os.toUpperCase() === MOBILE_OS.ANDROID ||
                 device.os.toUpperCase() === MOBILE_OS.IOS)))
       )
-      .map((device: DeviceStateType) => ({
-        ...device,
-        // Add an extra state that we need during the usage of the app
-        ...EXTRA_INITIAL_DEVICE_STATE,
-      }))
-      .sort((a: DeviceStateType, b: DeviceStateType) => {
+      .map(
+        (device): DeviceStateInterface => ({
+          ...device,
+          // Add an extra state that we need during the usage of the app
+          ...EXTRA_INITIAL_DEVICE_STATE,
+        })
+      )
+      .sort((a, b) => {
         const deviceA = a.name.toUpperCase();
         const deviceB = b.name.toUpperCase();
 
@@ -105,7 +111,7 @@ async function getInUseDevices(
   dispatch: (object: DevicesActionType) => void,
   vusbStatus: string
 ) {
-  if (vusbStatus === VUSB_SERVER_STATUS.RUNNING) {
+  if (vusbStatus === VusbServerStatusEnum.RUNNING) {
     const { connection, proxy: proxyData, server } = getGenericStorage();
     const { username, accessKey } = connection;
     const {

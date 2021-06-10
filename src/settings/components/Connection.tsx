@@ -1,15 +1,12 @@
 import React from 'react';
-import Input from '../../components/Input';
+import Input, { InputType } from '../../components/Input';
 import RadioButton from '../../components/RadioButton';
 import Styles from './Settings.module.css';
 import { LOCATION } from '../../utils/Constants';
+import { ConnectionInterface } from '../../store/StorageInterfaces';
 
 type ConnectionType = {
-  connectionData: {
-    accessKey: string;
-    username: string;
-    location: string;
-  };
+  connectionData: ConnectionInterface;
   onChange: (arg: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -27,6 +24,7 @@ const Connection: React.FC<ConnectionType> = ({
               value={username}
               name="username"
               onChange={onChange}
+              type={InputType.TEXT}
             />
           </div>
           <div className={Styles['form-group']}>
@@ -35,11 +33,11 @@ const Connection: React.FC<ConnectionType> = ({
               value={accessKey}
               name="accessKey"
               onChange={onChange}
+              type={InputType.PASSWORD}
             />
           </div>
           <div className={Styles['form-group']}>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label className={Styles.label}>Data Center</label>
+            <span className={Styles.label}>Data Center</span>
             <RadioButton
               label={LOCATION.EU.label}
               value={LOCATION.EU.value}

@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import Styles from './Terminal.module.css';
 import LogLines from './LogLines';
-import { TerminalType } from '../../types/ComponentTypes';
 
-const Terminal = ({ clearLogs, logLines }: TerminalType) => {
+interface TerminalInterface {
+  clearLogs: () => void;
+  logLines: string[];
+}
+
+const Terminal: React.FC<TerminalInterface> = ({ clearLogs, logLines }) => {
   const bottomBar = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     bottomBar.current?.scrollIntoView();

@@ -1,6 +1,6 @@
 import ElectronStore from 'electron-store';
 import { DEFAULT_SETTINGS, STORAGE_FILE_NAME } from '../utils/Constants';
-import StorageTypes from '../types/StorageTypes';
+import { StorageInterface } from '../store/StorageInterfaces';
 
 const store = new ElectronStore({
   name: STORAGE_FILE_NAME,
@@ -20,6 +20,6 @@ export function getGenericStorage() {
 /**
  * Set the generic storage data
  */
-export function setGenericStorage(value: StorageTypes) {
+export function setGenericStorage(value: StorageInterface) {
   store.set('generic', { ...getGenericStorage(), ...value });
 }

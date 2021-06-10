@@ -10,7 +10,7 @@ if (
   fs.existsSync(nodeModulesPath)
 ) {
   const electronRebuildCmd =
-    '../node_modules/.bin/electron-rebuild --parallel --force --types prod,dev,optional --module-dir .';
+    '../node_modules/.bin/electron-rebuild --parallel --force --interfaces prod,dev,optional --module-dir .';
   const cmd =
     process.platform === 'win32'
       ? electronRebuildCmd.replace(/\//g, '\\')

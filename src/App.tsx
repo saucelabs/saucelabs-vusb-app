@@ -6,7 +6,7 @@ import './App.global.css';
 import Header from './components/Header';
 import LeftMenu from './components/LeftMenu';
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <StoreProvider>
       <Router>
@@ -22,4 +22,6 @@ export default function App() {
       </Router>
     </StoreProvider>
   );
-}
+};
+
+export default App;

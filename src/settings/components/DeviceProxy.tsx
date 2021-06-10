@@ -1,14 +1,10 @@
 import React from 'react';
-import Input from '../../components/Input';
+import Input, { InputType } from '../../components/Input';
 import Styles from './Settings.module.css';
+import { DeviceProxyInterface } from '../../store/StorageInterfaces';
 
 type DeviceProxyType = {
-  proxyData: {
-    host: string;
-    password: string;
-    port: string;
-    username: string;
-  };
+  proxyData: DeviceProxyInterface;
   onChange: (arg: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -21,10 +17,22 @@ const DeviceProxy: React.FC<DeviceProxyType> = ({
       <div className={Styles.container}>
         <div className={Styles['data-wrapper']}>
           <div className={Styles['form-group']}>
-            <Input label="Host" value={host} name="host" onChange={onChange} />
+            <Input
+              label="Host"
+              value={host}
+              name="host"
+              onChange={onChange}
+              type={InputType.TEXT}
+            />
           </div>
           <div className={Styles['form-group']}>
-            <Input label="Port" value={port} name="port" onChange={onChange} />
+            <Input
+              label="Port"
+              value={(port as unknown) as string}
+              name="port"
+              onChange={onChange}
+              type={InputType.NUMBER}
+            />
           </div>
           <div className={Styles['form-group']}>
             <Input
@@ -32,6 +40,7 @@ const DeviceProxy: React.FC<DeviceProxyType> = ({
               value={username}
               name="username"
               onChange={onChange}
+              type={InputType.TEXT}
             />
           </div>
           <div className={Styles['form-group']}>
@@ -39,8 +48,8 @@ const DeviceProxy: React.FC<DeviceProxyType> = ({
               label="Authorization Password"
               value={password}
               name="password"
-              password
               onChange={onChange}
+              type={InputType.PASSWORD}
             />
           </div>
         </div>

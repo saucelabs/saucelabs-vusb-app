@@ -1,3 +1,7 @@
+.inputContainer {
+  position: relative;
+}
+
 .label {
   color: #7f8892;
   display: block;
@@ -30,4 +34,18 @@
 input[disabled] {
   color: #bbc3cb;
   background: #F0F0F0;
+}
+
+.showPassword {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+
+.showPassword:hover {
+  cursor: pointer;
+}
+
+.showPassword:focus {
+  outline:0;
 }

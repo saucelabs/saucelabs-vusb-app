@@ -2,15 +2,15 @@ import React, { useRef } from 'react';
 import { remote } from 'electron';
 import Styles from './FolderInput.module.css';
 
-type FolderInputType = {
+interface FolderInputInterface {
   label?: string;
   onChange: (arg: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   value: string;
-};
+}
 
 const { dialog } = remote;
-const FolderInput: React.FC<FolderInputType> = ({
+const FolderInput: React.FC<FolderInputInterface> = ({
   label,
   name,
   onChange,

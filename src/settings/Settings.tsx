@@ -5,49 +5,19 @@ import SubmitButton from '../components/SubmitButton';
 import Connection from './components/Connection';
 import ServerProxy from './components/ServerProxy';
 import Server from './components/Server';
-import { Notification, NOTIFICATIONS } from '../components/Notification';
+import Notification, { NotificationsType } from '../components/Notification';
 import DeviceProxy from './components/DeviceProxy';
-import { VUSB_SERVER_STATUS } from '../store/actions/ServerActions';
 import { getGenericStorage, setGenericStorage } from './SettingsStorage';
 import { StoreContext } from '../store/Store';
+import { StorageInterface } from '../store/StorageInterfaces';
+import { VusbServerStatusEnum } from '../server/ServerTypes';
 
-type SettingsType = {
+interface SettingsInterface {
   androidVusbStatus: string;
-  settingsData: {
-    connection: {
-      accessKey: string;
-      username: string;
-      location: string;
-    };
-    proxy: {
-      host: string;
-      port: string;
-      username: string;
-      password: string;
-    };
-    server: {
-      adbPortMin: string;
-      adbPortRange: string;
-      autoAdbConnect: string;
-      host: string;
-      logsPath: string;
-      logToFile: string;
-      port: string;
-      verboseLogs: boolean;
-      version: string;
-    };
-    device: {
-      proxy: {
-        host: string;
-        port: string;
-        username: string;
-        password: string;
-      };
-    };
-  };
-};
+  settingsData: StorageInterface;
+}
 
-const Settings: React.FC<SettingsType> = () => {
+const Settings: React.FC<SettingsInterface> = () => {
   let closeNotification: ReturnType<typeof setTimeout>;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -59,14 +29,13 @@ const Settings: React.FC<SettingsType> = () => {
   } = React.useContext(StoreContext);
   const settingsData = getGenericStorage();
   const [state, setState] = useState({ dataIsStored: false, ...settingsData });
-
   const handleGenericSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (
-      vusbStatus !== VUSB_SERVER_STATUS.IDLE &&
-      vusbStatus !== VUSB_SERVER_STATUS.STOPPED &&
-      vusbStatus !== VUSB_SERVER_STATUS.ERROR
+      vusbStatus !== VusbServerStatusEnum.IDLE &&
+      vusbStatus !== VusbServerStatusEnum.STOPPED &&
+      vusbStatus !== VusbServerStatusEnum.ERROR
     ) {
       // eslint-disable-next-line no-alert
       alert(
@@ -121,13 +90,12 @@ const Settings: React.FC<SettingsType> = () => {
       ...state,
       server: {
         ...state.server,
-        ...{ [name]: value !== undefined ? value : checked },
+        ...{ [name]: typeof value === 'string' ? value : checked },
       },
     });
   };
   const handleProxyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const { value } = event.target;
+    const { name, value } = event.target;
 
     setState({
       ...state,
@@ -160,7 +128,7 @@ const Settings: React.FC<SettingsType> = () => {
 
       <form onSubmit={handleGenericSubmit}>
         {dataIsStored && (
-          <Notification type={NOTIFICATIONS.INFO} floatingCenter>
+          <Notification type={NotificationsType.INFO} floatingCenter>
             <span>Data has been stored</span>
           </Notification>
         )}

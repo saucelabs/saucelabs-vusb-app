@@ -1,11 +1,17 @@
 import React from 'react';
 import Styles from './ServerHeader.module.css';
 import SauceLogo from '../../assets/images/sauce-white-logo-small.png';
-import { ServerHeaderType } from '../../types/ComponentTypes';
-import { VUSB_SERVER_STATUS } from '../../store/actions/ServerActions';
-import { DEVICE_SESSION_STATUS } from '../../store/actions/DeviceActions';
+import { VusbServerStatusEnum } from '../ServerTypes';
+import { DeviceSessionStatusEnum } from '../../devices/DeviceTypes';
 
-const ServerHeader: React.FC<ServerHeaderType> = ({
+interface ServerHeaderInterface {
+  centerComponent?: JSX.Element;
+  serverError: boolean;
+  serverStatus: string;
+  rightComponent: JSX.Element;
+}
+
+const ServerHeader: React.FC<ServerHeaderInterface> = ({
   centerComponent,
   serverError,
   serverStatus,
@@ -13,8 +19,8 @@ const ServerHeader: React.FC<ServerHeaderType> = ({
 }) => {
   const status =
     // eslint-disable-next-line no-nested-ternary
-    serverStatus === VUSB_SERVER_STATUS.RUNNING ||
-    serverStatus === DEVICE_SESSION_STATUS.CONNECTED
+    serverStatus === VusbServerStatusEnum.RUNNING ||
+    serverStatus === DeviceSessionStatusEnum.CONNECTED
       ? 'running'
       : serverError
       ? 'error'

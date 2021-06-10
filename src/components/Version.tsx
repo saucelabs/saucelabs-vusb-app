@@ -2,7 +2,7 @@ import React from 'react';
 import { shell } from 'electron';
 import Styles from './Version.module.css';
 import Vusb from '../assets/images/vusb.png';
-import { Notification, NOTIFICATIONS } from './Notification';
+import Notification, { NotificationsType } from './Notification';
 import { APP_VERSION } from '../utils/Constants';
 
 const VersionContainer: React.FC = () => {
@@ -17,11 +17,11 @@ const VersionContainer: React.FC = () => {
           </span>
         </div>
       </div>
-      <Notification type={NOTIFICATIONS.INFO}>
+      <Notification type={NotificationsType.INFO}>
         <span>
           Issues can be filed{' '}
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <a
+          <button
+            type="button"
             className={Styles.link}
             onClick={() =>
               shell.openExternal(
@@ -30,7 +30,7 @@ const VersionContainer: React.FC = () => {
             }
           >
             here
-          </a>
+          </button>
           .
         </span>
       </Notification>

@@ -1,14 +1,19 @@
 import React from 'react';
 import Styles from './Tab.module.css';
 
-type TabType = {
+interface TabInterface {
   activeTab: string;
   iconClass: string;
   label: string;
   onClick: (arg: string) => void;
-};
+}
 
-const Tab: React.FC<TabType> = ({ activeTab, iconClass, label, onClick }) => {
+const Tab: React.FC<TabInterface> = ({
+  activeTab,
+  iconClass,
+  label,
+  onClick,
+}) => {
   return (
     <>
       <li

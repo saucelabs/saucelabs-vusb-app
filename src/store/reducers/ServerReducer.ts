@@ -1,75 +1,81 @@
-import {
-  ServerActionTypes as ACTIONS,
-  VUSB_SERVER_STATUS,
-} from '../actions/ServerActions';
-import { ServerActionType, ServerStateType } from '../../types/ServerTypes';
+import { ServerStateInterface } from '../../server/ServerInterfaces';
 import { trimLogArray } from '../../utils/Helpers';
+import {
+  ServerActionType,
+  ServerActionEnum as ACTIONS,
+  VusbServerStatusEnum,
+} from '../../server/ServerTypes';
 
-const initialServerState: ServerStateType = {
-  status: VUSB_SERVER_STATUS.IDLE,
+const initialServerState: ServerStateInterface = {
+  status: VusbServerStatusEnum.IDLE,
   log: [],
   error: false,
   showMonitor: false,
 };
 const serverReducer = (
-  state: ServerStateType = initialServerState,
+  state: ServerStateInterface = initialServerState,
   action: ServerActionType
 ) => {
   const { log, showMonitor } = state;
+  const actionLog = 'log' in action ? action.log : '';
+  const logLine =
+    typeof actionLog === 'string'
+      ? actionLog
+      : new TextDecoder('utf-8').decode(actionLog);
   const logLineArray =
-    'log' in action
-      ? action.log.split('\n').filter((entry: string) => entry)
+    logLine.length > 0
+      ? logLine.split('\n').filter((entry: string) => entry)
       : [];
 
   switch (action.type) {
     case ACTIONS.VUSB_START:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.STARTING,
+        status: VusbServerStatusEnum.STARTING,
         log: trimLogArray(log.concat(logLineArray)),
         error: false,
       };
     case ACTIONS.VUSB_STARTING:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.STARTED,
+        status: VusbServerStatusEnum.STARTED,
         log: trimLogArray(log.concat(logLineArray)),
       };
     case ACTIONS.VUSB_RUNNING:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.RUNNING,
+        status: VusbServerStatusEnum.RUNNING,
         log: trimLogArray(log.concat(logLineArray)),
       };
     case ACTIONS.VUSB_ERROR:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.ERROR,
+        status: VusbServerStatusEnum.ERROR,
         log: trimLogArray(log.concat(logLineArray)),
         error: true,
       };
     case ACTIONS.VUSB_STOP:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.STOP,
+        status: VusbServerStatusEnum.STOP,
         log: trimLogArray(log.concat(logLineArray)),
       };
     case ACTIONS.VUSB_STOPPING:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.STOPPING,
+        status: VusbServerStatusEnum.STOPPING,
         log: trimLogArray(log.concat(logLineArray)),
       };
     case ACTIONS.VUSB_STOPPED:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.STOPPED,
+        status: VusbServerStatusEnum.STOPPED,
         log: trimLogArray(log.concat(logLineArray)),
       };
     case ACTIONS.VUSB_IDLE:
       return {
         ...state,
-        status: VUSB_SERVER_STATUS.IDLE,
+        status: VusbServerStatusEnum.IDLE,
         log: trimLogArray(log.concat(logLineArray)),
       };
     case ACTIONS.VUSB_MONITOR_TOGGLE:

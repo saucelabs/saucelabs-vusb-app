@@ -3,10 +3,13 @@ import Styles from './CloseIcon.module.css';
 
 const CloseIcon = ({ onClick }: { onClick: () => void }) => {
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <i
+      role="button"
+      aria-label="Close"
+      tabIndex={0}
       className={`${Styles.icon} ${Styles.hover} far fa-window-close`}
       onClick={() => onClick()}
+      onKeyDown={() => onClick()}
     />
   );
 };

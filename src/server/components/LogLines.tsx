@@ -7,7 +7,7 @@ import AnsiConverter from 'ansi-to-html';
 import Styles from './LogLines.module.css';
 import { MAX_LOG_LINES } from '../../utils/Constants';
 
-const LogLines = ({ logLines }: { logLines: string[] }) => {
+const LogLines: React.FC<{ logLines: string[] }> = ({ logLines }) => {
   const getIcon = (level: string): string => {
     switch (level) {
       case 'debug':

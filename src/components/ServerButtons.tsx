@@ -1,9 +1,18 @@
 import React from 'react';
 import Styles from './ServerButtons.module.css';
-import { VUSB_SERVER_STATUS } from '../store/actions/ServerActions';
-import { ServerButtonsType } from '../types/ComponentTypes';
+import { VusbServerStatusEnum } from '../server/ServerTypes';
 
-const ServerButtons: React.FC<ServerButtonsType> = ({
+interface ServerButtonsInterface {
+  afterComponent?: JSX.Element;
+  disableShowMonitor?: boolean;
+  serverError: boolean;
+  serverStatus: string;
+  startVusbServer: () => void;
+  stopVusbServer: () => void;
+  toggleVusbServerMonitor: () => void;
+}
+
+const ServerButtons: React.FC<ServerButtonsInterface> = ({
   afterComponent,
   disableShowMonitor,
   serverError,
@@ -14,7 +23,7 @@ const ServerButtons: React.FC<ServerButtonsType> = ({
 }) => {
   const status =
     // eslint-disable-next-line no-nested-ternary
-    serverStatus === VUSB_SERVER_STATUS.RUNNING
+    serverStatus === VusbServerStatusEnum.RUNNING
       ? 'running'
       : serverError
       ? 'error'
@@ -29,32 +38,37 @@ const ServerButtons: React.FC<ServerButtonsType> = ({
           <i className={`${Styles.icon} fab fa-apple`} />
           <i
             className={`${Styles.icon} ${monitorHoverClass} ${Styles[status]} fas fa-server`}
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...(disableShowMonitor
               ? {}
               : { onClick: () => toggleVusbServerMonitor() })}
           />
-          {serverStatus === VUSB_SERVER_STATUS.RUNNING ? (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+          {serverStatus === VusbServerStatusEnum.RUNNING ? (
             <i
+              role="button"
+              tabIndex={0}
+              aria-label="Stop server"
               className={`${Styles.icon} ${Styles.hover} ${
                 Styles['stop-server']
               } ${
-                serverStatus !== VUSB_SERVER_STATUS.RUNNING
+                serverStatus !== VusbServerStatusEnum.RUNNING
                   ? Styles.disabled
                   : ''
               } far fa-stop-circle`}
               onClick={() => stopVusbServer()}
+              onKeyDown={() => stopVusbServer()}
             />
           ) : (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <i
+              role="button"
+              tabIndex={0}
+              aria-label="Start server"
               className={`${Styles.icon} ${Styles.hover} ${
-                serverStatus === VUSB_SERVER_STATUS.RUNNING
+                serverStatus === VusbServerStatusEnum.RUNNING
                   ? Styles.disabled
                   : ''
               }  far fa-play-circle`}
               onClick={() => startVusbServer()}
+              onKeyDown={() => startVusbServer()}
             />
           )}
           {afterComponent}
