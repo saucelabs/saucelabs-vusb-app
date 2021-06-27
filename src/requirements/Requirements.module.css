@@ -1,0 +1,116 @@
+.container {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  margin: auto;
+  width: 750px;
+}
+
+.requirementsContainer {
+  background-color: #F2F2F2;
+  border-radius: 4px;
+  padding: 40px 80px 40px 40px;
+}
+
+.requirementsContainer, .requirementContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.requirementContainer {
+  margin-top: 20px;
+}
+
+.requirementsContainer > div, .requirementContainer > div {
+  flex: 1;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.header{
+  flex: 1;
+}
+
+.label{
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.subLabel{
+  display: block;
+  font-size: 14px;
+  padding-top: 5px;
+}
+
+.requirementLabelStatusContainer {
+  display: flex;
+  align-items: baseline;
+}
+
+.requirementLabel, .requirementStatus {
+  color: #000000;
+  font-weight: bold;
+  font-size: 14px;
+}
+.dots {
+  flex: 1;
+  border-bottom: 1px dotted #828282;
+  margin: 0 5px;
+}
+.technicalDetails {
+  color: #828282;
+  font-family: 'Courier New', serif;
+  font-size: 12px;
+  padding-top: 5px;
+}
+
+.accept {
+  color: #7B971B;
+}
+
+.danger {
+  color: #CE2A2B;
+}
+
+.warning {
+  color: #E8924C;
+}
+
+.bugContainer {
+  align-items: flex-end;
+  align-self: center;
+  display: flex;
+  margin-left: auto;
+  padding-top: 15px;
+}
+
+.bugContainer i {
+  color: #CE2A2B;
+  font-size: 16px;
+}
+
+.bugText{
+  color: #CE2A2B;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.link {
+  background-color: transparent;
+  border: none;
+  padding: 0
+}
+
+.link:hover {
+  cursor: pointer;
+}
+
+.link:focus {
+  outline: 0;
+}

@@ -67,7 +67,8 @@ const LOCATION: LocationInterface = {
   },
 } as const;
 const ROUTES = {
-  HOME: '/',
+  REQUIREMENTS: '/',
+  HOME: '/home',
   SETTINGS: '/settings',
   DEVICES: '/devices',
 };
