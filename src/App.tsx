@@ -4,20 +4,18 @@ import { StoreProvider } from './store/Store';
 import Routes from './Routes';
 import './App.global.css';
 import Header from './components/Header';
-import LeftMenu from './components/LeftMenu';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
   return (
     <StoreProvider>
       <Router>
-        <div className="left-menu-wrapper">
-          <LeftMenu />
-        </div>
-        <div className="routes-wrapper">
+        <div className="mainContainer">
           <Header />
-          <div className="routes">
+          <main>
             <Routes />
-          </div>
+          </main>
+          <Footer />
         </div>
       </Router>
     </StoreProvider>

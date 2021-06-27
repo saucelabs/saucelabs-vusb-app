@@ -1,0 +1,44 @@
+.container {
+  background-color: #ffffff;
+  box-sizing: border-box;
+  height: 70px;
+  border-top: 1px solid #E0E0E0;
+  display: flex;
+  flex-grow: 0;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.logoContainer {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  height: 70px;
+  background: #fff;
+  color: #fff;
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.logoContainer image {
+  width: 140px;
+}
+
+.versionTextContainer {
+  align-items: flex-end;
+  align-self: center;
+  display: flex;
+}
+
+.versionTitle {
+  color: #828282;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.versionNumber {
+  color: #828282;
+  font-size: 14px;
+  margin-left: 5px;
+}

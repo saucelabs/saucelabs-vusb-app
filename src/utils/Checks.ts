@@ -5,9 +5,11 @@ import { join, resolve } from 'path';
 import { spawnSync } from 'child_process';
 
 type CheckType = {
-  name: string;
   check: boolean;
+  isOSX?: boolean;
+  label: string;
   message: string;
+  name: string;
 };
 
 /**
@@ -15,25 +17,29 @@ type CheckType = {
  */
 function EnvVarAndPathCheck(varName: string): CheckType {
   const varValue = remote.process.env[varName];
+  const label = `Set ${varName}`;
 
   if (typeof varValue === 'undefined') {
     return {
-      name: varName,
       check: false,
+      label,
       message: `${varName} is NOT set!`,
+      name: varName,
     };
   }
 
   return existsSync(varValue)
     ? {
-        name: varName,
         check: true,
+        label,
         message: `Set to: ${varValue}`,
+        name: varName,
       }
     : {
-        name: varName,
         check: false,
+        label,
         message: `Set to '${varValue}' but this is NOT a valid path!`,
+        name: varName,
       };
 }
 
@@ -62,11 +68,14 @@ function isWindows(): boolean {
  * Check the Android tools
  */
 function AndroidToolCheck(toolName: string, toolPath: string): CheckType {
+  const label = toolName.toUpperCase();
+
   if (typeof remote.process.env.ANDROID_HOME === 'undefined') {
     return {
-      name: 'ANDROID_HOME',
       check: false,
+      label,
       message: `Could not be found because it is NOT set!`,
+      name: 'ANDROID_HOME',
     };
   }
 
@@ -74,14 +83,16 @@ function AndroidToolCheck(toolName: string, toolPath: string): CheckType {
 
   return existsSync(fullPath)
     ? {
-        name: toolName,
         check: true,
+        label,
         message: `Exists at: ${fullPath}`,
+        name: toolName,
       }
     : {
-        name: toolName,
         check: false,
+        label,
         message: `Could NOT be found at '${fullPath}'!`,
+        name: toolName,
       };
 }
 
@@ -90,6 +101,9 @@ function AndroidToolCheck(toolName: string, toolPath: string): CheckType {
  */
 function XcodeCheck(): CheckType {
   let xcodePath;
+  const label = 'XCODE';
+  const isOSX = isMac();
+
   try {
     spawnSync('xcrun', ['simctl', 'help']);
 
@@ -97,22 +111,28 @@ function XcodeCheck(): CheckType {
     xcodePath = (stdout.toString() || '').replace('\n', '');
   } catch (err) {
     return {
-      name: 'XCODE',
       check: false,
+      isOSX,
+      label,
       message: 'NOT installed!',
+      name: label,
     };
   }
 
   return xcodePath && existsSync(xcodePath)
     ? {
-        name: 'XCODE',
         check: true,
+        isOSX,
+        label,
         message: `Installed at: ${xcodePath}`,
+        name: label,
       }
     : {
-        name: 'XCODE',
         check: false,
+        isOSX,
+        label,
         message: `Cannot be found at '${xcodePath}'!`,
+        name: label,
       };
 }
 
@@ -134,9 +154,12 @@ const SYSTEM_CHECKS = {
       ? XcodeCheck()
       : {
           check: false,
+          isOSX: isMac(),
+          label: 'XCODE',
           message: `${
             isLinux() ? 'Linux' : 'Windows'
           } does not support Virtual USB for iOS`,
+          name: 'XCODE',
         }),
   },
 };

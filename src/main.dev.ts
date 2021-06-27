@@ -103,10 +103,10 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     icon: getAssetPath('icon.png'),
-    width: 1200,
-    minWidth: 1200,
-    height: 730,
-    minHeight: 715,
+    width: 1070,
+    minWidth: 1070,
+    height: 700,
+    minHeight: 700,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
