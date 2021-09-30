@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Styles from './Header.module.css';
 import { StoreContext } from '../store/Store';
+import SauceBolt from '../assets/images/sauce-bolt.png';
 import ServerButtons from './ServerButtons';
 import { startServer, stopServer } from '../server/ServerOperations';
 import {
@@ -20,6 +21,11 @@ const Header: React.FC = () => {
 
   return (
     <div className={Styles.container}>
+      <div className={Styles.logo}>
+        <img src={SauceBolt} alt="Sauce Labs Bolt" />
+      </div>
+      <div className={Styles.label}>Requirements</div>
+      <div className={Styles.divider} />
       <div className={Styles.separator} />
       <div className={Styles.separator} />
       <div className={Styles['button-container']}>
