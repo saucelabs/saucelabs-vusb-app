@@ -49,7 +49,7 @@ const DevicesOverview = () => {
     if (connectedDevices.length === 0 && deviceQuery === '') {
       fetchDevices();
     }
-  }, []);
+  }, [connectedDevices.length, deviceQuery, dispatch]);
   useEffect(() => {
     fetchInUseDevices = setInterval(
       () => getInUseDevices(dispatch, vusbStatus),

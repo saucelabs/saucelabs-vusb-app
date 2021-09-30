@@ -1,14 +1,19 @@
 import React from 'react';
 import { shell } from 'electron';
 import Styles from './Requirements.module.css';
-import { isMac, SYSTEM_CHECKS } from '../utils/Checks';
 import Requirement from './components/Requirement';
+import { isMac, SYSTEM_CHECKS } from '../utils/Checks';
+import { SystemChecksInterface } from './RequirementsTypes';
 
-const { ADB, ANDROID_HOME, JAVA_HOME, XCODE } = SYSTEM_CHECKS;
-const androidCheck = ADB.check && ANDROID_HOME.check && JAVA_HOME.check;
-const SYSTEM_CHECK = isMac() ? androidCheck && XCODE.check : androidCheck;
-
-const Requirements: React.FC = () => {
+const Requirements: React.FC<{
+  systemData: SystemChecksInterface;
+  onClick: () => void;
+}> = ({ systemData, onClick }) => {
+  const { ADB, ANDROID_HOME, JAVA_HOME, XCODE } = systemData;
+  const androidCheck = ADB.check && ANDROID_HOME.check && JAVA_HOME.check;
+  const isSystemOperational = isMac()
+    ? androidCheck && XCODE.check
+    : androidCheck;
   const errorMessage = () => (
     <span className={`${Styles.subLabel} ${Styles.danger}`}>
       One or more required dependencies are missing!
@@ -36,7 +41,7 @@ const Requirements: React.FC = () => {
     </span>
   );
   // eslint-disable-next-line no-nested-ternary
-  const colorClass = SYSTEM_CHECK
+  const colorClass = isSystemOperational
     ? 'accept'
     : !XCODE.isOSX && XCODE.label === 'XCODE'
     ? 'warning'
@@ -44,19 +49,22 @@ const Requirements: React.FC = () => {
 
   return (
     <div className={Styles.container}>
+      <button type="button" className={Styles.closeButton} onClick={onClick}>
+        <i className="fas fa-times" />
+      </button>
       <div className={Styles.requirementsContainer}>
         <i
           className={`fas ${
-            SYSTEM_CHECK ? 'fa-check' : 'fa-exclamation-triangle'
+            isSystemOperational ? 'fa-check' : 'fa-exclamation-triangle'
           } ${Styles.icon} ${Styles[colorClass]}`}
         />
         <div>
           <div className={Styles.header}>
             <span className={Styles.label}>Requirements checklist</span>
             {/* eslint-disable-next-line no-nested-ternary */}
-            {SYSTEM_CHECK
+            {isSystemOperational
               ? successMessage()
-              : !SYSTEM_CHECK && XCODE.isOSX && XCODE.label === 'XCODE'
+              : !isSystemOperational && XCODE.isOSX && XCODE.label === 'XCODE'
               ? errorMessage()
               : warningMessage()}
           </div>
@@ -73,25 +81,26 @@ const Requirements: React.FC = () => {
               );
             }
           )}
+          <div
+            className={`${Styles.bugContainer} ${Styles.requirementContainer}`}
+          >
+            <button
+              type="button"
+              className={Styles.link}
+              onClick={() =>
+                shell.openExternal(
+                  'https://github.com/saucelabs/saucelabs-vusb-app/issues/'
+                )
+              }
+            >
+              <i className="fa fa-bug" />
+              <span className={Styles.bugText}>Report an issue</span>
+            </button>
+          </div>
         </div>
-      </div>
-      <div className={Styles.bugContainer}>
-        <button
-          type="button"
-          className={Styles.link}
-          onClick={() =>
-            shell.openExternal(
-              'https://github.com/saucelabs/saucelabs-vusb-app/issues/'
-            )
-          }
-        >
-          <i className="fa fa-bug" />
-          <span className={Styles.bugText}>Report an issue</span>
-        </button>
       </div>
     </div>
   );
 };
 
 export default Requirements;
-export { SYSTEM_CHECK };

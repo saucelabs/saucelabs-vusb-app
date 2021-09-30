@@ -2,17 +2,20 @@
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
-  margin: auto;
   width: 750px;
+  position: absolute;
+  right: 0;
+  bottom: 70px;
 }
 
 .requirementsContainer {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   border-radius: 4px;
-  padding: 40px 80px 40px 40px;
+  padding: 40px 60px 40px 20px;
 }
 
-.requirementsContainer, .requirementContainer {
+.requirementsContainer,
+.requirementContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -23,7 +26,8 @@
   margin-top: 20px;
 }
 
-.requirementsContainer > div, .requirementContainer > div {
+.requirementsContainer > div,
+.requirementContainer > div {
   flex: 1;
 }
 
@@ -32,17 +36,17 @@
   margin-right: 20px;
 }
 
-.header{
+.header {
   flex: 1;
 }
 
-.label{
+.label {
   color: #000000;
   font-size: 20px;
   font-weight: bold;
 }
 
-.subLabel{
+.subLabel {
   display: block;
   font-size: 14px;
   padding-top: 5px;
@@ -53,7 +57,8 @@
   align-items: baseline;
 }
 
-.requirementLabel, .requirementStatus {
+.requirementLabel,
+.requirementStatus {
   color: #000000;
   font-weight: bold;
   font-size: 14px;
@@ -71,15 +76,15 @@
 }
 
 .accept {
-  color: #7B971B;
+  color: #7b971b;
 }
 
 .danger {
-  color: #CE2A2B;
+  color: #ce2a2b;
 }
 
 .warning {
-  color: #E8924C;
+  color: #e8924c;
 }
 
 .bugContainer {
@@ -91,12 +96,12 @@
 }
 
 .bugContainer i {
-  color: #CE2A2B;
+  color: #ce2a2b;
   font-size: 16px;
 }
 
-.bugText{
-  color: #CE2A2B;
+.bugText {
+  color: #ce2a2b;
   font-size: 14px;
   margin-left: 5px;
 }
@@ -104,7 +109,8 @@
 .link {
   background-color: transparent;
   border: none;
-  padding: 0
+  padding: 0;
+  margin-left: auto;
 }
 
 .link:hover {
@@ -113,4 +119,14 @@
 
 .link:focus {
   outline: 0;
+}
+
+.closeButton {
+  color: #000000;
+  background-color: transparent;
+  border: 0 transparent;
+  font-size: 22px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }

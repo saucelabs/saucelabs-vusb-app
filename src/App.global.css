@@ -40,7 +40,9 @@
   font-display: optional;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   margin: 0;
   height: 100%;
 }
@@ -48,7 +50,7 @@ html, body, #root {
 body {
   position: relative;
   color: #777;
-  background-color: #FAF9FA;
+  background-color: #faf9fa;
   font-family: 'proxima-nova', Arial, sans-serif;
   overflow: hidden;
 }
@@ -67,7 +69,13 @@ main {
   padding: 20px 20px 20px;
 }
 
+button:focus {
+  outline: 0;
+}
 
+button:hover {
+  cursor: pointer;
+}
 
 /*#root {*/
 /*  height: 100vh;*/

@@ -3,19 +3,15 @@ import { platform } from 'os';
 import { existsSync } from 'fs';
 import { join, resolve } from 'path';
 import { spawnSync } from 'child_process';
-
-type CheckType = {
-  check: boolean;
-  isOSX?: boolean;
-  label: string;
-  message: string;
-  name: string;
-};
+import {
+  SystemChecksInterface,
+  SystemDataCheckType,
+} from '../requirements/RequirementsTypes';
 
 /**
  * Verify if all environment variables are set
  */
-function EnvVarAndPathCheck(varName: string): CheckType {
+function EnvVarAndPathCheck(varName: string): SystemDataCheckType {
   const varValue = remote.process.env[varName];
   const label = `Set ${varName}`;
 
@@ -67,7 +63,10 @@ function isWindows(): boolean {
 /**
  * Check the Android tools
  */
-function AndroidToolCheck(toolName: string, toolPath: string): CheckType {
+function AndroidToolCheck(
+  toolName: string,
+  toolPath: string
+): SystemDataCheckType {
   const label = toolName.toUpperCase();
 
   if (typeof remote.process.env.ANDROID_HOME === 'undefined') {
@@ -99,7 +98,7 @@ function AndroidToolCheck(toolName: string, toolPath: string): CheckType {
 /**
  * Check if XCODE is installed
  */
-function XcodeCheck(): CheckType {
+function XcodeCheck(): SystemDataCheckType {
   let xcodePath;
   const label = 'XCODE';
   const isOSX = isMac();
@@ -136,7 +135,7 @@ function XcodeCheck(): CheckType {
       };
 }
 
-const SYSTEM_CHECKS = {
+const SYSTEM_CHECKS: SystemChecksInterface = {
   JAVA_HOME: {
     ...EnvVarAndPathCheck('JAVA_HOME'),
   },

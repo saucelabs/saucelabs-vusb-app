@@ -2,7 +2,7 @@
   background-color: #ffffff;
   box-sizing: border-box;
   height: 70px;
-  border-top: 1px solid #E0E0E0;
+  border-top: 1px solid #e0e0e0;
   display: flex;
   flex-grow: 0;
   flex-direction: row;
@@ -25,7 +25,7 @@
   width: 140px;
 }
 
-.versionTextContainer {
+.footerItem {
   align-items: flex-end;
   align-self: center;
   display: flex;
@@ -41,4 +41,32 @@
   color: #828282;
   font-size: 14px;
   margin-left: 5px;
+}
+
+.requirementsTextContainer {
+  margin-left: auto;
+  padding-right: 20px;
+}
+
+.requirementsButton {
+  color: #000000;
+  background-color: transparent;
+  border: 0 transparent;
+  font-size: 14px;
+}
+
+.requirementsIcon {
+  margin-right: 10px;
+}
+
+.accept {
+  color: #7b971b;
+}
+
+.danger {
+  color: #ce2a2b;
+}
+
+.chevron {
+  margin-left: 10px;
 }
