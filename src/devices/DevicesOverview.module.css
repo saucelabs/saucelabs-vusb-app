@@ -1,12 +1,9 @@
 .container {
   background-color: #fafafa;
-  padding: 20px 20px 40px;
-  height: calc(100% - 70px);
-}
-
-.title {
-  font-weight: bold;
-  font-size: 26px;
+  flex: 1;
+  display: flex;
+  overflow: auto;
+  padding: 20px 10px 20px 20px;
 }
 
 .devices-wrapper {
@@ -37,17 +34,21 @@
   flex: 1;
 }
 
-.search-box {
+.searchBox {
   padding-right: 15px;
 }
 
-.search-box {
-  padding-top: 15px;
+.textContainer {
+  margin: 30px 0;
 }
 
 .text {
+  color: #4f4f4f;
+  font-weight: 400;
+}
+
+.textBold {
   font-weight: 700;
-  text-align: center;
 }
 
 .explain-wrapper {

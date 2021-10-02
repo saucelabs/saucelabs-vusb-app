@@ -7,7 +7,7 @@ const CloseIcon = ({ onClick }: { onClick: () => void }) => {
       role="button"
       aria-label="Close"
       tabIndex={0}
-      className={`${Styles.icon} ${Styles.hover} far fa-window-close`}
+      className={`${Styles.icon} ${Styles.hover} fas fa-times`}
       onClick={() => onClick()}
       onKeyDown={() => onClick()}
     />

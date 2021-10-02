@@ -1,16 +1,16 @@
 .container {
   border: 1px solid transparent;
   box-sizing: border-box;
-  padding: 5px 5px;
+  padding: 5px 10px 5px 0;
   height: 180px;
   width: 308px;
   margin: 1px;
   position: relative;
 }
 
-.device-tile{
-  box-shadow: 0 1px 3px hsla(0,0%,66.3%,.5);
-  border-radius: 2px;
+.device-tile {
+  box-shadow: 0 1px 3px hsla(0, 0%, 66.3%, 0.5);
+  border-radius: 4px;
   color: #444;
   font-size: 12px;
   position: relative;
@@ -48,7 +48,7 @@
 
 .image-wrapper::before,
 .image-wrapper::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   background: #fff;
@@ -85,10 +85,12 @@
   z-index: 1;
 }
 
-.device-data-wrapper {
+.deviceDataWrapper {
   color: #646464;
   font-size: 12px;
   height: 100px;
+  padding-top: 10px;
+  box-sizing: border-box;
 }
 
 .link {
@@ -106,7 +108,7 @@
   box-shadow: rgba(0, 0, 0, 0.4) 0 1px 2px 0;
   color: #fff;
   cursor: default;
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 600;
   left: 15px;
   line-height: 1;
@@ -129,6 +131,44 @@
   width: 80px;
 }
 
+.infoIcon {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 22px;
+  z-index: 20;
+}
+
+.disabledSwitchContainer {
+  display: block;
+}
+
+.disabledSwitchContainer:hover {
+  cursor: pointer;
+}
+
+.disabledSwitchContainer:hover .infoContainer {
+  visibility: visible;
+}
+
+.infoContainer {
+  color: #ffffff;
+  border-radius: 4px;
+  position: absolute;
+  background: #000000;
+  top: -5px;
+  left: 50px;
+  padding: 6px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 60px;
+  width: 225px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+}
+
 .device-action-wrapper {
   margin-top: 8px;
   flex-direction: row;
@@ -139,6 +179,7 @@
 .detailsButton {
   background-color: transparent;
   border: none;
+  padding: 0;
 }
 
 .detailsButton:focus {

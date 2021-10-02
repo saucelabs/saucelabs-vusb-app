@@ -9,7 +9,6 @@ import { DeviceSessionStatusEnum } from '../DeviceTypes';
 
 interface DeviceDetailsInterface {
   adbAutoConnect: boolean;
-  androidError: boolean;
   clearDeviceLogs: (deviceId: string) => void;
   closeSession: ({
     descriptorId,
@@ -23,8 +22,6 @@ interface DeviceDetailsInterface {
     status: string;
   }) => void;
   device: DeviceStateInterface;
-  devicesChecked: boolean;
-  iosError: boolean;
   launchTest: (deviceId: string, sessionId: string) => void;
   toggleDeviceLogs: (deviceId: string, showLogs: boolean) => void;
   vusbStatus: string;
@@ -36,12 +33,9 @@ interface ConnectMessageInterface {
 
 const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
   adbAutoConnect,
-  androidError,
   clearDeviceLogs,
   closeSession,
   device,
-  devicesChecked,
-  iosError,
   launchTest,
   toggleDeviceLogs,
   vusbStatus,
@@ -99,7 +93,6 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
   } = device;
   const imgUrl = `https://d3ty40hendov17.cloudfront.net/device-pictures/${descriptorId}_optimised.png`;
   const isAndroid = os.toLowerCase() === 'android';
-  const isIOS = !isAndroid;
   const platform = isAndroid ? 'Android' : 'iOS';
   const serverRunning = vusbStatus === VusbServerStatusEnum.RUNNING;
   const isError = status === DeviceSessionStatusEnum.ERROR;
@@ -115,17 +108,14 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
       `CONNECT${deviceConnecting ? 'ING' : deviceConnected ? 'ED' : ''}`;
   const inCleaningProcess =
     isBusy && !inUse && status === DeviceSessionStatusEnum.STOPPED;
+  const isDisabledSwitch =
+    !serverRunning || deviceConnecting || deviceStopping || !inUse;
 
   return (
     <div>
       <div className={`${Styles.container}`}>
         {!inUse && isBusy && !inCleaningProcess && !deviceConnected && (
           <div className={`${Styles.badge} ${Styles.busy}`}>Busy</div>
-        )}
-        {inUse && isBusy && !inCleaningProcess && !deviceConnected && (
-          <div className={`${Styles.badge} ${Styles.inUse}`}>
-            Used for manual or automated session.
-          </div>
         )}
         {inCleaningProcess && (
           <div className={`${Styles.badge} ${Styles.busy}`}>
@@ -138,17 +128,9 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
           <div className={`${Styles.badge} ${Styles.busy}`}>Using vUSB</div>
         )}
         <div
-          className={`${Styles['device-tile']} ${
-            serverRunning &&
-            devicesChecked &&
-            // We should still be able to connect to the device
-            // so don't disable it
-            (!isBusy || inUse) &&
-            !inCleaningProcess &&
-            ((isAndroid && !androidError) || (isIOS && !iosError))
-              ? ''
-              : Styles.disabled
-          } ${isError ? Styles.error : ''}`}
+          className={`${Styles['device-tile']}
+          ${!inUse && isBusy ? Styles.disabled : ''}
+          ${isError ? Styles.error : ''}`}
           id={descriptorId}
         >
           <div className={Styles.header}>
@@ -158,7 +140,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
             <div className={Styles['image-wrapper']}>
               <img alt={name} src={imgUrl} />
             </div>
-            <div className={Styles['device-data-wrapper']}>
+            <div className={Styles.deviceDataWrapper}>
               <div>
                 <div>
                   {platform} {osVersion}
@@ -166,43 +148,36 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
                 <div>
                   {screenSize}&ldquo; ({resolutionWidth} x {resolutionHeight})
                 </div>
-                <div>
-                  <button
-                    className={`${Styles['details-link']} ${Styles.detailsButton}`}
-                    onClick={handleClickOpenDialog}
-                    type="button"
-                  >
-                    Details
-                  </button>
-                  <DeviceDetailsModal
-                    deviceDetails={device}
-                    handleClose={handleClickCloseDialog}
-                    open={isOpen}
-                  />
-                </div>
               </div>
               <div className={Styles['device-connection-wrapper']}>
-                <Switch
-                  checked={deviceConnected || deviceStopping}
-                  disabled={
-                    !serverRunning ||
-                    deviceConnecting ||
-                    deviceStopping ||
-                    !inUse
-                  }
-                  error={isError}
-                  label={switchLabel}
-                  onChange={() =>
-                    deviceConnected
-                      ? closeSession({
-                          descriptorId,
-                          port,
-                          sessionId: sessionID,
-                          status,
-                        })
-                      : launchTest(descriptorId, sessionID)
-                  }
-                />
+                <div
+                  className={`${
+                    isDisabledSwitch ? Styles.disabledSwitchContainer : ''
+                  }`}
+                >
+                  <Switch
+                    checked={deviceConnected || deviceStopping}
+                    disabled={isDisabledSwitch}
+                    error={isError}
+                    label={switchLabel}
+                    onChange={() =>
+                      deviceConnected
+                        ? closeSession({
+                            descriptorId,
+                            port,
+                            sessionId: sessionID,
+                            status,
+                          })
+                        : launchTest(descriptorId, sessionID)
+                    }
+                  />
+                  <div className={Styles.infoContainer}>
+                    <span>
+                      First start a browser/app test on this device in the Sauce
+                      Labs Real Device cloud to be able to connect to it.
+                    </span>
+                  </div>
+                </div>
                 {connectedMessage({ adbAutoConnect, device })}
               </div>
             </div>
@@ -218,6 +193,21 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
             >
               View logs
             </button>
+
+            <div>
+              <button
+                className={`${Styles['details-link']} ${Styles.detailsButton}`}
+                onClick={handleClickOpenDialog}
+                type="button"
+              >
+                DETAILS
+              </button>
+              <DeviceDetailsModal
+                deviceDetails={device}
+                handleClose={handleClickCloseDialog}
+                open={isOpen}
+              />
+            </div>
           </div>
         </div>
       </div>

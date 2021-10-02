@@ -28,7 +28,6 @@ const DevicesOverview = () => {
     devices: {
       connectedDevices,
       devices,
-      devicesChecked,
       deviceQuery,
       error: apiError,
       status: apiStatus,
@@ -118,7 +117,6 @@ const DevicesOverview = () => {
           </span>
         </Notification>
       )}
-      <span className={Styles.title}>Device Catalog</span>
       {/* eslint-disable-next-line no-nested-ternary */}
       {apiStatus === ApiStatusEnum.LOADING ||
       (apiStatus === ApiStatusEnum.IDLE && devices.length === 0) ? (
@@ -144,22 +142,22 @@ const DevicesOverview = () => {
         <div>
           <div className={Styles['flex-container']}>
             <div className={Styles['flex-1-2']}>
-              <div className={Styles['search-box']}>
+              <div className={Styles.searchBox}>
                 <Input
                   name="searchDevices"
-                  label="Search devices"
+                  placeholder="Search by device name, manufacturer or OS"
                   onChange={handleDeviceSearch}
-                  type={InputType.TEXT}
+                  type={InputType.SEARCH}
                   value={deviceQuery}
                 />
               </div>
             </div>
           </div>
-          <div className={Styles.text}>
-            <p>
-              Please select your device. Can&lsquo;t find your device listed?
-              Contact your Customer Success Manager.
-            </p>
+          <div className={Styles.textContainer}>
+            <span className={Styles.text}>
+              <span className={Styles.textBold}>Looking for a device?</span>{' '}
+              Please contact your Sauce Labs representative.
+            </span>
           </div>
           <div className={Styles['devices-wrapper']}>
             {devices.length === 0 ? (
@@ -172,12 +170,9 @@ const DevicesOverview = () => {
                   device.showDevice && (
                     <DeviceDetails
                       adbAutoConnect={autoAdbConnect}
-                      androidError={isAndroidError()}
                       clearDeviceLogs={clearDeviceLogs}
                       closeSession={closeDeviceSession}
                       device={device}
-                      devicesChecked={devicesChecked}
-                      iosError={isIOSError()}
                       key={device.descriptorId}
                       launchTest={startDeviceSession}
                       toggleDeviceLogs={toggleDeviceLogs}

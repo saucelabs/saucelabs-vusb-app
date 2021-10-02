@@ -29,48 +29,28 @@ const ServerButtons: React.FC<ServerButtonsInterface> = ({
       ? 'error'
       : '';
   const monitorHoverClass = disableShowMonitor ? '' : Styles.hover;
+  const isServerRunning = serverStatus === VusbServerStatusEnum.RUNNING;
 
   return (
     <>
       <div className={Styles.container}>
         <span>
-          <i className={`${Styles.icon} fab fa-android`} />
-          <i className={`${Styles.icon} fab fa-apple`} />
+          <i
+            role="button"
+            tabIndex={0}
+            aria-label={`${isServerRunning ? 'Stop' : 'Start'} server`}
+            className={`${Styles.icon} ${Styles.hover} fas fa-${
+              isServerRunning ? 'stop' : 'play'
+            }-circle`}
+            onClick={isServerRunning ? stopVusbServer : startVusbServer}
+            onKeyDown={() => startVusbServer()}
+          />
           <i
             className={`${Styles.icon} ${monitorHoverClass} ${Styles[status]} fas fa-server`}
             {...(disableShowMonitor
               ? {}
               : { onClick: () => toggleVusbServerMonitor() })}
           />
-          {serverStatus === VusbServerStatusEnum.RUNNING ? (
-            <i
-              role="button"
-              tabIndex={0}
-              aria-label="Stop server"
-              className={`${Styles.icon} ${Styles.hover} ${
-                Styles['stop-server']
-              } ${
-                serverStatus !== VusbServerStatusEnum.RUNNING
-                  ? Styles.disabled
-                  : ''
-              } far fa-stop-circle`}
-              onClick={() => stopVusbServer()}
-              onKeyDown={() => stopVusbServer()}
-            />
-          ) : (
-            <i
-              role="button"
-              tabIndex={0}
-              aria-label="Start server"
-              className={`${Styles.icon} ${Styles.hover} ${
-                serverStatus === VusbServerStatusEnum.RUNNING
-                  ? Styles.disabled
-                  : ''
-              }  far fa-play-circle`}
-              onClick={() => startVusbServer()}
-              onKeyDown={() => startVusbServer()}
-            />
-          )}
           {afterComponent}
         </span>
       </div>

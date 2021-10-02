@@ -24,9 +24,8 @@ const Header: React.FC = () => {
       <div className={Styles.logo}>
         <img src={SauceBolt} alt="Sauce Labs Bolt" />
       </div>
-      <div className={Styles.label}>Requirements</div>
+      <div className={Styles.label}>Device Catalog</div>
       <div className={Styles.divider} />
-      <div className={Styles.separator} />
       <div className={Styles.separator} />
       <div className={Styles['button-container']}>
         <ServerButtons
@@ -45,8 +44,6 @@ const Header: React.FC = () => {
           logLines={log}
           serverError={error}
           serverStatus={status}
-          startVusbServer={startVusbServer}
-          stopVusbServer={stopVusbServer}
           toggleVusbServerMonitor={() =>
             dispatch(vusbServerMonitorToggleAction())
           }

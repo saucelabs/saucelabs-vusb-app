@@ -51,8 +51,16 @@ body {
   position: relative;
   color: #777;
   background-color: #faf9fa;
-  font-family: 'proxima-nova', Arial, sans-serif;
   overflow: hidden;
+}
+
+button,
+input,
+div,
+span,
+p {
+  font-family: 'proxima-nova', Arial, sans-serif;
+  font-weight: 100;
 }
 
 .mainContainer {
@@ -69,51 +77,11 @@ main {
   padding: 20px 20px 20px;
 }
 
-button:focus {
+button:focus,
+i:focus {
   outline: 0;
 }
 
 button:hover {
   cursor: pointer;
 }
-
-/*#root {*/
-/*  height: 100vh;*/
-/*  display: flex;*/
-/*  overflow: hidden;*/
-/*}*/
-
-/*.routes-wrapper {*/
-/*  display: flex;*/
-/*  flex: 1;*/
-/*  flex-direction: column;*/
-/*  height: 100vh;*/
-/*  overflow: auto;*/
-/*}*/
-
-/*.routes {*/
-/*  flex: 1;*/
-/*  overflow: auto;*/
-/*}*/
-
-/*.left-menu-wrapper {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: center;*/
-/*  width: 225px;*/
-/*  height: 100vh;*/
-/*}*/
-
-/*a {*/
-/*  text-decoration: none;*/
-/*}*/
-
-/*a:hover {*/
-/*  opacity: 1;*/
-/*  text-decoration: none;*/
-/*  cursor: pointer;*/
-/*}*/
-
-/*button:focus {*/
-/*  outline:0;*/
-/*}*/

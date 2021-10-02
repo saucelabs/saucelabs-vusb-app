@@ -1,5 +1,4 @@
 import React from 'react';
-import ServerButtons from '../components/ServerButtons';
 import CloseIcon from '../components/CloseIcon';
 import ServerMonitor from './components/ServerMonitor';
 
@@ -8,8 +7,6 @@ interface VusbMonitorInterface {
   logLines: string[];
   serverError: boolean;
   serverStatus: string;
-  startVusbServer: () => void;
-  stopVusbServer: () => void;
   toggleVusbServerMonitor: () => void;
 }
 
@@ -18,8 +15,6 @@ const VusbServerMonitor: React.FC<VusbMonitorInterface> = ({
   logLines,
   serverError,
   serverStatus,
-  startVusbServer,
-  stopVusbServer,
   toggleVusbServerMonitor,
 }) => {
   return (
@@ -28,17 +23,7 @@ const VusbServerMonitor: React.FC<VusbMonitorInterface> = ({
       serverError={serverError}
       logLines={logLines}
       serverStatus={serverStatus}
-      headerRightComponent={
-        <ServerButtons
-          serverError={serverError}
-          serverStatus={serverStatus}
-          disableShowMonitor
-          startVusbServer={startVusbServer}
-          stopVusbServer={stopVusbServer}
-          toggleVusbServerMonitor={toggleVusbServerMonitor}
-          afterComponent={<CloseIcon onClick={toggleVusbServerMonitor} />}
-        />
-      }
+      headerRightComponent={<CloseIcon onClick={toggleVusbServerMonitor} />}
     />
   );
 };

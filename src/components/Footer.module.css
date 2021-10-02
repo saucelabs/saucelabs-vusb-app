@@ -7,6 +7,7 @@
   flex-grow: 0;
   flex-direction: row;
   justify-content: flex-start;
+  padding: 0 20px;
 }
 
 .logoContainer {
@@ -17,12 +18,22 @@
   height: 70px;
   background: #fff;
   color: #fff;
-  padding: 14px;
+  padding: 14px 0;
   border-bottom: 1px solid #eee;
 }
 
 .logoContainer image {
   width: 140px;
+}
+
+.divider {
+  flex: 1;
+}
+
+.separator {
+  background: rgba(127, 136, 146, 0.2);
+  margin: 16px 20px;
+  width: 1px;
 }
 
 .footerItem {
@@ -45,7 +56,6 @@
 
 .requirementsTextContainer {
   margin-left: auto;
-  padding-right: 20px;
 }
 
 .requirementsButton {
@@ -57,6 +67,7 @@
 
 .requirementsIcon {
   margin-right: 10px;
+  font-size: 22px;
 }
 
 .accept {
@@ -69,4 +80,5 @@
 
 .chevron {
   margin-left: 10px;
+  font-size: 14px;
 }

@@ -48,6 +48,8 @@ const Footer = () => {
           <span className={Styles.versionTitle}>Virtual USB</span>
           <span className={Styles.versionNumber}>{APP_VERSION}</span>
         </div>
+        <div className={Styles.divider} />
+        <div className={Styles.separator} />
         <div
           className={`${Styles.requirementsTextContainer} ${Styles.footerItem}`}
         >

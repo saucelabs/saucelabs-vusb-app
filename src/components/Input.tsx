@@ -5,6 +5,7 @@ enum InputType {
   NUMBER = 'number',
   PASSWORD = 'password',
   TEXT = 'text',
+  SEARCH = 'search',
 }
 interface InputInterface {
   disabled?: boolean;
@@ -33,14 +34,28 @@ const Input: React.FC<InputInterface> = ({
       <div>
         {label && <span className={Styles.label}>{label}</span>}
         <div className={Styles.inputContainer}>
+          {type === InputType.SEARCH && (
+            <i
+              aria-label="Show password"
+              className={`fas fa-search ${Styles.searchIcon}`}
+              onClick={handleShowPassword}
+              onKeyDown={handleShowPassword}
+              role="button"
+              tabIndex={0}
+            />
+          )}
           <input
-            className={Styles.input}
+            className={`${Styles.input} ${
+              type === InputType.SEARCH ? Styles.searchInput : ''
+            }`}
             disabled={disabled}
             id={name}
             name={name}
             onChange={onChange}
             placeholder={placeholder}
-            type={showPassword ? InputType.TEXT : type}
+            type={
+              showPassword || type === InputType.SEARCH ? InputType.TEXT : type
+            }
             value={value}
           />
           {type === InputType.PASSWORD && (
