@@ -18,3 +18,26 @@
 .button:disabled {
   background: #d8dde3;
 }
+
+.button:disabled:hover + .toolTip {
+  visibility: visible;
+}
+
+.toolTip {
+  color: #ffffff;
+  border-radius: 4px;
+  position: absolute;
+  background: #000000;
+  font-size: 12px;
+  bottom: 40px;
+  right: 0;
+  padding: 6px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 60px;
+  width: 225px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+}

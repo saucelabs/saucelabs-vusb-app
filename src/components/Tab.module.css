@@ -1,30 +1,29 @@
-.tab-list-item {
+.tabListItem {
+  border-bottom: 1px solid #e0e0e0;
   box-sizing: border-box;
-  display: inline-block;
   list-style: none;
-}
-
-.tab-list-item button {
-  background-color: transparent;
-  border: 0 transparent;
-  color: #999;
-  font-size: 16px;
-  height: 50px;
-  padding: 10px 40px;
   width: 200px;
 }
 
-.tab-list-item:hover{
-  box-shadow: inset 0 -2px 0 0 #1395f0;
+.tabListItem button {
+  background-color: transparent;
+  border: 0 transparent;
+  color: #555;
+  font-size: 16px;
+  text-align: left;
+  padding: 20px;
+  width: 200px;
+}
+
+.tabListItem:hover {
+  background-color: #fafafa;
   cursor: pointer;
 }
 
-.tab-list-active {
-  border: 0;
-  box-shadow: inset 0 -2px 0 0 #1395f0;
-  background-color: inherit;
+.tabListActive {
+  background-color: #fafafa;
 }
 
-.tab-list-active button {
+.tabListActive button {
   color: #555;
 }

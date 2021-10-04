@@ -12,11 +12,18 @@ import {
   requirementsReducer,
 } from './reducers/RequirementsReducer';
 import { RequirementsActionType } from '../requirements/RequirementsTypes';
+import {
+  initialSettingsState,
+  settingsReducer,
+} from './reducers/SettingsReducer';
+import { SettingsActionType } from '../settings/SettingsTypes';
+import { SettingsStateInterface } from '../settings/SettingsInterfaces';
 
 interface InitialStoreStateInterface {
   devices: DevicesStateInterface;
   requirements: RequirementStateInterface;
   server: ServerStateInterface;
+  settings: SettingsStateInterface;
 }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -26,6 +33,7 @@ const initialState: InitialStoreStateInterface = {
   devices: initialDevicesState,
   requirements: initialRequirementsState,
   server: initialServerState,
+  settings: initialSettingsState,
 };
 const StoreContext = createContext<{
   state: InitialStoreStateInterface;
@@ -35,8 +43,12 @@ const StoreContext = createContext<{
   dispatch: () => null,
 });
 const mainReducer = (
-  { devices, requirements, server }: InitialStoreStateInterface,
-  action: DevicesActionType | RequirementsActionType | ServerActionType
+  { devices, requirements, server, settings }: InitialStoreStateInterface,
+  action:
+    | DevicesActionType
+    | RequirementsActionType
+    | ServerActionType
+    | SettingsActionType
 ) => ({
   devices: devicesReducer(devices, action as DevicesActionType),
   requirements: requirementsReducer(
@@ -44,6 +56,7 @@ const mainReducer = (
     action as RequirementsActionType
   ),
   server: serverReducer(server, action as ServerActionType),
+  settings: settingsReducer(settings, action as SettingsActionType),
 });
 const StoreProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(

@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import DeviceDetails from './components/DeviceDetails';
 import Input, { InputType } from '../components/Input';
-import Notification, { NotificationsType } from '../components/Notification';
-import { isAndroidError, isIOSError } from '../utils/Checks';
 import { StoreContext } from '../store/Store';
 import { getInUseDevices, getDevices, getAvailableDevices } from './DevicesAPI';
 import {
@@ -12,13 +9,12 @@ import {
   deviceSessionToggleLogs,
 } from '../store/actions/DeviceActions';
 import Styles from './DevicesOverview.module.css';
-import { ROUTES } from '../utils/Constants';
 import { getGenericStorage } from '../settings/SettingsStorage';
 import {
   connectToDeviceSession,
   disconnectDeviceSession,
 } from './DeviceOperations';
-import { ApiStatusEnum } from './DeviceTypes';
+import DevicesNotifications from './components/DevicesNotifications';
 
 const DevicesOverview = () => {
   let fetchInUseDevices: ReturnType<typeof setTimeout>;
@@ -33,6 +29,7 @@ const DevicesOverview = () => {
       status: apiStatus,
     },
     server: { status: vusbStatus },
+    settings: { isOpen: isSettingsModalOpen },
   } = state;
   const {
     server: { autoAdbConnect },
@@ -96,94 +93,56 @@ const DevicesOverview = () => {
   const toggleDeviceLogs = (deviceId: string, showLogs: boolean) => {
     dispatch(deviceSessionToggleLogs(deviceId, showLogs));
   };
-  const platformErrorMessage =
-    // eslint-disable-next-line no-nested-ternary
-    isAndroidError() && isIOSError()
-      ? 'Android and iOS'
-      : isAndroidError()
-      ? 'Android'
-      : 'iOS';
-  const hasHave = isAndroidError() && isIOSError() ? 'have' : 'has';
 
   return (
     <div className={Styles.container}>
-      {(isAndroidError() || isIOSError()) && (
-        <Notification type={NotificationsType.WARNING} floatingCenter>
-          <span>
-            Your {platformErrorMessage} environment {hasHave}{' '}
-            <strong>NOT</strong> been set up properly, please check the{' '}
-            <Link to={ROUTES.HOME}>Home</Link> page to see what needs to be
-            fixed.
-          </span>
-        </Notification>
+      {/* Only show when the settings screen is not open */}
+      {!isSettingsModalOpen && (
+        <DevicesNotifications
+          apiStatus={apiStatus}
+          apiError={apiError}
+          devices={devices}
+          deviceQuery={deviceQuery}
+        />
       )}
-      {/* eslint-disable-next-line no-nested-ternary */}
-      {apiStatus === ApiStatusEnum.LOADING ||
-      (apiStatus === ApiStatusEnum.IDLE && devices.length === 0) ? (
-        <div>Loading devices....</div>
-      ) : // eslint-disable-next-line no-nested-ternary
-      apiStatus === ApiStatusEnum.ERROR ? (
-        <Notification type={NotificationsType.ERROR}>
-          <div>
-            There was an error retrieving the devices, please see below for more
-            information.
-            <pre>{apiError?.message}</pre>
-          </div>
-        </Notification>
-      ) : devices.length === 0 && deviceQuery === '' ? (
-        <Notification type={NotificationsType.WARNING}>
-          <span>
-            No devices could be found. Reasons for this could be that you
-            don&lsquo;t have private devices, please contact your Customer
-            Success Manager at Sauce Labs
-          </span>
-        </Notification>
-      ) : (
-        <div>
-          <div className={Styles['flex-container']}>
-            <div className={Styles['flex-1-2']}>
-              <div className={Styles.searchBox}>
-                <Input
-                  name="searchDevices"
-                  placeholder="Search by device name, manufacturer or OS"
-                  onChange={handleDeviceSearch}
-                  type={InputType.SEARCH}
-                  value={deviceQuery}
-                />
-              </div>
+      <div>
+        <div className={Styles.flexContainer}>
+          <div className={Styles['flex-1-2']}>
+            <div className={Styles.searchBox}>
+              <Input
+                name="searchDevices"
+                placeholder="Search by device name, manufacturer or OS"
+                onChange={handleDeviceSearch}
+                type={InputType.SEARCH}
+                value={deviceQuery}
+              />
             </div>
           </div>
-          <div className={Styles.textContainer}>
-            <span className={Styles.text}>
-              <span className={Styles.textBold}>Looking for a device?</span>{' '}
-              Please contact your Sauce Labs representative.
-            </span>
-          </div>
-          <div className={Styles['devices-wrapper']}>
-            {devices.length === 0 ? (
-              <Notification type={NotificationsType.WARNING}>
-                <p>No matching devices found</p>
-              </Notification>
-            ) : (
-              devices.map(
-                (device) =>
-                  device.showDevice && (
-                    <DeviceDetails
-                      adbAutoConnect={autoAdbConnect}
-                      clearDeviceLogs={clearDeviceLogs}
-                      closeSession={closeDeviceSession}
-                      device={device}
-                      key={device.descriptorId}
-                      launchTest={startDeviceSession}
-                      toggleDeviceLogs={toggleDeviceLogs}
-                      vusbStatus={vusbStatus}
-                    />
-                  )
-              )
-            )}
-          </div>
         </div>
-      )}
+        <div className={Styles.textContainer}>
+          <span className={Styles.text}>
+            <span className={Styles.textBold}>Looking for a device?</span>{' '}
+            Please contact your Sauce Labs representative.
+          </span>
+        </div>
+        <div className={Styles.devicesWrapper}>
+          {devices.map(
+            (device) =>
+              device.showDevice && (
+                <DeviceDetails
+                  adbAutoConnect={autoAdbConnect}
+                  clearDeviceLogs={clearDeviceLogs}
+                  closeSession={closeDeviceSession}
+                  device={device}
+                  key={device.descriptorId}
+                  launchTest={startDeviceSession}
+                  toggleDeviceLogs={toggleDeviceLogs}
+                  vusbStatus={vusbStatus}
+                />
+              )
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -13,70 +13,49 @@ const ServerProxy: React.FC<ServerProxyType> = ({
   onChange,
 }) => {
   return (
-    <div>
-      <div className={Styles.container}>
-        <div className={Styles['data-wrapper']}>
-          <div className={Styles['form-group']}>
-            <Input
-              label="Host"
-              value={host}
-              name="host"
-              onChange={onChange}
-              type={InputType.TEXT}
-            />
-          </div>
-          <div className={Styles['form-group']}>
-            <Input
-              label="Port"
-              value={(port as unknown) as string}
-              name="port"
-              onChange={onChange}
-              type={InputType.NUMBER}
-            />
-          </div>
-          <div className={Styles['form-group']}>
-            <Input
-              label="Authorization Username"
-              value={username}
-              name="username"
-              onChange={onChange}
-              type={InputType.TEXT}
-            />
-          </div>
-          <div className={Styles['form-group']}>
-            <Input
-              label="Authorization Password"
-              value={password}
-              name="password"
-              onChange={onChange}
-              type={InputType.PASSWORD}
-            />
-          </div>
-        </div>
-        <div className={Styles['explain-wrapper']}>
-          <div className={Styles.explain}>
-            <span className={Styles.bold}>HOST</span>
-            <br />
-            HTTP proxy host
-          </div>
-          <div className={Styles.explain}>
-            <span className={Styles.bold}>PORT</span>
-            <br />
-            HTTP proxy port
-          </div>
-          <div className={Styles.explain}>
-            <span className={Styles.bold}>AUTHORIZATION USERNAME</span>
-            <br />
-            HTTP proxy user
-          </div>
-          <div className={Styles.explain}>
-            <span className={Styles.bold}>AUTHORIZATION PASSWORD</span>
-            <br />
-            HTTP proxy password
-          </div>
-        </div>
+    <>
+      <span className={Styles.contentLabel}>Server Proxy</span>
+      <div className={Styles.formGroup}>
+        <Input
+          label="Host"
+          value={host}
+          name="host"
+          onChange={onChange}
+          type={InputType.TEXT}
+        />
+        <span className={Styles.explain}>HTTP proxy host</span>
       </div>
-    </div>
+      <div className={Styles.formGroup}>
+        <Input
+          label="Port"
+          value={(port as unknown) as string}
+          name="port"
+          onChange={onChange}
+          type={InputType.NUMBER}
+        />
+        <span className={Styles.explain}>HTTP proxy port</span>
+      </div>
+      <div className={Styles.formGroup}>
+        <Input
+          label="Authorization Username"
+          value={username}
+          name="username"
+          onChange={onChange}
+          type={InputType.TEXT}
+        />
+        <span className={Styles.explain}>HTTP proxy user</span>
+      </div>
+      <div className={Styles.formGroup}>
+        <Input
+          label="Authorization Password"
+          value={password}
+          name="password"
+          onChange={onChange}
+          type={InputType.PASSWORD}
+        />
+        <span className={Styles.explain}>HTTP proxy password</span>
+      </div>
+    </>
   );
 };
 

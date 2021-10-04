@@ -9,15 +9,20 @@ import {
   vusbServerMonitorToggleAction,
 } from '../store/actions/ServerActions';
 import VusbServerMonitor from '../server/VusbServerMonitor';
+import SettingsButton from './SettingsButton';
+import { openSettingsContainer } from '../store/actions/SettingsActions';
+import Settings from '../settings/Settings';
 
 const Header: React.FC = () => {
   const { state, dispatch } = useContext(StoreContext);
   const {
     devices: { connectedDevices },
     server: { error, log, showMonitor, status },
+    settings: { isOpen },
   } = state;
   const startVusbServer = () => startServer(dispatch, status);
   const stopVusbServer = () => stopServer(dispatch, connectedDevices);
+  const openCloseSettingsScreen = () => dispatch(openSettingsContainer());
 
   return (
     <div className={Styles.container}>
@@ -26,8 +31,11 @@ const Header: React.FC = () => {
       </div>
       <div className={Styles.label}>Device Catalog</div>
       <div className={Styles.divider} />
+      <div className={Styles.buttonContainer}>
+        <SettingsButton toggleSettingsScreen={openCloseSettingsScreen} />
+      </div>
       <div className={Styles.separator} />
-      <div className={Styles['button-container']}>
+      <div className={Styles.buttonContainer}>
         <ServerButtons
           serverError={error}
           serverStatus={status}
@@ -49,6 +57,7 @@ const Header: React.FC = () => {
           }
         />
       )}
+      {isOpen && <Settings onClick={openCloseSettingsScreen} />}
     </div>
   );
 };

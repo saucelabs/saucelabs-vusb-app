@@ -33,8 +33,10 @@
   flex: 1;
 }
 
-.button-container {
-  /*padding: 0 20px;*/
+.buttonContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
   background: #fff;
 }
 
@@ -42,10 +44,6 @@
   background: rgba(127, 136, 146, 0.2);
   margin: 16px 20px;
   width: 1px;
-}
-
-.logout-label {
-  font-size: 18px;
 }
 
 .icon {

@@ -1,18 +1,25 @@
 .container {
   display: flex;
-}
-
-.data-wrapper {
   flex: 1;
 }
 
-.explain-wrapper {
+.contentLabel {
+  color: #555555;
+  display: block;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.formGroup {
   flex: 1;
-  margin-left: 20px;
+  margin-bottom: 30px;
+  width: 350px;
 }
 
 .explain {
-  font-weight: bold;
+  display: block;
+  margin-top: 10px;
   font-size: 12px;
   margin-bottom: 10px;
 }
@@ -22,17 +29,11 @@ pre {
 }
 
 .label {
-  color: #7f8892;
+  color: #555555;
   display: block;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 16px;
   max-width: 100%;
   margin-bottom: 5px;
-  text-transform: uppercase;
-}
-
-.form-group {
-  margin-bottom: 15px;
 }
 
 .link {

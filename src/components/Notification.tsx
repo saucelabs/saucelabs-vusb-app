@@ -4,38 +4,53 @@ import Styles from './Notification.module.css';
 enum NotificationsType {
   ERROR = 'error',
   INFO = 'info',
+  SUCCESS = 'success',
   WARNING = 'warning',
 }
 
+enum NotificationsIconType {
+  error = 'fa-times-circle',
+  info = 'fa-info-circle',
+  success = 'fa-check-circle',
+  warning = 'fa-exclamation-triangle',
+}
+
 interface NotificationInterface {
+  blocking?: boolean;
   children: JSX.Element;
-  type: NotificationsType;
-  customClass?: string;
   centerText?: boolean;
-  floatingCenter?: boolean;
+  customClass?: string;
   floatingTop?: boolean;
+  title?: string;
+  type: NotificationsType;
 }
 
 const Notification: React.FC<NotificationInterface> = ({
+  blocking,
   children,
   centerText,
   customClass,
-  floatingCenter,
   floatingTop,
+  title,
   type,
 }) => {
   return (
-    <div
-      className={`${Styles.notification} ${customClass} ${Styles[type]} ${
-        // eslint-disable-next-line no-nested-ternary
-        floatingCenter
-          ? Styles.floatingCenter
-          : floatingTop
-          ? Styles.floatingTop
-          : ''
-      } ${centerText ? Styles.centerText : ''}`}
-    >
-      {children}
+    <div className={blocking ? Styles.background : ''}>
+      <div
+        className={`${Styles.notification} ${customClass} ${
+          floatingTop ? Styles.floatingTop : Styles.floatingCenter
+        } ${centerText ? Styles.centerText : ''}`}
+      >
+        <div className={`${Styles.iconContainer} ${Styles[type]}`}>
+          <i
+            className={`fas ${NotificationsIconType[type]} ${Styles[type]} `}
+          />
+        </div>
+        <div className={Styles.contentContainer}>
+          {title && <span className={Styles.title}>{title}</span>}
+          <div className={Styles.childrenContainer}>{children}</div>
+        </div>
+      </div>
     </div>
   );
 };

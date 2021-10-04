@@ -4,11 +4,11 @@ import {
 } from '../../devices/DeviceInterfaces';
 import { trimLogArray } from '../../utils/Helpers';
 import {
-  ApiStatusEnum,
   DeviceActionEnum as ACTIONS,
   DevicesActionType,
   DeviceSessionStatusEnum,
 } from '../../devices/DeviceTypes';
+import { ApiStatusEnum } from '../../devices/DeviceApiTypes';
 
 /**
  * Filter all devices that are in use, meaning all devices that have a manual /
@@ -289,16 +289,19 @@ const devicesReducer = (
     case ACTIONS.FETCH_DEVICES_LOADING:
       return {
         ...state,
+        status: ApiStatusEnum.LOADING,
       };
     case ACTIONS.FETCH_DEVICES_SUCCESS:
       return {
         ...state,
         devices: action.devices,
+        status: ApiStatusEnum.SUCCESS,
       };
     case ACTIONS.FETCH_DEVICES_ERROR:
       return {
         ...state,
         error: action.error,
+        status: ApiStatusEnum.ERROR,
       };
     case ACTIONS.FETCH_AVAILABLE_DEVICES_LOADING:
       return {

@@ -36,13 +36,6 @@ enum DeviceSessionStatusEnum {
   STOPPING = 'STOPPING',
 }
 
-enum ApiStatusEnum {
-  IDLE = 'IDLE',
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR',
-  LOADING = 'LOADING',
-}
-
 type DevicesActionType =
   | {
       type: DeviceActionEnum.DEVICE_SESSION_ERROR;
@@ -102,9 +95,4 @@ type DevicesActionType =
     }
   | { type: DeviceActionEnum.IN_USE_DEVICES_ERROR; error: Error };
 
-export {
-  ApiStatusEnum,
-  DeviceActionEnum,
-  DevicesActionType,
-  DeviceSessionStatusEnum,
-};
+export { DeviceActionEnum, DevicesActionType, DeviceSessionStatusEnum };

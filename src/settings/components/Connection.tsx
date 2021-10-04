@@ -15,64 +15,58 @@ const Connection: React.FC<ConnectionType> = ({
   onChange,
 }) => {
   return (
-    <div>
-      <div className={Styles.container}>
-        <div className={Styles['data-wrapper']}>
-          <div className={Styles['form-group']}>
-            <Input
-              label="Sauce Labs Username"
-              value={username}
-              name="username"
-              onChange={onChange}
-              type={InputType.TEXT}
-            />
-          </div>
-          <div className={Styles['form-group']}>
-            <Input
-              label="Access Key"
-              value={accessKey}
-              name="accessKey"
-              onChange={onChange}
-              type={InputType.PASSWORD}
-            />
-          </div>
-          <div className={Styles['form-group']}>
-            <span className={Styles.label}>Data Center</span>
-            <RadioButton
-              label={LOCATION.EU.label}
-              value={LOCATION.EU.value}
-              name="location"
-              currentValue={location}
-              onChange={onChange}
-            />
-            <RadioButton
-              label={LOCATION.US.label}
-              value={LOCATION.US.value}
-              name="location"
-              currentValue={location}
-              onChange={onChange}
-            />
-          </div>
-        </div>
-        <div className={Styles['explain-wrapper']}>
-          <div className={Styles.explain}>
-            <br />
-            This should be equal to your <em>SAUCE LABS USERNAME</em> in
-            <pre>
-              https://saucelabs.com &gt; Account &gt; User Settings &gt;
-              Username
-            </pre>
-            <br />
-            <br />
-            This should be equal to your <em>ACCESS KEY</em> in
-            <pre>
-              https://saucelabs.com &gt; Account &gt; User Settings &gt; Access
-              Key
-            </pre>
-          </div>
-        </div>
+    <>
+      <span className={Styles.contentLabel}>Connection</span>
+      <div className={Styles.formGroup}>
+        <Input
+          label="Sauce Labs Username"
+          value={username}
+          name="username"
+          onChange={onChange}
+          type={InputType.TEXT}
+        />
+        <span className={Styles.explain}>
+          This should be equal to your <em>SAUCE LABS USERNAME</em> in
+          <pre>
+            https://saucelabs.com &gt; Account &gt; User Settings &gt; Username
+          </pre>
+        </span>
       </div>
-    </div>
+      <div className={Styles.formGroup}>
+        <Input
+          label="Access Key"
+          value={accessKey}
+          name="accessKey"
+          onChange={onChange}
+          type={InputType.PASSWORD}
+        />
+        <span className={Styles.explain}>
+          This should be equal to your <em>ACCESS KEY</em> in
+          <pre>
+            https://saucelabs.com &gt; Account &gt; User Settings &gt; Access
+            Key
+          </pre>
+        </span>
+      </div>
+      <div className={Styles.formGroup}>
+        <span className={Styles.label}>Data Center</span>
+        <RadioButton
+          label={LOCATION.EU.label}
+          value={LOCATION.EU.value}
+          name="location"
+          currentValue={location}
+          onChange={onChange}
+        />
+        <RadioButton
+          label={LOCATION.US.label}
+          value={LOCATION.US.value}
+          name="location"
+          currentValue={location}
+          onChange={onChange}
+        />
+        <span className={Styles.explain}>The data center you want to use.</span>
+      </div>
+    </>
   );
 };
 

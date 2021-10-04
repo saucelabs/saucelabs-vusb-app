@@ -12,8 +12,8 @@ const Tabs: React.FC<TabsInterface> = ({ children }) => {
   const onClickTabItem = (tab: string) => setActiveTab(tab);
 
   return (
-    <div>
-      <ol className={Styles['tab-list']}>
+    <div className={Styles.tabsContainer}>
+      <ol className={Styles.tabList}>
         {children.map((child) => {
           const {
             'data-iconClass': iconClass,
@@ -31,7 +31,7 @@ const Tabs: React.FC<TabsInterface> = ({ children }) => {
           );
         })}
       </ol>
-      <div className={Styles['tab-content']}>
+      <div className={Styles.tabContent}>
         {children.map((child) => {
           if (child.props['data-label'] !== activeTab) {
             return undefined;

@@ -6,32 +6,9 @@
   padding: 20px 10px 20px 20px;
 }
 
-.devices-wrapper {
+.devicesWrapper {
   display: flex;
   flex-flow: row wrap;
-}
-
-.notification {
-  color: #fff;
-  background-color: #f0ad4e;
-  width: auto;
-  padding: 15px;
-  margin: 20px 0;
-  border: 1px solid #eea236;
-  border-radius: 4px;
-}
-
-.sub-title {
-  border-bottom: 1px solid #dadde2;
-  font-weight: normal;
-}
-
-.form {
-  display: flex;
-}
-
-.data-wrapper {
-  flex: 1;
 }
 
 .searchBox {
@@ -51,21 +28,12 @@
   font-weight: 700;
 }
 
-.explain-wrapper {
-  flex: 1;
-  margin-left: 20px;
-}
-
 .explain {
   font-weight: bold;
   font-size: 12px;
 }
 
-pre {
-  white-space: pre-wrap;
-}
-
-.flex-container {
+.flexContainer {
   display: flex;
 }
 

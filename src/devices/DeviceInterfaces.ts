@@ -1,3 +1,5 @@
+import { ApiStatusEnum } from './DeviceApiTypes';
+
 interface DevicesApiInterface {
   abiType: string;
   apiLevel: number;
@@ -50,7 +52,7 @@ interface DevicesStateInterface {
   devices: DeviceStateInterface[];
   devicesChecked: boolean;
   error: Error | null;
-  status: string;
+  status: ApiStatusEnum;
 }
 interface InUseDevicesInterface {
   deviceDescriptorId: string;

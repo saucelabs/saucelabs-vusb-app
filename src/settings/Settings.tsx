@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { remote } from 'electron';
 import Styles from './SettingsPage.module.css';
 import Tabs from '../components/Tabs';
 import SubmitButton from '../components/SubmitButton';
@@ -9,15 +10,11 @@ import Notification, { NotificationsType } from '../components/Notification';
 import DeviceProxy from './components/DeviceProxy';
 import { getGenericStorage, setGenericStorage } from './SettingsStorage';
 import { StoreContext } from '../store/Store';
-import { StorageInterface } from '../store/StorageInterfaces';
 import { VusbServerStatusEnum } from '../server/ServerTypes';
+import CloseIcon from '../components/CloseIcon';
+import SauceBolt from '../assets/images/sauce-bolt.png';
 
-interface SettingsInterface {
-  androidVusbStatus: string;
-  settingsData: StorageInterface;
-}
-
-const Settings: React.FC<SettingsInterface> = () => {
+const Settings: React.FC<{ onClick: () => void }> = ({ onClick }) => {
   let closeNotification: ReturnType<typeof setTimeout>;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -32,43 +29,34 @@ const Settings: React.FC<SettingsInterface> = () => {
   const handleGenericSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (
-      vusbStatus !== VusbServerStatusEnum.IDLE &&
-      vusbStatus !== VusbServerStatusEnum.STOPPED &&
-      vusbStatus !== VusbServerStatusEnum.ERROR
-    ) {
-      // eslint-disable-next-line no-alert
-      alert(
-        'There is still a Virtual USB server running, please stop it before changing the settings'
-      );
-    } else {
+    setState({
+      ...state,
+      dataIsStored: true,
+    });
+    setGenericStorage({
+      connection: {
+        ...state.connection,
+      },
+      proxy: {
+        ...state.proxy,
+      },
+      server: {
+        ...state.server,
+      },
+      device: {
+        proxy: {
+          ...state.device.proxy,
+        },
+      },
+    });
+    closeNotification = setTimeout(() => {
       setState({
         ...state,
-        dataIsStored: true,
+        dataIsStored: false,
       });
-      setGenericStorage({
-        connection: {
-          ...state.connection,
-        },
-        proxy: {
-          ...state.proxy,
-        },
-        server: {
-          ...state.server,
-        },
-        device: {
-          proxy: {
-            ...state.device.proxy,
-          },
-        },
-      });
-      closeNotification = setTimeout(() => {
-        setState({
-          ...state,
-          dataIsStored: false,
-        });
-      }, 3000);
-    }
+      // Reload the app
+      remote.getCurrentWindow().reload();
+    }, 3000);
   };
   const handleConnectionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -124,12 +112,23 @@ const Settings: React.FC<SettingsInterface> = () => {
 
   return (
     <div className={Styles.container}>
-      <span className={Styles.title}>Settings</span>
-
-      <form onSubmit={handleGenericSubmit}>
+      <div className={Styles.containerHeader}>
+        <div className={Styles.logo}>
+          <img src={SauceBolt} alt="Sauce Labs Bolt" />
+        </div>
+        <div className={Styles.label}>Settings</div>
+        <div className={Styles.divider} />
+        <div className={Styles.buttonContainer}>
+          <CloseIcon onClick={onClick} />
+        </div>
+      </div>
+      <form onSubmit={handleGenericSubmit} className={Styles.formContainer}>
         {dataIsStored && (
-          <Notification type={NotificationsType.INFO} floatingCenter>
-            <span>Data has been stored</span>
+          <Notification blocking type={NotificationsType.INFO} title="Info">
+            <span>
+              Data has been stored. <br /> The app will be reloaded in a few
+              seconds.
+            </span>
           </Notification>
         )}
         <Tabs>
@@ -152,8 +151,16 @@ const Settings: React.FC<SettingsInterface> = () => {
             />
           </div>
         </Tabs>
-        <div className={Styles['button-container']}>
-          <SubmitButton label="Update" />
+        <div className={Styles.submitButtonContainer}>
+          <SubmitButton
+            disabled={
+              vusbStatus !== VusbServerStatusEnum.IDLE &&
+              vusbStatus !== VusbServerStatusEnum.STOPPED &&
+              vusbStatus !== VusbServerStatusEnum.ERROR
+            }
+            toolTip="There is still a Virtual USB server running, please stop it before changing the settings"
+            label="Update"
+          />
         </div>
       </form>
     </div>

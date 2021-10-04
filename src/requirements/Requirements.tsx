@@ -4,6 +4,7 @@ import Styles from './Requirements.module.css';
 import Requirement from './components/Requirement';
 import { isMac, SYSTEM_CHECKS } from '../utils/Checks';
 import { SystemChecksInterface } from './RequirementsTypes';
+import CloseIcon from '../components/CloseIcon';
 
 const Requirements: React.FC<{
   systemData: SystemChecksInterface;
@@ -49,9 +50,9 @@ const Requirements: React.FC<{
 
   return (
     <div className={Styles.container}>
-      <button type="button" className={Styles.closeButton} onClick={onClick}>
-        <i className="fas fa-times" />
-      </button>
+      <div className={Styles.closeButtonContainer}>
+        <CloseIcon onClick={onClick} />
+      </div>
       <div className={Styles.requirementsContainer}>
         <i
           className={`fas ${

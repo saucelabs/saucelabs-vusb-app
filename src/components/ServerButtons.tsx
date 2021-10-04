@@ -33,27 +33,27 @@ const ServerButtons: React.FC<ServerButtonsInterface> = ({
 
   return (
     <>
-      <div className={Styles.container}>
-        <span>
-          <i
-            role="button"
-            tabIndex={0}
-            aria-label={`${isServerRunning ? 'Stop' : 'Start'} server`}
-            className={`${Styles.icon} ${Styles.hover} fas fa-${
-              isServerRunning ? 'stop' : 'play'
-            }-circle`}
-            onClick={isServerRunning ? stopVusbServer : startVusbServer}
-            onKeyDown={() => startVusbServer()}
-          />
-          <i
-            className={`${Styles.icon} ${monitorHoverClass} ${Styles[status]} fas fa-server`}
-            {...(disableShowMonitor
-              ? {}
-              : { onClick: () => toggleVusbServerMonitor() })}
-          />
-          {afterComponent}
-        </span>
-      </div>
+      <i
+        role="button"
+        tabIndex={0}
+        aria-label={`${isServerRunning ? 'Stop' : 'Start'} server`}
+        className={`${Styles.icon} ${Styles.hover} fas fa-${
+          isServerRunning ? 'stop' : 'play'
+        }-circle`}
+        onClick={isServerRunning ? stopVusbServer : startVusbServer}
+        onKeyDown={isServerRunning ? stopVusbServer : startVusbServer}
+      />
+      <i
+        role="button"
+        className={`${Styles.icon} ${monitorHoverClass} ${Styles[status]} fas fa-server`}
+        {...(disableShowMonitor
+          ? {}
+          : {
+              onClick: () => toggleVusbServerMonitor(),
+              onKeyDown: () => toggleVusbServerMonitor(),
+            })}
+      />
+      {afterComponent}
     </>
   );
 };

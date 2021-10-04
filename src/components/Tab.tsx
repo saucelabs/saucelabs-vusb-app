@@ -17,8 +17,8 @@ const Tab: React.FC<TabInterface> = ({
   return (
     <>
       <li
-        className={`${Styles['tab-list-item']}${
-          activeTab === label ? ` ${Styles['tab-list-active']}` : ''
+        className={`${Styles.tabListItem}${
+          activeTab === label ? ` ${Styles.tabListActive}` : ''
         }`}
       >
         <button type="button" onClick={() => onClick(label)}>
