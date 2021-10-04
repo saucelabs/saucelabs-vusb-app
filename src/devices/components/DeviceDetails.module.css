@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.device-tile {
+.deviceTile {
   box-shadow: 0 1px 3px hsla(0, 0%, 66.3%, 0.5);
   border-radius: 4px;
   color: #444;
@@ -46,26 +46,29 @@
   flex-direction: row;
 }
 
-.image-wrapper::before,
-.image-wrapper::after {
+.imageWrapper::before,
+.imageWrapper::after {
   content: '';
   display: block;
   position: absolute;
   background: #fff;
 }
-.image-wrapper::before {
+
+.imageWrapper::before {
   top: -4px;
   bottom: -4px;
   left: 1em;
   right: 1em;
 }
-.image-wrapper::after {
+
+.imageWrapper::after {
   left: -4px;
   right: -4px;
   top: 1em;
   bottom: 1em;
 }
-.image-wrapper {
+
+.imageWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,7 +80,7 @@
   position: relative;
 }
 
-.image-wrapper img {
+.imageWrapper img {
   display: block;
   max-width: 88px;
   max-height: 88px;
@@ -169,7 +172,7 @@
   visibility: hidden;
 }
 
-.device-action-wrapper {
+.deviceActionWrapper {
   margin-top: 8px;
   flex-direction: row;
   justify-content: space-between;
@@ -186,8 +189,95 @@
   outline: 0;
 }
 
-.details-link {
+.detailsLink {
   color: #555;
   font-size: 14px;
   font-weight: 700;
+}
+
+/**
+ * Empty card animation
+ */
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.animatedBackground {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 147px;
+  position: relative;
+}
+
+.gradientMask {
+  background: #fff;
+  position: absolute;
+  display: block;
+}
+
+.headerRight {
+  top: 0;
+  left: 175px;
+  right: 0;
+  height: 18px;
+}
+
+.headerBottom {
+  top: 18px;
+  left: 0;
+  right: 0;
+  height: 5px;
+}
+
+.imageRight {
+  top: 23px;
+  left: 88px;
+  right: 186px;
+  height: 88px;
+}
+
+.deviceDataTop {
+  top: 23px;
+  left: 88px;
+  right: 0;
+  height: 10px;
+}
+
+.deviceDataRight {
+  top: 33px;
+  left: 215px;
+  right: 0;
+  height: 50px;
+}
+
+.deviceDataBottom {
+  top: 83px;
+  left: 98px;
+  right: 0;
+  height: 28px;
+}
+
+.deviceActionWrapperTop {
+  top: 111px;
+  left: 0;
+  right: 0;
+  height: 18px;
+}
+
+.deviceActionWrapperCenter {
+  top: 129px;
+  left: 80px;
+  right: 60px;
+  height: 18px;
 }

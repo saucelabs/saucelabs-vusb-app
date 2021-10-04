@@ -128,7 +128,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
           <div className={`${Styles.badge} ${Styles.busy}`}>Using vUSB</div>
         )}
         <div
-          className={`${Styles['device-tile']}
+          className={`${Styles.deviceTile}
           ${!inUse && isBusy ? Styles.disabled : ''}
           ${isError ? Styles.error : ''}`}
           id={descriptorId}
@@ -137,7 +137,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
             <span className={Styles.title}>{name}</span>
           </div>
           <div className={Styles.content}>
-            <div className={Styles['image-wrapper']}>
+            <div className={Styles.imageWrapper}>
               <img alt={name} src={imgUrl} />
             </div>
             <div className={Styles.deviceDataWrapper}>
@@ -149,7 +149,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
                   {screenSize}&ldquo; ({resolutionWidth} x {resolutionHeight})
                 </div>
               </div>
-              <div className={Styles['device-connection-wrapper']}>
+              <div>
                 <div
                   className={`${
                     isDisabledSwitch ? Styles.disabledSwitchContainer : ''
@@ -182,7 +182,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
               </div>
             </div>
           </div>
-          <div className={Styles['device-action-wrapper']}>
+          <div className={Styles.deviceActionWrapper}>
             <button
               // Only show an active link of the logs if there are logs
               className={`${Styles.link} ${Styles.detailsButton} ${
@@ -196,7 +196,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
 
             <div>
               <button
-                className={`${Styles['details-link']} ${Styles.detailsButton}`}
+                className={`${Styles.detailsLink} ${Styles.detailsButton}`}
                 onClick={handleClickOpenDialog}
                 type="button"
               >

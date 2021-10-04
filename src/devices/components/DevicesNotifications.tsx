@@ -43,7 +43,7 @@ const DevicesNotifications: React.FC<{
         </Notification>
       )}
       {/* When no devices are assigned */}
-      {apiStatus !== ApiStatusEnum.ERROR &&
+      {apiStatus === ApiStatusEnum.SUCCESS &&
         devices.length === 0 &&
         deviceQuery === '' && (
           <Notification
@@ -59,11 +59,12 @@ const DevicesNotifications: React.FC<{
           </Notification>
         )}
       {/* When filtering results in no devices */}
-      {devices.filter((device) => device.showDevice).length === 0 && (
-        <Notification type={NotificationsType.WARNING}>
-          <p>No matching devices found</p>
-        </Notification>
-      )}
+      {apiStatus === ApiStatusEnum.SUCCESS &&
+        devices.filter((device) => device.showDevice).length === 0 && (
+          <Notification type={NotificationsType.WARNING}>
+            <p>No matching devices found</p>
+          </Notification>
+        )}
     </>
   );
 };

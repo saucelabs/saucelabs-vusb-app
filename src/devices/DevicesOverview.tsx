@@ -15,6 +15,8 @@ import {
   disconnectDeviceSession,
 } from './DeviceOperations';
 import DevicesNotifications from './components/DevicesNotifications';
+import DeviceDetailsEmptyCard from './components/DeviceDetailsEmptyCard';
+import { ApiStatusEnum } from './DeviceApiTypes';
 
 const DevicesOverview = () => {
   let fetchInUseDevices: ReturnType<typeof setTimeout>;
@@ -32,6 +34,7 @@ const DevicesOverview = () => {
     settings: { isOpen: isSettingsModalOpen },
   } = state;
   const {
+    connection: { username, accessKey },
     server: { autoAdbConnect },
   } = getGenericStorage();
 
@@ -42,17 +45,23 @@ const DevicesOverview = () => {
 
     // Only fetch the devices when no device is connected over vUSB, otherwise
     // we would overwrite all current settings/data
-    if (connectedDevices.length === 0 && deviceQuery === '') {
+    if (
+      connectedDevices.length === 0 &&
+      deviceQuery === '' &&
+      username &&
+      accessKey
+    ) {
       fetchDevices();
     }
-  }, [connectedDevices.length, deviceQuery, dispatch]);
+  }, [connectedDevices.length, deviceQuery, dispatch, username, accessKey]);
   useEffect(() => {
     fetchInUseDevices = setInterval(
-      () => getInUseDevices(dispatch, vusbStatus),
+      () =>
+        username && accessKey ? getInUseDevices(dispatch, vusbStatus) : null,
       5000
     );
     fetchAvailableDevices = setInterval(
-      () => getAvailableDevices(dispatch),
+      () => (username && accessKey ? getAvailableDevices(dispatch) : null),
       5000
     );
 
@@ -60,7 +69,7 @@ const DevicesOverview = () => {
       clearInterval(fetchInUseDevices);
       clearInterval(fetchAvailableDevices);
     };
-  }, [vusbStatus]);
+  }, [vusbStatus, username, accessKey]);
 
   const handleDeviceSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(deviceSearch(event.target.value));
@@ -126,20 +135,31 @@ const DevicesOverview = () => {
           </span>
         </div>
         <div className={Styles.devicesWrapper}>
-          {devices.map(
-            (device) =>
-              device.showDevice && (
-                <DeviceDetails
-                  adbAutoConnect={autoAdbConnect}
-                  clearDeviceLogs={clearDeviceLogs}
-                  closeSession={closeDeviceSession}
-                  device={device}
-                  key={device.descriptorId}
-                  launchTest={startDeviceSession}
-                  toggleDeviceLogs={toggleDeviceLogs}
-                  vusbStatus={vusbStatus}
-                />
-              )
+          {devices.length === 0 || apiStatus === ApiStatusEnum.ERROR ? (
+            <>
+              <DeviceDetailsEmptyCard />
+              <DeviceDetailsEmptyCard />
+              <DeviceDetailsEmptyCard />
+              <DeviceDetailsEmptyCard />
+              <DeviceDetailsEmptyCard />
+              <DeviceDetailsEmptyCard />
+            </>
+          ) : (
+            devices.map(
+              (device) =>
+                device.showDevice && (
+                  <DeviceDetails
+                    adbAutoConnect={autoAdbConnect}
+                    clearDeviceLogs={clearDeviceLogs}
+                    closeSession={closeDeviceSession}
+                    device={device}
+                    key={device.descriptorId}
+                    launchTest={startDeviceSession}
+                    toggleDeviceLogs={toggleDeviceLogs}
+                    vusbStatus={vusbStatus}
+                  />
+                )
+            )
           )}
         </div>
       </div>
