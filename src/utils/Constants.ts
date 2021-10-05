@@ -66,12 +66,6 @@ const LOCATION: LocationInterface = {
     endpoint: 'us-west-1',
   },
 } as const;
-const ROUTES = {
-  REQUIREMENTS: '/',
-  HOME: '/home',
-  SETTINGS: '/settings',
-  DEVICES: '/devices',
-};
 
 export {
   APP_VERSION,
@@ -79,7 +73,6 @@ export {
   LOCATION,
   MAX_LOG_LINES,
   MOBILE_OS,
-  ROUTES,
   SERVER_LOGS,
   STORAGE_FILE_NAME,
   VUSB_SERVER_NAME,

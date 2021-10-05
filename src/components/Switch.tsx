@@ -20,31 +20,29 @@ const Switch: React.FC<SwitchInterface> = ({
 }) => {
   return (
     <>
-      <div>
-        <label
-          className={`${Styles['switch-container']} ${
-            disabled ? Styles.disabled : ''
-          } ${checked ? Styles.checked : ''} ${error ? Styles.error : ''}`}
-          htmlFor={name}
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label
+        className={`${Styles.switchContainer} ${
+          disabled ? Styles.disabled : ''
+        } ${checked ? Styles.checked : ''} ${error ? Styles.error : ''}`}
+      >
+        <input
+          disabled={disabled}
+          checked={checked}
+          onChange={onChange}
+          className={Styles.switchCheckbox}
+          type="checkbox"
+          {...(name ? { name } : {})}
+        />
+        <span className={Styles.switchButton} />
+        <span
+          className={`${Styles.switchLabel} ${
+            disabled ? Styles.switchLabelDisabled : ''
+          }`}
         >
-          <input
-            disabled={disabled}
-            checked={checked}
-            onChange={onChange}
-            className={Styles['switch-checkbox']}
-            type="checkbox"
-            {...(name ? { name } : {})}
-          />
-          <span className={Styles['switch-button']} />
-          <span
-            className={`${Styles['switch-label']} ${
-              disabled ? Styles['switch-label-disabled'] : ''
-            }`}
-          >
-            {label}
-          </span>
-        </label>
-      </div>
+          {label}
+        </span>
+      </label>
     </>
   );
 };

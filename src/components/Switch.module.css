@@ -1,10 +1,10 @@
-.switch-checkbox {
+.switchCheckbox {
   height: 0;
   width: 0;
   visibility: hidden;
 }
 
-.switch-container {
+.switchContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,21 +18,21 @@
   margin: 5px 0;
 }
 
-.switch-container.checked {
+.switchContainer.checked {
   background-color: #a4c639;
 }
 
-.switch-container.disabled {
+.switchContainer.disabled {
   background-color: #dadde2;
   cursor: default;
 }
 
-.switch-container.error {
+.switchContainer.error {
   background: #f68d38;
   color: #f68d38;
 }
 
-.switch-container .switch-button {
+.switchContainer .switchButton {
   content: '';
   position: absolute;
   top: 1px;
@@ -45,26 +45,26 @@
   box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
 }
 
-.switch-container.disabled .switch-button {
+.switchContainer.disabled .switchButton {
   background: #bdbdbd;
 }
 
-.switch-checkbox:checked ~ .switch-button {
+.switchCheckbox:checked ~ .switchButton {
   left: calc(100% - 2px);
   transform: translateX(-100%);
 }
 
-.switch-container:active .switch-button {
+.switchContainer:active .switchButton {
   width: 60px;
 }
 
-.switch-label {
+.switchLabel {
   padding-left: 45px;
   font-size: 14px;
   font-weight: 700;
 }
 
-.switch-label-disabled {
+.switchLabelDisabled {
   color: #555;
   opacity: 0.5;
 }
