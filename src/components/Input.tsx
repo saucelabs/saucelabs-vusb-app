@@ -11,6 +11,7 @@ interface InputInterface {
   disabled?: boolean;
   label?: string;
   name: string;
+  onBlur?: () => void;
   onChange?: (arg: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type: InputType;
@@ -20,6 +21,7 @@ const Input: React.FC<InputInterface> = ({
   disabled,
   label,
   name,
+  onBlur,
   onChange,
   placeholder,
   type,
@@ -51,6 +53,7 @@ const Input: React.FC<InputInterface> = ({
             disabled={disabled}
             id={name}
             name={name}
+            {...(onBlur ? { onBlur } : {})}
             onChange={onChange}
             placeholder={placeholder}
             type={

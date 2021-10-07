@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import semver from 'semver';
 import DeviceDetails from './components/DeviceDetails';
 import Input, { InputType } from '../components/Input';
 import { StoreContext } from '../store/Store';
@@ -17,6 +18,8 @@ import {
 import DevicesNotifications from './components/DevicesNotifications';
 import DeviceDetailsEmptyCard from './components/DeviceDetailsEmptyCard';
 import { ApiStatusEnum } from './DeviceApiTypes';
+import ProductTour from '../productTour/ProductTour';
+import { APP_VERSION } from '../utils/Constants';
 
 const DevicesOverview = () => {
   let fetchInUseDevices: ReturnType<typeof setTimeout>;
@@ -35,8 +38,14 @@ const DevicesOverview = () => {
   } = state;
   const {
     connection: { username, accessKey },
+    productTour = { appVersion: APP_VERSION },
     server: { autoAdbConnect },
   } = getGenericStorage();
+  const { appVersion } = productTour;
+  const [showProductTour, setShowProductTour] = useState(
+    semver.gt(APP_VERSION, appVersion)
+  );
+  const skipProductTour = () => setShowProductTour(false);
 
   useEffect(() => {
     async function fetchDevices() {
@@ -105,6 +114,7 @@ const DevicesOverview = () => {
 
   return (
     <div className={Styles.container}>
+      {showProductTour && <ProductTour skipProductTour={skipProductTour} />}
       {/* Only show when the settings screen is not open */}
       {!isSettingsModalOpen && (
         <DevicesNotifications

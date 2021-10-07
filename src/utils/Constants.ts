@@ -50,6 +50,9 @@ const DEFAULT_SETTINGS: DefaultSettingsInterface = {
         password: '',
       },
     },
+    productTour: {
+      appVersion: '1.0.1',
+    },
   },
 };
 const SERVER_LOGS = 'server.log';

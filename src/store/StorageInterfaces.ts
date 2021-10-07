@@ -25,6 +25,10 @@ interface DeviceProxyInterface {
   username: string;
   password: string;
 }
+interface ProductTour {
+  appVersion: string;
+}
+
 interface StorageInterface {
   connection: ConnectionInterface;
   proxy: ServerProxyInterface;
@@ -32,11 +36,13 @@ interface StorageInterface {
   device: {
     proxy: DeviceProxyInterface;
   };
+  productTour?: ProductTour;
 }
 
 export {
   ConnectionInterface,
   DeviceProxyInterface,
+  ProductTour,
   ServerProxyInterface,
   ServerInterface,
   StorageInterface,
