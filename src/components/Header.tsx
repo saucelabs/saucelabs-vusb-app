@@ -12,6 +12,8 @@ import VusbServerMonitor from '../server/VusbServerMonitor';
 import SettingsButton from './SettingsButton';
 import { openSettingsContainer } from '../store/actions/SettingsActions';
 import Settings from '../settings/Settings';
+import { openProductTour } from '../store/actions/ProductTourActions';
+import InfoButton from './InfoButton';
 
 const Header: React.FC = () => {
   const { state, dispatch } = useContext(StoreContext);
@@ -23,6 +25,7 @@ const Header: React.FC = () => {
   const startVusbServer = () => startServer(dispatch, status);
   const stopVusbServer = () => stopServer(dispatch, connectedDevices);
   const openCloseSettingsScreen = () => dispatch(openSettingsContainer());
+  const skipProductTour = () => dispatch(openProductTour());
 
   return (
     <div className={Styles.container}>
@@ -31,6 +34,10 @@ const Header: React.FC = () => {
       </div>
       <div className={Styles.label}>Device Catalog</div>
       <div className={Styles.divider} />
+      <div className={Styles.buttonContainer}>
+        <InfoButton toggleProductTourScreen={skipProductTour} />
+      </div>
+      <div className={Styles.separator} />
       <div className={Styles.buttonContainer}>
         <SettingsButton toggleSettingsScreen={openCloseSettingsScreen} />
       </div>

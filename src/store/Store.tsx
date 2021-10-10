@@ -18,9 +18,16 @@ import {
 } from './reducers/SettingsReducer';
 import { SettingsActionType } from '../settings/SettingsTypes';
 import { SettingsStateInterface } from '../settings/SettingsInterfaces';
+import { ProductTourStateInterface } from '../productTour/ProductTourInterfaces';
+import {
+  initialProductTourState,
+  productTourReducer,
+} from './reducers/ProductTourReducer';
+import { ProductTourActionType } from '../productTour/ProductTourTypes';
 
 interface InitialStoreStateInterface {
   devices: DevicesStateInterface;
+  productTour: ProductTourStateInterface;
   requirements: RequirementStateInterface;
   server: ServerStateInterface;
   settings: SettingsStateInterface;
@@ -31,6 +38,7 @@ type DispatchType = React.Dispatch<any>;
 
 const initialState: InitialStoreStateInterface = {
   devices: initialDevicesState,
+  productTour: initialProductTourState,
   requirements: initialRequirementsState,
   server: initialServerState,
   settings: initialSettingsState,
@@ -43,14 +51,22 @@ const StoreContext = createContext<{
   dispatch: () => null,
 });
 const mainReducer = (
-  { devices, requirements, server, settings }: InitialStoreStateInterface,
+  {
+    devices,
+    productTour,
+    requirements,
+    server,
+    settings,
+  }: InitialStoreStateInterface,
   action:
     | DevicesActionType
+    | ProductTourActionType
     | RequirementsActionType
     | ServerActionType
     | SettingsActionType
 ) => ({
   devices: devicesReducer(devices, action as DevicesActionType),
+  productTour: productTourReducer(productTour, action as ProductTourActionType),
   requirements: requirementsReducer(
     requirements,
     action as RequirementsActionType

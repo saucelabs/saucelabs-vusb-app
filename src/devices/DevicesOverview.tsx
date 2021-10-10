@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import semver from 'semver';
 import DeviceDetails from './components/DeviceDetails';
 import Input, { InputType } from '../components/Input';
@@ -20,6 +20,7 @@ import DeviceDetailsEmptyCard from './components/DeviceDetailsEmptyCard';
 import { ApiStatusEnum } from './DeviceApiTypes';
 import ProductTour from '../productTour/ProductTour';
 import { APP_VERSION } from '../utils/Constants';
+import { openProductTour } from '../store/actions/ProductTourActions';
 
 const DevicesOverview = () => {
   let fetchInUseDevices: ReturnType<typeof setTimeout>;
@@ -33,6 +34,7 @@ const DevicesOverview = () => {
       error: apiError,
       status: apiStatus,
     },
+    productTour: { isOpen: showProductTour },
     server: { status: vusbStatus },
     settings: { isOpen: isSettingsModalOpen },
   } = state;
@@ -42,11 +44,12 @@ const DevicesOverview = () => {
     server: { autoAdbConnect },
   } = getGenericStorage();
   const { appVersion } = productTour;
-  const [showProductTour, setShowProductTour] = useState(
-    semver.gt(APP_VERSION, appVersion)
-  );
-  const skipProductTour = () => setShowProductTour(false);
 
+  useEffect(() => {
+    if (semver.gt(APP_VERSION, appVersion)) {
+      dispatch(openProductTour());
+    }
+  }, [dispatch, appVersion]);
   useEffect(() => {
     async function fetchDevices() {
       await getDevices(dispatch);
@@ -80,6 +83,7 @@ const DevicesOverview = () => {
     };
   }, [vusbStatus, username, accessKey]);
 
+  const skipProductTour = () => dispatch(openProductTour());
   const handleDeviceSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(deviceSearch(event.target.value));
   };
