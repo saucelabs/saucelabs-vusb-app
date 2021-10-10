@@ -2,30 +2,23 @@ import React, { useContext } from 'react';
 import Styles from './Header.module.css';
 import { StoreContext } from '../store/Store';
 import SauceBolt from '../assets/images/sauce-bolt.png';
-import ServerButtons from './ServerButtons';
+import ServerMonitorButton from './buttons/ServerMonitorButton';
 import { startServer, stopServer } from '../server/ServerOperations';
 import {
   vusbServerClearLogsAction,
   vusbServerMonitorToggleAction,
 } from '../store/actions/ServerActions';
 import VusbServerMonitor from '../server/VusbServerMonitor';
-import SettingsButton from './SettingsButton';
-import { openSettingsContainer } from '../store/actions/SettingsActions';
-import Settings from '../settings/Settings';
-import { openProductTour } from '../store/actions/ProductTourActions';
-import InfoButton from './InfoButton';
+import StartStopServerButton from './buttons/StartStopServerButton';
 
 const Header: React.FC = () => {
   const { state, dispatch } = useContext(StoreContext);
   const {
     devices: { connectedDevices },
     server: { error, log, showMonitor, status },
-    settings: { isOpen },
   } = state;
   const startVusbServer = () => startServer(dispatch, status);
   const stopVusbServer = () => stopServer(dispatch, connectedDevices);
-  const openCloseSettingsScreen = () => dispatch(openSettingsContainer());
-  const skipProductTour = () => dispatch(openProductTour());
 
   return (
     <div className={Styles.container}>
@@ -34,20 +27,19 @@ const Header: React.FC = () => {
       </div>
       <div className={Styles.label}>Device Catalog</div>
       <div className={Styles.divider} />
-      <div className={Styles.buttonContainer}>
-        <InfoButton toggleProductTourScreen={skipProductTour} />
-      </div>
       <div className={Styles.separator} />
       <div className={Styles.buttonContainer}>
-        <SettingsButton toggleSettingsScreen={openCloseSettingsScreen} />
-      </div>
-      <div className={Styles.separator} />
-      <div className={Styles.buttonContainer}>
-        <ServerButtons
-          serverError={error}
+        <StartStopServerButton
           serverStatus={status}
           startVusbServer={startVusbServer}
           stopVusbServer={stopVusbServer}
+        />
+      </div>
+      <div className={Styles.separator} />
+      <div className={Styles.buttonContainer}>
+        <ServerMonitorButton
+          serverError={error}
+          serverStatus={status}
           toggleVusbServerMonitor={() =>
             dispatch(vusbServerMonitorToggleAction())
           }
@@ -64,7 +56,6 @@ const Header: React.FC = () => {
           }
         />
       )}
-      {isOpen && <Settings onClick={openCloseSettingsScreen} />}
     </div>
   );
 };

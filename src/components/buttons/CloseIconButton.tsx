@@ -1,7 +1,7 @@
 import React from 'react';
-import Styles from './CloseIcon.module.css';
+import Styles from './CloseIconButton.module.css';
 
-const CloseIcon = ({ onClick }: { onClick: () => void }) => {
+const CloseIconButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <i
       role="button"
@@ -14,4 +14,4 @@ const CloseIcon = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
-export default CloseIcon;
+export default CloseIconButton;

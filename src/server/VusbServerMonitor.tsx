@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseIcon from '../components/CloseIcon';
+import CloseIconButton from '../components/buttons/CloseIconButton';
 import ServerMonitor from './components/ServerMonitor';
 
 interface VusbMonitorInterface {
@@ -23,7 +23,9 @@ const VusbServerMonitor: React.FC<VusbMonitorInterface> = ({
       serverError={serverError}
       logLines={logLines}
       serverStatus={serverStatus}
-      headerRightComponent={<CloseIcon onClick={toggleVusbServerMonitor} />}
+      headerRightComponent={
+        <CloseIconButton onClick={toggleVusbServerMonitor} />
+      }
     />
   );
 };

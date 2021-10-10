@@ -1,0 +1,21 @@
+.icon {
+  margin: 0 3px;
+  font-size: 26px !important;
+  width: auto !important;
+}
+
+.disabled {
+  color: #dadde2;
+}
+
+.hover:hover:not(.disabled) {
+  cursor: pointer;
+}
+
+.accept {
+  color: #7b971b;
+}
+
+.danger {
+  color: #ce2a2b;
+}

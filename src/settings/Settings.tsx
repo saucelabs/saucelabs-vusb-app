@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { remote } from 'electron';
 import Styles from './SettingsPage.module.css';
 import Tabs from '../components/Tabs';
-import SubmitButton from '../components/SubmitButton';
+import SubmitButton from '../components/buttons/SubmitButton';
 import Connection from './components/Connection';
 import ServerProxy from './components/ServerProxy';
 import Server from './components/Server';
@@ -11,7 +11,7 @@ import DeviceProxy from './components/DeviceProxy';
 import { getGenericStorage, setGenericStorage } from './SettingsStorage';
 import { StoreContext } from '../store/Store';
 import { VusbServerStatusEnum } from '../server/ServerTypes';
-import CloseIcon from '../components/CloseIcon';
+import CloseIconButton from '../components/buttons/CloseIconButton';
 import SauceBolt from '../assets/images/sauce-bolt.png';
 
 const Settings: React.FC<{ onClick: () => void }> = ({ onClick }) => {
@@ -119,7 +119,7 @@ const Settings: React.FC<{ onClick: () => void }> = ({ onClick }) => {
         <div className={Styles.label}>Settings</div>
         <div className={Styles.divider} />
         <div className={Styles.buttonContainer}>
-          <CloseIcon onClick={onClick} />
+          <CloseIconButton onClick={onClick} />
         </div>
       </div>
       <form onSubmit={handleGenericSubmit} className={Styles.formContainer}>

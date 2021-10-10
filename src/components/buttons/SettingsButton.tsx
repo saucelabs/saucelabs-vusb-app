@@ -14,7 +14,7 @@ const SettingsButton: React.FC<SettingsButtonInterface> = ({
         role="button"
         tabIndex={0}
         aria-label="Open settings"
-        className={`${Styles.icon} ${Styles.hover} fas fa-cogs`}
+        className={`${Styles.icon} ${Styles.hover} fas fa-cog`}
         onClick={toggleSettingsScreen}
         onKeyDown={toggleSettingsScreen}
       />

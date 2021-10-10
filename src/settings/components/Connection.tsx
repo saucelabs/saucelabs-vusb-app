@@ -1,6 +1,6 @@
 import React from 'react';
 import Input, { InputType } from '../../components/Input';
-import RadioButton from '../../components/RadioButton';
+import RadioButton from '../../components/buttons/RadioButton';
 import Styles from './Settings.module.css';
 import { LOCATION } from '../../utils/Constants';
 import { ConnectionInterface } from '../../store/StorageInterfaces';

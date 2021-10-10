@@ -9,11 +9,18 @@ import {
   updateRequirementsError,
 } from '../store/actions/RequirementsActions';
 import { isMac, SYSTEM_CHECKS } from '../utils/Checks';
+import RequirementsButton from './buttons/RequirementsButton';
+import Settings from '../settings/Settings';
+import SettingsButton from './buttons/SettingsButton';
+import { openSettingsContainer } from '../store/actions/SettingsActions';
+import { openProductTour } from '../store/actions/ProductTourActions';
+import InfoButton from './buttons/InfoButton';
 
 const Footer = () => {
   const {
     state: {
-      requirements: { isError, isOpen },
+      requirements: { isError, isOpen: isRequirementsOpen },
+      settings: { isOpen: isSettingsOpen },
     },
     dispatch,
   } = React.useContext(StoreContext);
@@ -25,21 +32,13 @@ const Footer = () => {
       : androidCheck;
     dispatch(updateRequirementsError(!isSystemOperational));
   }, [dispatch]);
-
+  const openCloseSettingsScreen = () => dispatch(openSettingsContainer());
   const openCloseRequirementsContainer = () =>
     dispatch(openRequirementsContainer());
-  const checkIcon = isError ? 'fa-exclamation-triangle' : 'fa-check';
-  const colorClass = isError ? 'danger' : 'accept';
-  const openCloseIcon = isOpen ? 'fa-chevron-up' : 'fa-chevron-down';
+  const skipProductTour = () => dispatch(openProductTour());
 
   return (
     <>
-      {isOpen && (
-        <Requirements
-          systemData={SYSTEM_CHECKS}
-          onClick={openCloseRequirementsContainer}
-        />
-      )}
       <div className={Styles.container}>
         <div className={Styles.logoContainer}>
           <img src={LogoSL} alt="Sauce Labs Logo" />
@@ -53,21 +52,31 @@ const Footer = () => {
         <div
           className={`${Styles.requirementsTextContainer} ${Styles.footerItem}`}
         >
-          <button
-            className={Styles.requirementsButton}
-            type="button"
-            onClick={() => openCloseRequirementsContainer()}
-          >
-            <i
-              className={`${Styles.requirementsIcon} fas ${checkIcon} ${Styles[colorClass]}`}
-            />
-            Requirements
-            <i
-              className={`${Styles.requirementsIcon} fas ${openCloseIcon} ${Styles.chevron}`}
-            />
-          </button>
+          <InfoButton toggleProductTourScreen={skipProductTour} />
+        </div>
+        <div className={Styles.separator} />
+        <div
+          className={`${Styles.requirementsTextContainer} ${Styles.footerItem}`}
+        >
+          <RequirementsButton
+            isError={isError}
+            toggleRequirementsScreen={openCloseRequirementsContainer}
+          />
+        </div>
+        <div className={Styles.separator} />
+        <div
+          className={`${Styles.requirementsTextContainer} ${Styles.footerItem}`}
+        >
+          <SettingsButton toggleSettingsScreen={openCloseSettingsScreen} />
         </div>
       </div>
+      {isRequirementsOpen && (
+        <Requirements
+          systemData={SYSTEM_CHECKS}
+          onClick={openCloseRequirementsContainer}
+        />
+      )}
+      {isSettingsOpen && <Settings onClick={openCloseSettingsScreen} />}
     </>
   );
 };

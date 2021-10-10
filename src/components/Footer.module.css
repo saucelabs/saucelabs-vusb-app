@@ -57,28 +57,3 @@
 .requirementsTextContainer {
   margin-left: auto;
 }
-
-.requirementsButton {
-  color: #000000;
-  background-color: transparent;
-  border: 0 transparent;
-  font-size: 14px;
-}
-
-.requirementsIcon {
-  margin-right: 10px;
-  font-size: 22px;
-}
-
-.accept {
-  color: #7b971b;
-}
-
-.danger {
-  color: #ce2a2b;
-}
-
-.chevron {
-  margin-left: 10px;
-  font-size: 14px;
-}

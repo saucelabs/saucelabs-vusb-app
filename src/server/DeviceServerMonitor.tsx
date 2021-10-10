@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseIcon from '../components/CloseIcon';
+import CloseIconButton from '../components/buttons/CloseIconButton';
 import ServerMonitor from './components/ServerMonitor';
 import Styles from './DeviceServerMonitor.module.css';
 
@@ -29,7 +29,7 @@ const DeviceServerMonitor: React.FC<DeviceServerMonitorInterface> = ({
       clearLogs={() => clearLogs(deviceID)}
       headerCenterComponent={<span className={Styles.device}>{device}</span>}
       headerRightComponent={
-        <CloseIcon onClick={() => toggleDeviceLogs(deviceID, showLogs)} />
+        <CloseIconButton onClick={() => toggleDeviceLogs(deviceID, showLogs)} />
       }
       logLines={logLines}
       serverError={serverError}

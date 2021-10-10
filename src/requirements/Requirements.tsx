@@ -4,7 +4,8 @@ import Styles from './Requirements.module.css';
 import Requirement from './components/Requirement';
 import { isMac, SYSTEM_CHECKS } from '../utils/Checks';
 import { SystemChecksInterface } from './RequirementsTypes';
-import CloseIcon from '../components/CloseIcon';
+import CloseIconButton from '../components/buttons/CloseIconButton';
+import SauceBolt from '../assets/images/sauce-bolt.png';
 
 const Requirements: React.FC<{
   systemData: SystemChecksInterface;
@@ -50,53 +51,62 @@ const Requirements: React.FC<{
 
   return (
     <div className={Styles.container}>
-      <div className={Styles.closeButtonContainer}>
-        <CloseIcon onClick={onClick} />
+      <div className={Styles.headerContainer}>
+        <div className={Styles.logo}>
+          <img src={SauceBolt} alt="Sauce Labs Bolt" />
+        </div>
+        <div className={Styles.label}>Requirements</div>
+        <div className={Styles.divider} />
+        <div className={Styles.buttonContainer}>
+          <CloseIconButton onClick={onClick} />
+        </div>
       </div>
-      <div className={Styles.requirementsContainer}>
-        <i
-          className={`fas ${
-            isSystemOperational ? 'fa-check' : 'fa-exclamation-triangle'
-          } ${Styles.icon} ${Styles[colorClass]}`}
-        />
-        <div>
-          <div className={Styles.header}>
-            <span className={Styles.label}>Requirements checklist</span>
-            {/* eslint-disable-next-line no-nested-ternary */}
-            {isSystemOperational
-              ? successMessage()
-              : !isSystemOperational && XCODE.isOSX && XCODE.label === 'XCODE'
-              ? errorMessage()
-              : warningMessage()}
-          </div>
-          {Object.values(SYSTEM_CHECKS).map(
-            ({ check, isOSX, label, message, name }) => {
-              return (
-                <Requirement
-                  check={check}
-                  isOSX={isOSX}
-                  key={name}
-                  label={label}
-                  message={message}
-                />
-              );
-            }
-          )}
-          <div
-            className={`${Styles.bugContainer} ${Styles.requirementContainer}`}
-          >
-            <button
-              type="button"
-              className={Styles.link}
-              onClick={() =>
-                shell.openExternal(
-                  'https://github.com/saucelabs/saucelabs-vusb-app/issues/'
-                )
+      <div className={Styles.mainRequirementsContainer}>
+        <div className={Styles.requirementsContainer}>
+          <i
+            className={`fas ${
+              isSystemOperational ? 'fa-check' : 'fa-exclamation-triangle'
+            } ${Styles.icon} ${Styles[colorClass]}`}
+          />
+          <div>
+            <div className={Styles.header}>
+              <span className={Styles.label}>Requirements checklist</span>
+              {/* eslint-disable-next-line no-nested-ternary */}
+              {isSystemOperational
+                ? successMessage()
+                : !isSystemOperational && XCODE.isOSX && XCODE.label === 'XCODE'
+                ? errorMessage()
+                : warningMessage()}
+            </div>
+            {Object.values(SYSTEM_CHECKS).map(
+              ({ check, isOSX, label, message, name }) => {
+                return (
+                  <Requirement
+                    check={check}
+                    isOSX={isOSX}
+                    key={name}
+                    label={label}
+                    message={message}
+                  />
+                );
               }
+            )}
+            <div
+              className={`${Styles.bugContainer} ${Styles.requirementContainer}`}
             >
-              <i className="fa fa-bug" />
-              <span className={Styles.bugText}>Report an issue</span>
-            </button>
+              <button
+                type="button"
+                className={Styles.link}
+                onClick={() =>
+                  shell.openExternal(
+                    'https://github.com/saucelabs/saucelabs-vusb-app/issues/'
+                  )
+                }
+              >
+                <i className="fa fa-bug" />
+                <span className={Styles.bugText}>Report an issue</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
