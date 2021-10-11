@@ -2,16 +2,12 @@ import React from 'react';
 import { shell } from 'electron';
 import Styles from './Requirements.module.css';
 import Requirement from './components/Requirement';
-import { isMac, SYSTEM_CHECKS } from '../utils/Checks';
+import { isSystemOperational, SYSTEM_CHECKS } from '../utils/Checks';
 import CloseIconButton from '../components/buttons/CloseIconButton';
 import Header from '../components/Header';
 
 const Requirements: React.FC = () => {
-  const { ADB, ANDROID_HOME, JAVA_HOME, XCODE } = SYSTEM_CHECKS;
-  const androidCheck = ADB.check && ANDROID_HOME.check && JAVA_HOME.check;
-  const isSystemOperational = isMac()
-    ? androidCheck && XCODE.check
-    : androidCheck;
+  const { XCODE } = SYSTEM_CHECKS;
   const errorMessage = () => (
     <span className={`${Styles.subLabel} ${Styles.danger}`}>
       One or more required dependencies are missing!
@@ -39,7 +35,7 @@ const Requirements: React.FC = () => {
     </span>
   );
   // eslint-disable-next-line no-nested-ternary
-  const colorClass = isSystemOperational
+  const colorClass = isSystemOperational()
     ? 'accept'
     : !XCODE.isOSX && XCODE.label === 'XCODE'
     ? 'warning'
@@ -55,14 +51,14 @@ const Requirements: React.FC = () => {
         <div className={Styles.requirementsContainer}>
           <i
             className={`fas ${
-              isSystemOperational ? 'fa-check' : 'fa-exclamation-triangle'
+              isSystemOperational() ? 'fa-check' : 'fa-exclamation-triangle'
             } ${Styles.icon} ${Styles[colorClass]}`}
           />
           <div>
             <div className={Styles.header}>
               <span className={Styles.label}>Requirements checklist</span>
               {/* eslint-disable-next-line no-nested-ternary */}
-              {isSystemOperational
+              {isSystemOperational()
                 ? successMessage()
                 : !isSystemOperational && XCODE.isOSX && XCODE.label === 'XCODE'
                 ? errorMessage()

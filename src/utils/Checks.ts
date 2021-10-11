@@ -179,4 +179,22 @@ function isIOSError(): boolean {
   return isMac() && !SYSTEM_CHECKS.XCODE.check;
 }
 
-export { isAndroidError, isIOSError, isLinux, isMac, isWindows, SYSTEM_CHECKS };
+/**
+ * Check if the system is operational
+ */
+function isSystemOperational(): boolean {
+  const { ADB, ANDROID_HOME, JAVA_HOME, XCODE } = SYSTEM_CHECKS;
+  const androidCheck = ADB.check && ANDROID_HOME.check && JAVA_HOME.check;
+
+  return isMac() ? androidCheck && XCODE.check : androidCheck;
+}
+
+export {
+  isAndroidError,
+  isIOSError,
+  isLinux,
+  isMac,
+  isSystemOperational,
+  isWindows,
+  SYSTEM_CHECKS,
+};

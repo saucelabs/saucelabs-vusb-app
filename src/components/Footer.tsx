@@ -7,6 +7,7 @@ import RequirementsButton from './buttons/RequirementsButton';
 import SettingsButton from './buttons/SettingsButton';
 import { openProductTour } from '../store/actions/ProductTourActions';
 import InfoButton from './buttons/InfoButton';
+import { isSystemOperational } from '../utils/Checks';
 
 const Footer = () => {
   const { dispatch } = React.useContext(StoreContext);
@@ -24,21 +25,15 @@ const Footer = () => {
         </div>
         <div className={Styles.divider} />
         <div className={Styles.separator} />
-        <div
-          className={`${Styles.requirementsTextContainer} ${Styles.footerItem}`}
-        >
+        <div className={Styles.footerItem}>
           <InfoButton toggleProductTourScreen={skipProductTour} />
         </div>
         <div className={Styles.separator} />
-        <div
-          className={`${Styles.requirementsTextContainer} ${Styles.footerItem}`}
-        >
-          <RequirementsButton isError={false} />
+        <div className={Styles.footerItem}>
+          <RequirementsButton isError={!isSystemOperational()} />
         </div>
         <div className={Styles.separator} />
-        <div
-          className={`${Styles.requirementsTextContainer} ${Styles.footerItem}`}
-        >
+        <div className={Styles.footerItem}>
           <SettingsButton />
         </div>
       </div>
