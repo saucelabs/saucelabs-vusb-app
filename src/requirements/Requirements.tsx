@@ -3,15 +3,11 @@ import { shell } from 'electron';
 import Styles from './Requirements.module.css';
 import Requirement from './components/Requirement';
 import { isMac, SYSTEM_CHECKS } from '../utils/Checks';
-import { SystemChecksInterface } from './RequirementsTypes';
 import CloseIconButton from '../components/buttons/CloseIconButton';
-import SauceBolt from '../assets/images/sauce-bolt.png';
+import Header from '../components/Header';
 
-const Requirements: React.FC<{
-  systemData: SystemChecksInterface;
-  onClick: () => void;
-}> = ({ systemData, onClick }) => {
-  const { ADB, ANDROID_HOME, JAVA_HOME, XCODE } = systemData;
+const Requirements: React.FC = () => {
+  const { ADB, ANDROID_HOME, JAVA_HOME, XCODE } = SYSTEM_CHECKS;
   const androidCheck = ADB.check && ANDROID_HOME.check && JAVA_HOME.check;
   const isSystemOperational = isMac()
     ? androidCheck && XCODE.check
@@ -51,16 +47,10 @@ const Requirements: React.FC<{
 
   return (
     <div className={Styles.container}>
-      <div className={Styles.headerContainer}>
-        <div className={Styles.logo}>
-          <img src={SauceBolt} alt="Sauce Labs Bolt" />
-        </div>
-        <div className={Styles.label}>Requirements</div>
-        <div className={Styles.divider} />
-        <div className={Styles.buttonContainer}>
-          <CloseIconButton onClick={onClick} />
-        </div>
-      </div>
+      <Header
+        title="Requirements"
+        headerComponents={[<CloseIconButton key="CloseIconButton" />]}
+      />
       <div className={Styles.mainRequirementsContainer}>
         <div className={Styles.requirementsContainer}>
           <i

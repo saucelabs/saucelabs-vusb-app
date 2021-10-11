@@ -10,13 +10,12 @@ const initialServerState: ServerStateInterface = {
   status: VusbServerStatusEnum.IDLE,
   log: [],
   error: false,
-  showMonitor: false,
 };
 const serverReducer = (
   state: ServerStateInterface = initialServerState,
   action: ServerActionType
 ) => {
-  const { log, showMonitor } = state;
+  const { log } = state;
   const actionLog = 'log' in action ? action.log : '';
   const logLine =
     typeof actionLog === 'string'
@@ -77,11 +76,6 @@ const serverReducer = (
         ...state,
         status: VusbServerStatusEnum.IDLE,
         log: trimLogArray(log.concat(logLineArray)),
-      };
-    case ACTIONS.VUSB_MONITOR_TOGGLE:
-      return {
-        ...state,
-        showMonitor: !showMonitor,
       };
     case ACTIONS.VUSB_ADB_LOG:
       return {

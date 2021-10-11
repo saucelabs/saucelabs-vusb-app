@@ -2,7 +2,6 @@ enum ServerActionEnum {
   VUSB_START = 'VUSB_START',
   VUSB_STARTING = 'VUSB_STARTING',
   VUSB_RUNNING = 'VUSB_RUNNING',
-  VUSB_MONITOR_TOGGLE = 'VUSB_MONITOR_TOGGLE',
   VUSB_ADB_LOG = 'VUSB_ADB_LOG',
   VUSB_ERROR = 'VUSB_ERROR',
   VUSB_STOP = 'VUSB_STOP',
@@ -32,7 +31,6 @@ type ServerActionType =
   | { type: ServerActionEnum.VUSB_STOPPED; log: ArrayBuffer | string }
   | { type: ServerActionEnum.VUSB_IDLE; log: ArrayBuffer | string }
   | { type: ServerActionEnum.VUSB_ADB_LOG; log: ArrayBuffer | string }
-  | { type: ServerActionEnum.VUSB_MONITOR_TOGGLE }
   | { type: ServerActionEnum.CLEAR_SERVER_LOGS };
 
 export { ServerActionType, ServerActionEnum, VusbServerStatusEnum };

@@ -1,24 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Styles from './SettingsButton.module.css';
+import { ROUTES } from '../../utils/Constants';
 
-interface SettingsButtonInterface {
-  toggleSettingsScreen: () => void;
-}
-
-const SettingsButton: React.FC<SettingsButtonInterface> = ({
-  toggleSettingsScreen,
-}) => {
+const SettingsButton: React.FC = () => {
   return (
-    <>
-      <i
-        role="button"
-        tabIndex={0}
-        aria-label="Open settings"
-        className={`${Styles.icon} ${Styles.hover} fas fa-cog`}
-        onClick={toggleSettingsScreen}
-        onKeyDown={toggleSettingsScreen}
-      />
-    </>
+    <Link to={ROUTES.SETTINGS} replace>
+      <i className={`${Styles.icon} ${Styles.hover} fas fa-cog`} />
+    </Link>
   );
 };
 

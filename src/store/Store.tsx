@@ -6,18 +6,6 @@ import { DevicesStateInterface } from '../devices/DeviceInterfaces';
 import { ServerActionType } from '../server/ServerTypes';
 import { ServerStateInterface } from '../server/ServerInterfaces';
 import { DevicesActionType } from '../devices/DeviceTypes';
-import { RequirementStateInterface } from '../requirements/RequirementInterfaces';
-import {
-  initialRequirementsState,
-  requirementsReducer,
-} from './reducers/RequirementsReducer';
-import { RequirementsActionType } from '../requirements/RequirementsTypes';
-import {
-  initialSettingsState,
-  settingsReducer,
-} from './reducers/SettingsReducer';
-import { SettingsActionType } from '../settings/SettingsTypes';
-import { SettingsStateInterface } from '../settings/SettingsInterfaces';
 import { ProductTourStateInterface } from '../productTour/ProductTourInterfaces';
 import {
   initialProductTourState,
@@ -28,9 +16,7 @@ import { ProductTourActionType } from '../productTour/ProductTourTypes';
 interface InitialStoreStateInterface {
   devices: DevicesStateInterface;
   productTour: ProductTourStateInterface;
-  requirements: RequirementStateInterface;
   server: ServerStateInterface;
-  settings: SettingsStateInterface;
 }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -39,9 +25,7 @@ type DispatchType = React.Dispatch<any>;
 const initialState: InitialStoreStateInterface = {
   devices: initialDevicesState,
   productTour: initialProductTourState,
-  requirements: initialRequirementsState,
   server: initialServerState,
-  settings: initialSettingsState,
 };
 const StoreContext = createContext<{
   state: InitialStoreStateInterface;
@@ -51,28 +35,12 @@ const StoreContext = createContext<{
   dispatch: () => null,
 });
 const mainReducer = (
-  {
-    devices,
-    productTour,
-    requirements,
-    server,
-    settings,
-  }: InitialStoreStateInterface,
-  action:
-    | DevicesActionType
-    | ProductTourActionType
-    | RequirementsActionType
-    | ServerActionType
-    | SettingsActionType
+  { devices, productTour, server }: InitialStoreStateInterface,
+  action: DevicesActionType | ProductTourActionType | ServerActionType
 ) => ({
   devices: devicesReducer(devices, action as DevicesActionType),
   productTour: productTourReducer(productTour, action as ProductTourActionType),
-  requirements: requirementsReducer(
-    requirements,
-    action as RequirementsActionType
-  ),
   server: serverReducer(server, action as ServerActionType),
-  settings: settingsReducer(settings, action as SettingsActionType),
 });
 const StoreProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(

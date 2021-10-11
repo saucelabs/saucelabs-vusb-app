@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Styles from './ProductTour.module.css';
-import WelcomeSlide from './components/WelcomeSlide';
-import UsernameSlide from './components/UsernameSlide';
-import AccessKey from './components/AccessKey';
-import FinishedSlide from './components/FinishedSlide';
+import WelcomeSlide from './slides/WelcomeSlide';
+import UsernameSlide from './slides/UsernameSlide';
+import AccessKey from './slides/AccessKey';
+import FinishedSlide from './slides/FinishedSlide';
 
 const ProductTour: React.FC<{
   isUserDataStored: boolean;
@@ -85,7 +85,8 @@ const ProductTour: React.FC<{
           </button>
           {slides.map((slide, index) => (
             <div
-              key="slide"
+              // eslint-disable-next-line react/no-array-index-key
+              key={`slide-${index}`}
               className={`${Styles.slide} ${
                 activeIndex === index ? Styles.active : ''
               }`}
@@ -102,7 +103,8 @@ const ProductTour: React.FC<{
           />
           <div className={Styles.dotsContainer}>
             {[...Array(slidesLength)].map((_x, i) => (
-              <Dot key="dot" index={i} onClick={goToSlide} />
+              // eslint-disable-next-line react/no-array-index-key
+              <Dot key={`dot-${i}`} index={i} onClick={goToSlide} />
             ))}
           </div>
           <Button

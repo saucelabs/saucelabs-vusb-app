@@ -1,29 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Styles from './RequirementsButton.module.css';
+import { ROUTES } from '../../utils/Constants';
 
 interface RequirementsButtonInterface {
   isError: boolean;
-  toggleRequirementsScreen: () => void;
 }
 
 const RequirementsButton: React.FC<RequirementsButtonInterface> = ({
   isError,
-  toggleRequirementsScreen,
 }) => {
   const icon = isError ? 'fa-exclamation-triangle' : 'fa-tasks';
   const colorClass = isError ? 'danger' : 'accept';
 
   return (
-    <>
+    <Link to={ROUTES.REQUIREMENTS} replace>
       <i
-        role="button"
-        tabIndex={0}
-        aria-label="Open product tour"
         className={`${Styles.icon} ${Styles.hover} fas ${icon} ${Styles[colorClass]}`}
-        onClick={toggleRequirementsScreen}
-        onKeyDown={toggleRequirementsScreen}
       />
-    </>
+    </Link>
   );
 };
 

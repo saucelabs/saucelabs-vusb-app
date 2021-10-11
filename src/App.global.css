@@ -54,6 +54,10 @@ body {
   overflow: hidden;
 }
 
+a {
+  color: inherit;
+}
+
 button,
 input,
 div,

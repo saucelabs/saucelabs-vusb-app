@@ -1,16 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Styles from './CloseIconButton.module.css';
+import { ROUTES } from '../../utils/Constants';
 
-const CloseIconButton = ({ onClick }: { onClick: () => void }) => {
+const CloseIconButton = () => {
   return (
-    <i
-      role="button"
-      aria-label="Close"
-      tabIndex={0}
-      className={`${Styles.icon} ${Styles.hover} fas fa-times`}
-      onClick={() => onClick()}
-      onKeyDown={() => onClick()}
-    />
+    <Link to={ROUTES.DEVICES} replace>
+      <i className={`${Styles.icon} ${Styles.hover} fas fa-times`} />
+    </Link>
   );
 };
 

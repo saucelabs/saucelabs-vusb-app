@@ -1,18 +1,19 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { StoreProvider } from './store/Store';
 import './App.global.css';
-import Header from './components/Header';
 import Footer from './components/Footer';
-import DevicesOverview from './devices/DevicesOverview';
+import Routes from './Routes';
 
 const App: React.FC = () => {
   return (
     <StoreProvider>
-      <div className="mainContainer">
-        <Header />
-        <DevicesOverview />
-        <Footer />
-      </div>
+      <Router>
+        <div className="mainContainer">
+          <Routes />
+          <Footer />
+        </div>
+      </Router>
     </StoreProvider>
   );
 };

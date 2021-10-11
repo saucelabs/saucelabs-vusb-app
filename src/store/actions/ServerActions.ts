@@ -81,15 +81,6 @@ function vusbServerIdleAction(log: ArrayBuffer) {
 }
 
 /**
- * Show or hide the vUSB server monitor
- */
-function vusbServerMonitorToggleAction() {
-  return {
-    type: ServerActionEnum.VUSB_MONITOR_TOGGLE,
-  };
-}
-
-/**
  * Clear the logs
  */
 function vusbServerClearLogsAction() {
@@ -113,7 +104,6 @@ export {
   vusbServerErrorAction,
   vusbServerIdleAction,
   vusbServerLogAdbAction,
-  vusbServerMonitorToggleAction,
   vusbServerRunningAction,
   vusbServerStartAction,
   vusbServerStartingAction,

@@ -12,9 +12,9 @@ import { getGenericStorage, setGenericStorage } from './SettingsStorage';
 import { StoreContext } from '../store/Store';
 import { VusbServerStatusEnum } from '../server/ServerTypes';
 import CloseIconButton from '../components/buttons/CloseIconButton';
-import SauceBolt from '../assets/images/sauce-bolt.png';
+import Header from '../components/Header';
 
-const Settings: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+const Settings: React.FC = () => {
   let closeNotification: ReturnType<typeof setTimeout>;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -112,16 +112,10 @@ const Settings: React.FC<{ onClick: () => void }> = ({ onClick }) => {
 
   return (
     <div className={Styles.container}>
-      <div className={Styles.containerHeader}>
-        <div className={Styles.logo}>
-          <img src={SauceBolt} alt="Sauce Labs Bolt" />
-        </div>
-        <div className={Styles.label}>Settings</div>
-        <div className={Styles.divider} />
-        <div className={Styles.buttonContainer}>
-          <CloseIconButton onClick={onClick} />
-        </div>
-      </div>
+      <Header
+        title="Settings"
+        headerComponents={[<CloseIconButton key="CloseIconButton" />]}
+      />
       <form onSubmit={handleGenericSubmit} className={Styles.formContainer}>
         {dataIsStored && (
           <Notification blocking type={NotificationsType.INFO} title="Info">

@@ -13,10 +13,10 @@ const FinishedSlide: React.FC = () => {
             Congratulations, you&apos;ve now set up the
             <br />
             <strong>Sauce Labs Virtual USB GUI</strong> <br />
-            and now how to use it.
+            and know how to use it.
             <br />
             <br />
-            You can now close this tour by clicking on the <strong>Skip</strong>
+            You can close this tour by clicking on the <strong>Skip</strong>
             -button.
           </span>
         </div>

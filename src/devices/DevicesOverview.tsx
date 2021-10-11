@@ -24,6 +24,10 @@ import { ApiStatusEnum } from './DeviceApiTypes';
 import ProductTour from '../productTour/ProductTour';
 import { APP_VERSION } from '../utils/Constants';
 import { openProductTour } from '../store/actions/ProductTourActions';
+import Header from '../components/Header';
+import StartStopServerButton from '../components/buttons/StartStopServerButton';
+import { startServer, stopServer } from '../server/ServerOperations';
+import ServerMonitorButton from '../components/buttons/ServerMonitorButton';
 
 const DevicesOverview = () => {
   let fetchInUseDevices: ReturnType<typeof setTimeout>;
@@ -38,8 +42,7 @@ const DevicesOverview = () => {
       status: apiStatus,
     },
     productTour: { isOpen: showProductTour },
-    server: { status: vusbStatus },
-    settings: { isOpen: isSettingsModalOpen },
+    server: { error: vusbError, status: vusbStatus },
   } = state;
   const storageData = getGenericStorage();
   const {
@@ -93,6 +96,8 @@ const DevicesOverview = () => {
     };
   }, [vusbStatus, isUserDataStored]);
 
+  const startVusbServer = () => startServer(dispatch, vusbStatus);
+  const stopVusbServer = () => stopServer(dispatch, connectedDevices);
   const skipProductTour = () => dispatch(openProductTour());
   const handleDeviceSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(deviceSearch(event.target.value));
@@ -127,72 +132,87 @@ const DevicesOverview = () => {
   };
 
   return (
-    <div className={Styles.container}>
-      {showProductTour && (
-        <ProductTour
-          isUserDataStored={isUserDataStored}
-          skipProductTour={skipProductTour}
-        />
-      )}
-      {/* Only show when the settings screen is not open */}
-      {!isSettingsModalOpen && (
+    <>
+      <Header
+        title="Device Catalog"
+        headerComponents={[
+          <StartStopServerButton
+            key="StartStopServerButton"
+            serverStatus={vusbStatus}
+            startVusbServer={startVusbServer}
+            stopVusbServer={stopVusbServer}
+          />,
+          <ServerMonitorButton
+            key="ServerMonitorButton"
+            serverError={vusbError}
+            serverStatus={vusbStatus}
+          />,
+        ]}
+      />
+      <div className={Styles.container}>
+        {showProductTour && (
+          <ProductTour
+            isUserDataStored={isUserDataStored}
+            skipProductTour={skipProductTour}
+          />
+        )}
         <DevicesNotifications
           apiStatus={apiStatus}
           apiError={apiError}
           devices={devices}
           deviceQuery={deviceQuery}
         />
-      )}
-      <div>
-        <div className={Styles.flexContainer}>
-          <div className={Styles['flex-1-2']}>
-            <div className={Styles.searchBox}>
-              <Input
-                name="searchDevices"
-                placeholder="Search by device name, manufacturer or OS"
-                onChange={handleDeviceSearch}
-                type={InputType.SEARCH}
-                value={deviceQuery}
-              />
+        <div>
+          <div className={Styles.flexContainer}>
+            <div className={Styles['flex-1-2']}>
+              <div className={Styles.searchBox}>
+                <Input
+                  name="searchDevices"
+                  placeholder="Search by device name, manufacturer or OS"
+                  onChange={handleDeviceSearch}
+                  type={InputType.SEARCH}
+                  value={deviceQuery}
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className={Styles.textContainer}>
-          <span className={Styles.text}>
-            <span className={Styles.textBold}>Looking for a device?</span>{' '}
-            Please contact your Sauce Labs representative.
-          </span>
-        </div>
-        <div className={Styles.devicesWrapper}>
-          {devices.length === 0 || apiStatus === ApiStatusEnum.ERROR ? (
-            <>
-              <DeviceDetailsEmptyCard />
-              <DeviceDetailsEmptyCard />
-              <DeviceDetailsEmptyCard />
-              <DeviceDetailsEmptyCard />
-              <DeviceDetailsEmptyCard />
-              <DeviceDetailsEmptyCard />
-            </>
-          ) : (
-            devices.map(
-              (device) =>
-                device.showDevice && (
-                  <DeviceDetails
-                    adbAutoConnect={autoAdbConnect}
-                    clearDeviceLogs={clearDeviceLogs}
-                    closeSession={closeDeviceSession}
-                    device={device}
-                    key={device.descriptorId}
-                    launchTest={startDeviceSession}
-                    toggleDeviceLogs={toggleDeviceLogs}
-                    vusbStatus={vusbStatus}
-                  />
-                )
-            )
-          )}
+          <div className={Styles.textContainer}>
+            <span className={Styles.text}>
+              <span className={Styles.textBold}>Looking for a device?</span>{' '}
+              Please contact your Sauce Labs representative.
+            </span>
+          </div>
+          <div className={Styles.devicesWrapper}>
+            {devices.length === 0 || apiStatus === ApiStatusEnum.ERROR ? (
+              <>
+                <DeviceDetailsEmptyCard />
+                <DeviceDetailsEmptyCard />
+                <DeviceDetailsEmptyCard />
+                <DeviceDetailsEmptyCard />
+                <DeviceDetailsEmptyCard />
+                <DeviceDetailsEmptyCard />
+              </>
+            ) : (
+              devices.map(
+                (device) =>
+                  device.showDevice && (
+                    <DeviceDetails
+                      adbAutoConnect={autoAdbConnect}
+                      clearDeviceLogs={clearDeviceLogs}
+                      closeSession={closeDeviceSession}
+                      device={device}
+                      key={device.descriptorId}
+                      launchTest={startDeviceSession}
+                      toggleDeviceLogs={toggleDeviceLogs}
+                      vusbStatus={vusbStatus}
+                    />
+                  )
+              )
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

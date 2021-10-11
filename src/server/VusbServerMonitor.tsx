@@ -1,31 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CloseIconButton from '../components/buttons/CloseIconButton';
 import ServerMonitor from './components/ServerMonitor';
+import { StoreContext } from '../store/Store';
+import { vusbServerClearLogsAction } from '../store/actions/ServerActions';
 
-interface VusbMonitorInterface {
-  clearLogs: () => void;
-  logLines: string[];
-  serverError: boolean;
-  serverStatus: string;
-  toggleVusbServerMonitor: () => void;
-}
+const VusbServerMonitor: React.FC = () => {
+  const { state, dispatch } = useContext(StoreContext);
+  const {
+    server: { error: vusbError, log: vusbLogs, status: vusbStatus },
+  } = state;
 
-const VusbServerMonitor: React.FC<VusbMonitorInterface> = ({
-  clearLogs,
-  logLines,
-  serverError,
-  serverStatus,
-  toggleVusbServerMonitor,
-}) => {
   return (
     <ServerMonitor
-      clearLogs={clearLogs}
-      serverError={serverError}
-      logLines={logLines}
-      serverStatus={serverStatus}
-      headerRightComponent={
-        <CloseIconButton onClick={toggleVusbServerMonitor} />
-      }
+      clearLogs={() => dispatch(vusbServerClearLogsAction())}
+      serverError={vusbError}
+      logLines={vusbLogs}
+      serverStatus={vusbStatus}
+      headerRightComponent={<CloseIconButton />}
     />
   );
 };
