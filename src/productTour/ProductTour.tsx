@@ -5,17 +5,19 @@ import UsernameSlide from './components/UsernameSlide';
 import AccessKey from './components/AccessKey';
 import FinishedSlide from './components/FinishedSlide';
 
-const ProductTour: React.FC<{ skipProductTour: () => void }> = ({
-  skipProductTour,
-}) => {
+const ProductTour: React.FC<{
+  isUserDataStored: boolean;
+  skipProductTour: () => void;
+}> = ({ isUserDataStored, skipProductTour }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const slides = [
-    <WelcomeSlide activeIndex={activeIndex} key={0} order={0} />,
-    <UsernameSlide activeIndex={activeIndex} key={1} order={1} />,
-    <AccessKey activeIndex={activeIndex} key={2} order={2} />,
-    <FinishedSlide activeIndex={activeIndex} key={3} order={3} />,
+    <WelcomeSlide key={0} />,
+    ...(isUserDataStored
+      ? []
+      : [<UsernameSlide key={1} />, <AccessKey key={2} />]),
+    <FinishedSlide key={3} />,
   ];
-  const slidesLength = 4;
+  const slidesLength = slides.length;
   const Button: React.FC<{
     disabled?: boolean;
     label: string;
@@ -81,7 +83,16 @@ const ProductTour: React.FC<{ skipProductTour: () => void }> = ({
           >
             Skip
           </button>
-          {slides.map((slide) => slide)}
+          {slides.map((slide, index) => (
+            <div
+              key="slide"
+              className={`${Styles.slide} ${
+                activeIndex === index ? Styles.active : ''
+              }`}
+            >
+              {slide}
+            </div>
+          ))}
         </div>
         <div className={Styles.footer}>
           <Button
@@ -91,8 +102,7 @@ const ProductTour: React.FC<{ skipProductTour: () => void }> = ({
           />
           <div className={Styles.dotsContainer}>
             {[...Array(slidesLength)].map((_x, i) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Dot key={`dot-${i}`} index={i} onClick={goToSlide} />
+              <Dot key="dot" index={i} onClick={goToSlide} />
             ))}
           </div>
           <Button

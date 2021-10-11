@@ -1,16 +1,9 @@
 import React from 'react';
 import Styles from './Slide.module.css';
 
-const WelcomeSlide: React.FC<{ activeIndex: number; order: number }> = ({
-  activeIndex,
-  order,
-}) => {
+const WelcomeSlide: React.FC = () => {
   return (
-    <div
-      className={`${Styles.slide} ${
-        activeIndex === order ? Styles.active : ''
-      }`}
-    >
+    <>
       <div className={Styles.slideTop}>
         <span className={Styles.slideTitle}>Welcome!</span>
       </div>
@@ -30,7 +23,7 @@ const WelcomeSlide: React.FC<{ activeIndex: number; order: number }> = ({
           </span>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,13 +1,3 @@
-.slide {
-  display: none;
-  flex: 1;
-  flex-direction: column;
-}
-
-.slide.active {
-  display: flex;
-}
-
 .slideTop {
   background-color: #fafafa;
   border-top-left-radius: 4px;

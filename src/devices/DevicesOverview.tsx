@@ -10,7 +10,10 @@ import {
   deviceSessionToggleLogs,
 } from '../store/actions/DeviceActions';
 import Styles from './DevicesOverview.module.css';
-import { getGenericStorage } from '../settings/SettingsStorage';
+import {
+  getGenericStorage,
+  setGenericStorage,
+} from '../settings/SettingsStorage';
 import {
   connectToDeviceSession,
   disconnectDeviceSession,
@@ -38,18 +41,27 @@ const DevicesOverview = () => {
     server: { status: vusbStatus },
     settings: { isOpen: isSettingsModalOpen },
   } = state;
+  const storageData = getGenericStorage();
   const {
     connection: { username, accessKey },
     productTour = { appVersion: APP_VERSION },
     server: { autoAdbConnect },
-  } = getGenericStorage();
+  } = storageData;
   const { appVersion } = productTour;
+  const isUserDataStored = Boolean(username && accessKey);
 
   useEffect(() => {
     if (semver.gt(APP_VERSION, appVersion)) {
       dispatch(openProductTour());
+      // Update the version in the storage
+      setGenericStorage({
+        ...storageData,
+        productTour: {
+          appVersion: APP_VERSION,
+        },
+      });
     }
-  }, [dispatch, appVersion]);
+  }, [appVersion, dispatch, storageData]);
   useEffect(() => {
     async function fetchDevices() {
       await getDevices(dispatch);
@@ -60,20 +72,18 @@ const DevicesOverview = () => {
     if (
       connectedDevices.length === 0 &&
       deviceQuery === '' &&
-      username &&
-      accessKey
+      isUserDataStored
     ) {
       fetchDevices();
     }
-  }, [connectedDevices.length, deviceQuery, dispatch, username, accessKey]);
+  }, [connectedDevices.length, deviceQuery, dispatch, isUserDataStored]);
   useEffect(() => {
     fetchInUseDevices = setInterval(
-      () =>
-        username && accessKey ? getInUseDevices(dispatch, vusbStatus) : null,
+      () => (isUserDataStored ? getInUseDevices(dispatch, vusbStatus) : null),
       5000
     );
     fetchAvailableDevices = setInterval(
-      () => (username && accessKey ? getAvailableDevices(dispatch) : null),
+      () => (isUserDataStored ? getAvailableDevices(dispatch) : null),
       5000
     );
 
@@ -81,7 +91,7 @@ const DevicesOverview = () => {
       clearInterval(fetchInUseDevices);
       clearInterval(fetchAvailableDevices);
     };
-  }, [vusbStatus, username, accessKey]);
+  }, [vusbStatus, isUserDataStored]);
 
   const skipProductTour = () => dispatch(openProductTour());
   const handleDeviceSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +128,12 @@ const DevicesOverview = () => {
 
   return (
     <div className={Styles.container}>
-      {showProductTour && <ProductTour skipProductTour={skipProductTour} />}
+      {showProductTour && (
+        <ProductTour
+          isUserDataStored={isUserDataStored}
+          skipProductTour={skipProductTour}
+        />
+      )}
       {/* Only show when the settings screen is not open */}
       {!isSettingsModalOpen && (
         <DevicesNotifications

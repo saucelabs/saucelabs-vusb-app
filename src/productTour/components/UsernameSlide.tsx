@@ -12,10 +12,7 @@ import {
   setGenericStorage,
 } from '../../settings/SettingsStorage';
 
-const UsernameSlide: React.FC<{ activeIndex: number; order: number }> = ({
-  activeIndex,
-  order,
-}) => {
+const UsernameSlide: React.FC = () => {
   const storageData = getGenericStorage();
   const [value, setValue] = useState('');
   const updateUsername = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -31,11 +28,7 @@ const UsernameSlide: React.FC<{ activeIndex: number; order: number }> = ({
   };
 
   return (
-    <div
-      className={`${Styles.slide} ${
-        activeIndex === order ? Styles.active : ''
-      }`}
-    >
+    <>
       <div className={Styles.slideTop}>
         <img alt="Copy username" src={safariToolBar} width={500} />
         <img alt="Copy username" src={username} />
@@ -59,7 +52,7 @@ const UsernameSlide: React.FC<{ activeIndex: number; order: number }> = ({
           </span>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
