@@ -16,31 +16,46 @@ enum NotificationsIconType {
 }
 
 interface NotificationInterface {
-  blocking?: boolean;
+  background?: boolean;
   children: JSX.Element;
   centerText?: boolean;
   customClass?: string;
+  dismissible?: boolean;
   floatingTop?: boolean;
+  notificationName: string;
+  onClick: (notificationNme: string) => void;
   title?: string;
   type: NotificationsType;
 }
 
 const Notification: React.FC<NotificationInterface> = ({
-  blocking,
+  background,
   children,
   centerText,
   customClass,
+  dismissible,
   floatingTop,
+  notificationName,
+  onClick,
   title,
   type,
 }) => {
   return (
-    <div className={blocking ? Styles.background : ''}>
+    <div className={background ? Styles.background : ''}>
       <div
         className={`${Styles.notification} ${customClass} ${
           floatingTop ? Styles.floatingTop : Styles.floatingCenter
         } ${centerText ? Styles.centerText : ''}`}
       >
+        {dismissible && (
+          <button
+            type="button"
+            className={Styles.close}
+            onClick={() => onClick(notificationName)}
+          >
+            <i className={`${Styles.icon} ${Styles.hover} fas fa-times`} />
+          </button>
+        )}
         <div className={`${Styles.iconContainer} ${Styles[type]}`}>
           <i
             className={`fas ${NotificationsIconType[type]} ${Styles[type]} `}

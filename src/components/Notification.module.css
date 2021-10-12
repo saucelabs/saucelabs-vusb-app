@@ -110,3 +110,18 @@
 .notification a {
   text-decoration: underline;
 }
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.close .icon {
+  margin: 0 7px 0 0;
+  font-size: 22px;
+}
+
+.close .icon.hover:hover:not(.disabled) {
+  cursor: pointer;
+}

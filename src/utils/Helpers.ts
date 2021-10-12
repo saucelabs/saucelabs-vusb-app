@@ -1,6 +1,8 @@
 import { join } from 'path';
 import { writeFileSync } from 'fs';
-import { MAX_LOG_LINES, VUSB_SERVER_NAME } from './Constants';
+import axios from 'axios';
+import semver from 'semver';
+import { APP_VERSION, MAX_LOG_LINES, VUSB_SERVER_NAME } from './Constants';
 import { getGenericStorage } from '../settings/SettingsStorage';
 
 /**
@@ -52,4 +54,35 @@ function getLocalTimeString(): string {
   )}`;
 }
 
-export { getLocalTimeString, getVusbFilePath, trimLogArray, writeDataToFile };
+/**
+ * Check if the GUI is still up to date
+ */
+async function getGuiVersions(): Promise<{
+  deprecated: boolean;
+  update: boolean;
+}> {
+  try {
+    const result = await axios.get(
+      'https://raw.githubusercontent.com/saucelabs/saucelabs-vusb-app/main/versions.json'
+    );
+    const { active, deprecated } = result.data;
+
+    return {
+      deprecated: deprecated.includes(APP_VERSION),
+      update: semver.gt(active, APP_VERSION),
+    };
+  } catch (error) {
+    return {
+      deprecated: false,
+      update: false,
+    };
+  }
+}
+
+export {
+  getGuiVersions,
+  getLocalTimeString,
+  getVusbFilePath,
+  trimLogArray,
+  writeDataToFile,
+};

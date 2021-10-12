@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import semver from 'semver';
 import DeviceDetails from './components/DeviceDetails';
 import Input, { InputType } from '../components/Input';
@@ -28,6 +28,7 @@ import Header from '../components/Header';
 import StartStopServerButton from '../components/buttons/StartStopServerButton';
 import { startServer, stopServer } from '../server/ServerOperations';
 import ServerMonitorButton from '../components/buttons/ServerMonitorButton';
+import { getGuiVersions } from '../utils/Helpers';
 
 const DevicesOverview = () => {
   let fetchInUseDevices: ReturnType<typeof setTimeout>;
@@ -52,7 +53,19 @@ const DevicesOverview = () => {
   } = storageData;
   const { appVersion } = productTour;
   const isUserDataStored = Boolean(username && accessKey);
-
+  const [isDeprecated, setIsDeprecated] = useState(false);
+  const [doUpdate, setDoUpdate] = useState(false);
+  useEffect(() => {
+    try {
+      (async () => {
+        const { deprecated, update } = await getGuiVersions();
+        setIsDeprecated(deprecated);
+        setDoUpdate(update);
+      })();
+    } catch (ign) {
+      // Do nothing, tis is not blocking
+    }
+  }, []);
   useEffect(() => {
     if (semver.gt(APP_VERSION, appVersion)) {
       dispatch(openProductTour());
@@ -161,6 +174,8 @@ const DevicesOverview = () => {
           apiError={apiError}
           devices={devices}
           deviceQuery={deviceQuery}
+          doUpdate={doUpdate}
+          isDeprecated={isDeprecated}
         />
         <div>
           <div className={Styles.flexContainer}>
