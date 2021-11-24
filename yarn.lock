@@ -5992,9 +5992,9 @@ flatted@^2.0.0:
   resolved "https://registry.npmjs.org/flatted/-/flatted-2.0.1.tgz"
   integrity sha512-a1hQMktqW9Nmqr5aktAux3JMNqaucxGcjtjWnZLHX7yyPCmlSV3M54nGYbqT8K+0GhF3NBgmJCc3ma+WOgX8Jg==
 
-flow-bin@^0.122.0:
+flow-bin@0.122.0:
   version "0.122.0"
-  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.122.0.tgz"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.122.0.tgz#c723a2b33b1a70bd10204704ae1dc776d5d89d79"
   integrity sha512-my8N5jgl/A+UVby9E7NDppHdhLgRbWgKbmFZSx2MSYMRh3d9YGnM2MM+wexpUpl0ftY1IM6ZcUwaAhrypLyvlA==
 
 flow-runtime@^0.17.0:
@@ -6002,10 +6002,10 @@ flow-runtime@^0.17.0:
   resolved "https://registry.npmjs.org/flow-runtime/-/flow-runtime-0.17.0.tgz"
   integrity sha512-x621HugMPrtU68ddiRX0TkNRif9PS6ml3oeP6oo0k+Kv2issqCmifC4ZX59XnLUh9dfmBcj4GoZJXu4oe8L28Q==
 
-flow-typed@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/flow-typed/-/flow-typed-3.1.0.tgz"
-  integrity sha512-y9AbG5/ZQDyCs2ROmJqYKUCornCPOLJQL06TE1TwNCGTzKYDqLgkYeINCthd9EL8FyzWkTLI0mOSL82dU20hJA==
+flow-typed@^3.3.1:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-3.4.0.tgz#fc87f17a23b1592f03bc680f2f25112fa1fff622"
+  integrity sha512-Vsf005L4GnGwMheIg7Y//wCSZrcTBovn5+vuB6uhAbMDPhxx8UpAB56YMm5GLj4OJupqOLiZ/bMXtdsm7/f8vg==
   dependencies:
     "@octokit/rest" "^16.43.1"
     colors "^1.4.0"
@@ -6017,9 +6017,8 @@ flow-typed@^3.1.0:
     mkdirp "^1.0.3"
     prettier "^1.19.1"
     rimraf "^3.0.2"
-    semver "^7.1.3"
+    semver "7.3.2"
     table "^5.4.6"
-    through "^2.3.8"
     unzipper "^0.10.8"
     which "^2.0.2"
     yargs "^15.1.0"
@@ -11720,6 +11719,11 @@ semver@7.0.0:
   resolved "https://registry.npmjs.org/semver/-/semver-7.0.0.tgz"
   integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
 
+semver@7.3.2:
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
+  integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
+
 semver@^6.0.0, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"
@@ -12842,7 +12846,7 @@ through2@~0.2.3:
     readable-stream "~1.1.9"
     xtend "~2.1.1"
 
-through@2, through@^2.3.6, through@^2.3.8:
+through@2, through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.npmjs.org/through/-/through-2.3.8.tgz"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
