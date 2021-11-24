@@ -163,7 +163,7 @@ const DevicesOverview = () => {
         ]}
       />
       <div className={Styles.container}>
-        {showProductTour && (
+        {(showProductTour || !isUserDataStored) && (
           <ProductTour
             isUserDataStored={isUserDataStored}
             skipProductTour={skipProductTour}
@@ -198,32 +198,26 @@ const DevicesOverview = () => {
             </span>
           </div>
           <div className={Styles.devicesWrapper}>
-            {devices.length === 0 || apiStatus === ApiStatusEnum.ERROR ? (
-              <>
-                <DeviceDetailsEmptyCard />
-                <DeviceDetailsEmptyCard />
-                <DeviceDetailsEmptyCard />
-                <DeviceDetailsEmptyCard />
-                <DeviceDetailsEmptyCard />
-                <DeviceDetailsEmptyCard />
-              </>
-            ) : (
-              devices.map(
-                (device) =>
-                  device.showDevice && (
-                    <DeviceDetails
-                      adbAutoConnect={autoAdbConnect}
-                      clearDeviceLogs={clearDeviceLogs}
-                      closeSession={closeDeviceSession}
-                      device={device}
-                      key={device.descriptorId}
-                      launchTest={startDeviceSession}
-                      toggleDeviceLogs={toggleDeviceLogs}
-                      vusbStatus={vusbStatus}
-                    />
-                  )
-              )
-            )}
+            {devices.length === 0 || apiStatus === ApiStatusEnum.ERROR
+              ? [...Array(6)].map((_num, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <DeviceDetailsEmptyCard key={`empty-card-${index}`} />
+                ))
+              : devices.map(
+                  (device) =>
+                    device.showDevice && (
+                      <DeviceDetails
+                        adbAutoConnect={autoAdbConnect}
+                        clearDeviceLogs={clearDeviceLogs}
+                        closeSession={closeDeviceSession}
+                        device={device}
+                        key={device.descriptorId}
+                        launchTest={startDeviceSession}
+                        toggleDeviceLogs={toggleDeviceLogs}
+                        vusbStatus={vusbStatus}
+                      />
+                    )
+                )}
           </div>
         </div>
       </div>

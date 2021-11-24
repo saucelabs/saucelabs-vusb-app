@@ -118,7 +118,13 @@ const Settings: React.FC = () => {
       />
       <form onSubmit={handleGenericSubmit} className={Styles.formContainer}>
         {dataIsStored && (
-          <Notification blocking type={NotificationsType.INFO} title="Info">
+          <Notification
+            background
+            dismissible={false}
+            notificationName="dateStored"
+            type={NotificationsType.INFO}
+            title="Info"
+          >
             <span>
               Data has been stored. <br /> The app will be reloaded in a few
               seconds.

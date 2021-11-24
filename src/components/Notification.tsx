@@ -23,7 +23,7 @@ interface NotificationInterface {
   dismissible?: boolean;
   floatingTop?: boolean;
   notificationName: string;
-  onClick: (notificationNme: string) => void;
+  onClick?: (notificationNme: string) => void;
   title?: string;
   type: NotificationsType;
 }
@@ -47,7 +47,7 @@ const Notification: React.FC<NotificationInterface> = ({
           floatingTop ? Styles.floatingTop : Styles.floatingCenter
         } ${centerText ? Styles.centerText : ''}`}
       >
-        {dismissible && (
+        {dismissible && onClick && (
           <button
             type="button"
             className={Styles.close}

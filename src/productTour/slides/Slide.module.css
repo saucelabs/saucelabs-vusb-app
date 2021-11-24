@@ -25,9 +25,14 @@
   color: #555555;
   font-size: 48px;
   font-weight: 400;
+  line-height: 64px;
+  text-align: center;
 }
 
 .textContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   width: 50%;
 }
 

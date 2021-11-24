@@ -3,7 +3,9 @@ import Styles from './ProductTour.module.css';
 import WelcomeSlide from './slides/WelcomeSlide';
 import UsernameSlide from './slides/UsernameSlide';
 import AccessKey from './slides/AccessKey';
+import FeaturesSlide from './slides/FeaturesSlide';
 import FinishedSlide from './slides/FinishedSlide';
+import HowToSlide from './slides/HowToSlide';
 
 const ProductTour: React.FC<{
   isUserDataStored: boolean;
@@ -11,11 +13,13 @@ const ProductTour: React.FC<{
 }> = ({ isUserDataStored, skipProductTour }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const slides = [
-    <WelcomeSlide key={0} />,
+    <WelcomeSlide isUserDataStored={isUserDataStored} key={0} />,
     ...(isUserDataStored
       ? []
       : [<UsernameSlide key={1} />, <AccessKey key={2} />]),
-    <FinishedSlide key={3} />,
+    <FeaturesSlide key={3} />,
+    <HowToSlide key={4} />,
+    <FinishedSlide isUserDataStored={isUserDataStored} key={5} />,
   ];
   const slidesLength = slides.length;
   const Button: React.FC<{
