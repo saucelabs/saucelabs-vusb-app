@@ -1,0 +1,17 @@
+{
+  "name": "saucelabs-vusb-app",
+  "productName": "Sauce Labs vUSB GUI",
+  "version": "2.0.0",
+  "description": "Electron app based on React, React Router, Webpack, React Hot Loader for developing the Sauce Labs vUSB Client",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Wim Selles",
+    "email": "wim@wswebcreation.com",
+    "url": "https://github.com/wswebcreation"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,19 @@
+.tabsContainer {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+.tabList {
+  border-right: 1px solid #e0e0e0;
+  padding: 0;
+  height: 100%;
+  margin: 0;
+}
+
+.tabContent {
+  flex: 1;
+  background-color: #fafafa;
+  padding: 20px 60px 40px 60px;
+  overflow-y: auto;
+  flex-direction: column;
+}

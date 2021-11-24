@@ -1,0 +1,13 @@
+.icon {
+  margin: 0 3px;
+  font-size: 26px !important;
+  width: auto !important;
+}
+
+.disabled {
+  color: #dadde2;
+}
+
+.hover:hover:not(.disabled) {
+  cursor: pointer;
+}
