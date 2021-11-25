@@ -108,7 +108,7 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "wswebcreation",
+      "owner": "saucelabs",
       "private": false,
       "releaseType": "draft"
     }
