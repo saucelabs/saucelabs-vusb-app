@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          yarn
+          npm install
       - name: Publish releases
         env:
 #          # These values are used for auto updates signing
@@ -36,4 +36,4 @@ jobs:
           # This is used for uploading release assets to github
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          yarn package-ci
+          npm run package-ci
