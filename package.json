@@ -109,7 +109,8 @@
     "publish": {
       "provider": "github",
       "owner": "wswebcreation",
-      "private": false
+      "private": false,
+      "releaseType": "draft"
     }
   },
   "repository": {
