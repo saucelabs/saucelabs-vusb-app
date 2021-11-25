@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          yarn
       - name: Publish releases
         env:
 #          # These values are used for auto updates signing
@@ -36,5 +36,4 @@ jobs:
           # This is used for uploading release assets to github
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run build
-          npm exec electron-builder -- --publish always --win --mac --linux
+          yarn package-ci
