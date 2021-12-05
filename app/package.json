@@ -1,7 +1,7 @@
 {
   "name": "saucelabs-vusb-app",
   "productName": "Sauce Labs vUSB GUI",
-  "version": "1.0.2-draft",
+  "version": "1.0.2-rc.1",
   "description": "Electron app based on React, React Router, Webpack, React Hot Loader for developing the Sauce Labs vUSB Client",
   "main": "./main.prod.js",
   "author": {
