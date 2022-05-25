@@ -78,7 +78,7 @@ export default class Login extends Component<Props> {
 
       // If signed in with password or SSO Cookie
       if (!isSignInError) {
-        result = await getUserInfo({cookie, username});
+        result = await getUserInfo({cookie_or_key: cookie, user: username});
         isSignInError = await this.verifyError(result);
       }
 
@@ -226,7 +226,7 @@ export default class Login extends Component<Props> {
                     </div>
                     <div className={Styles['form-group']}>
                       <Input
-                        placeholder='Cookie'
+                        placeholder='Access Key/Cookie'
                         name="cookie"
                         onChange={this.handleCookieChange}
                         value={cookie}
@@ -237,18 +237,18 @@ export default class Login extends Component<Props> {
                       disabled={!username || !cookie || isLoading}
                     />
                     <div className={Styles['login_reset']}>
-                      <span>This app can't use SSO, but a workaround is to get a cookie.</span>{' '}
+                      <span>This app can't use SSO, but a workaround is to get an Access Key or a Cookie.</span>{' '}
                       <span>Check the following {' '}
                         <a
                           className={Styles.link}
                           onClick={() =>
                             shell.openExternal(
-                              'https://github.com/saucelabs/saucelabs-vusb-app/blob/main/docs/SSO.md'
+                              'https://github.com/ravemir/saucelabs-vusb-app/blob/main/docs/SSO.md'
                             )
                           }>
                     link
                   </a>
-                        {' '} for more information.
+                        {' '} for more information on both.
                   </span>
                     </div>
                   </form>

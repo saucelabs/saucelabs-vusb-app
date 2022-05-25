@@ -2,7 +2,16 @@
 If your organisation if using SSO then you have a `username`, but you don't have a `password`. The Sauce Labs vUSB GUI
 is not connected to SSO, but there is a workaround which will let you use this tool and is explained below.
 
-## SSO workaround
+## SSO workarounds
+The original app only used the cookie method to allow access, but given it used the access key behind the scenes, it was easy enough to add.
+
+### Access Key
+1. Login to your Sauce Labs account using the usual SSO method
+1. When you are signed in, go to **Account** > **User Settings** and copy the `username` and fill it in the 
+   SSO-`username` field. (*This value will automatically be stored for future sign in sessions.*)
+1. On the same screen, copy the `access_key` and fill it in the `access_key/cookie` field.
+
+### Cookie
 When you [sign in to the Sauce Labs cloud](https://accounts.saucelabs.com), Sauce Labs will set a cookie which is called 
 the `sl-auth`-cookie. The workaround is to copy the cookie from Sauce Labs and fill it in the `cookie` field. 
 Please follow the following steps to use SSO with vUSB. 
@@ -30,7 +39,7 @@ Please follow the following steps to use SSO with vUSB.
 
    ![Search Cookie](assets/search-cookie.png) 
 
-1. Copy the value and paste it into the SSO Sign in form in the `cookie`-field as seen below
+1. Copy the value and paste it into the SSO Sign in form in the `access_key/cookie`-field as seen below
 
    ![SSO cookie field](assets/sso-cookie.png) 
 
