@@ -57,12 +57,12 @@ export function authenticate({ username, password }) {
  *
  * @returns {function(*): Promise<void|*|undefined>}
  */
-export function getUserInfo({ cookie }) {
+export function getUserInfo({ cookie, user=''}) {
   return async (dispatch) => {
     // Get the access_key and username
     dispatch(waiStart());
     try {
-      const options = {
+      /*const options = {
         url: waiUrl,
         method: 'GET',
         credentials: 'same-origin',
@@ -73,10 +73,11 @@ export function getUserInfo({ cookie }) {
         }
       };
       const response = await axios(options);
-      const { access_key, username } = response.data;
+      const { access_key, username } = response.data;*/
+      const { access_key, username } = { access_key: cookie , username: 'sso-outsystems-carlos.simoes' }; 
       const { connection } = getGenericStorage();
 
-      dispatch(waiSuccess({ access_key, username, tokenId: cookie }));
+      //dispatch(waiSuccess({ access_key, username, tokenId: cookie }));
 
       return setGenericStorage({
         connection: {

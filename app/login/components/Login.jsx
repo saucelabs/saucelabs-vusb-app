@@ -78,7 +78,7 @@ export default class Login extends Component<Props> {
 
       // If signed in with password or SSO Cookie
       if (!isSignInError) {
-        result = await getUserInfo({cookie});
+        result = await getUserInfo({cookie, username});
         isSignInError = await this.verifyError(result);
       }
 
