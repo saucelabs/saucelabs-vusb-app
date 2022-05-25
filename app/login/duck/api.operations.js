@@ -81,7 +81,6 @@ export function getUserInfo({ cookie_or_key, user=''}) {
         };
         const response = await axios(options);
         access_key, username = response.data.access_key, response.data.username;
-        const { connection } = getGenericStorage();
         dispatch(waiSuccess({ access_key, username, tokenId: cookie }));
       }
 
