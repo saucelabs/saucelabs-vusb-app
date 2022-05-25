@@ -67,7 +67,8 @@ export function getUserInfo({ cookie_or_key, user=''}) {
       // Check if token is a GUID, and treat it like an Access Key
       var guid_pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
       if (guid_pattern.test(cookie_or_key)){
-        access_key, username = cookie_or_key , user ; 
+        access_key = cookie_or_key;
+        username = user; 
       } else {
         const options = {
           url: waiUrl,
