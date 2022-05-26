@@ -73,6 +73,6 @@ function isValidFileSize(filePath) {
 }
 
 downloadFile(
-  'https://saucelabs-vusb.s3-eu-west-1.amazonaws.com/v2.0.0/virtual-usb-client.jar',
+  'https://saucelabs-vusb.s3-eu-west-1.amazonaws.com/v2.0.1/virtual-usb-client.jar',
   join('resources/runners', 'virtual-usb-client.jar')
 );
