@@ -1,4 +1,4 @@
-const { createWriteStream, unlinkSync, statSync } = require('fs');
+const { createWriteStream, existsSync, mkdirSync, unlinkSync, statSync } = require('fs');
 const { join } = require('path');
 const { get } = require('https');
 
@@ -25,6 +25,10 @@ function downloadFile(url, destination) {
   console.log('💾 Starting to download the vUSB client.');
 
   const request = get(url, (response) => {
+    if (!existsSync('resources/runners')){
+      mkdirSync('resources/runners');
+    }
+    
     const fileStream = createWriteStream(destination);
 
     response.pipe(fileStream);
@@ -70,5 +74,5 @@ function isValidFileSize(filePath) {
 
 downloadFile(
   'https://saucelabs-vusb.s3-eu-west-1.amazonaws.com/v2.0.0/virtual-usb-client.jar',
-  join('resources', 'virtual-usb-client.jar')
+  join('resources/runners', 'virtual-usb-client.jar')
 );

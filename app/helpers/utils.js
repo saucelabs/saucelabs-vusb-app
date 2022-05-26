@@ -13,8 +13,8 @@ export function getVusbFilePath() {
   const runner = VUSB_SERVER_NAME;
 
   return process.env.NODE_ENV === 'development'
-    ? join(__dirname, '..', 'resources', runner)
-    : join(process.resourcesPath, runner);
+    ? join(__dirname, '..', 'resources', 'runners', runner)
+    : join(process.resourcesPath, 'runners', runner);
 }
 
 /**
