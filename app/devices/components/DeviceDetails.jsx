@@ -221,7 +221,8 @@ export default class DeviceDetails extends Component<Props> {
                   className={`${Styles.link} ${
                     sessionID &&
                     deviceConnected &&
-                    manualConnect &&
+                    manualConnect && 
+                    tokenId &&
                     !deviceStopping ?
                       '' :
                       Styles.disabled
