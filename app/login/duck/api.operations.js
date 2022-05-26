@@ -77,12 +77,13 @@ export function getUserInfo({ cookie_or_key, user=''}) {
           headers: {
             Accept: '/',
             'Cache-Control': 'no-store',
-            Authorization: `Bearer ${cookie}`
+            Authorization: `Bearer ${cookie_or_key}`
           }
         };
         const response = await axios(options);
-        access_key, username = response.data.access_key, response.data.username;
-        dispatch(waiSuccess({ access_key, username, tokenId: cookie }));
+        access_key = response.data.access_key;
+        username = response.data.username;
+        dispatch(waiSuccess({ access_key, username, tokenId: cookie_or_key }));
       }
 
       const { connection } = getGenericStorage();
