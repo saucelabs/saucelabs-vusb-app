@@ -243,7 +243,7 @@ export default class Login extends Component<Props> {
                           className={Styles.link}
                           onClick={() =>
                             shell.openExternal(
-                              'https://github.com/ravemir/saucelabs-vusb-app/blob/main/docs/SSO.md'
+                              'https://github.com/saucelabs/saucelabs-vusb-app/blob/main/docs/SSO.md'
                             )
                           }>
                     link
