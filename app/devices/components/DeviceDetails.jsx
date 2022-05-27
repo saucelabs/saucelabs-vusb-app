@@ -241,7 +241,8 @@ export default class DeviceDetails extends Component<Props> {
                   }
                 >
                   {/* When `inUse`, then there is already a live session started in Sauce Labs */}
-                  {inUse ? 'Check the Sauce Labs UI' : 'Launch Live Test'}
+                  {/* Also: we do not want to display the 'Launch...'  message if there's no cookie */}
+                  {inUse || !tokenId ? 'Check the Sauce Labs UI' : 'Launch Live Test'}
                 </a>
               )}
             </div>
