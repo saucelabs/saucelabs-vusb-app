@@ -14,8 +14,6 @@ import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import Store from 'electron-store';
-// import { shellEnvSync } from 'shell-env';
-// import fixPath from 'fix-path';
 import fkill from 'fkill';
 import { ServerActionEnum } from 'types/ServerTypes';
 import { ElectronStorageType } from 'types/ElectronStoreTypes';
@@ -163,16 +161,6 @@ const isDebug =
 if (isDebug) {
   require('electron-debug')();
 }
-
-// if (process.env.NODE_ENV !== 'development') {
-//   // if we're running from the app package, we won't have access to env vars
-//   // normally loaded in a shell, so work around with the shell-env module
-//   const decoratedEnv = shellEnvSync();
-//   process.env = { ...process.env, ...decoratedEnv };
-
-//   // and we need to do the same thing with PATH
-//   fixPath();
-// }
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');

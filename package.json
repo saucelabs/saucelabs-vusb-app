@@ -109,14 +109,14 @@
     "electron-log": "^4.4.7",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
-    "fix-path": "^3.x",
+    "fix-path": "3.0.0",
     "fkill": "^7.x",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-select": "^3.1.0",
-    "shell-env": "^3.x",
+    "shell-env": "3.0.1",
     "use-reducer-logger": "^1.0.2"
   },
   "devDependencies": {

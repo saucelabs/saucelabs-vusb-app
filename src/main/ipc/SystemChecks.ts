@@ -2,10 +2,21 @@ import { platform } from 'os';
 import { existsSync } from 'fs';
 import { join, resolve } from 'path';
 import { spawnSync } from 'child_process';
+import shellEnv from 'shell-env';
+import fixPath from 'fix-path';
 import {
   SystemChecksType,
   SystemDataCheckType,
 } from '../../types/SystemChecksTypes';
+
+if (process.env.NODE_ENV === 'production') {
+  // if we're running from the app package, we won't have access to env vars
+  // normally loaded in a shell, so work around with the shell-env module
+  const decoratedEnv = shellEnv.sync();
+  process.env = { ...process.env, ...decoratedEnv };
+  // and we need to do the same thing with PATH
+  fixPath();
+}
 
 /**
  * Verify if all environment variables are set

@@ -4649,7 +4649,7 @@ find-up@^5.0.0:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
 
-fix-path@^3.x:
+fix-path@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/fix-path/-/fix-path-3.0.0.tgz#c6b82fd5f5928e520b392a63565ebfef0ddf037e"
   integrity sha512-opGAl4+ip5jUikHR2C8Jo7czZ80pz8EK/0gMlAZu7xgDmBqIynlX8SMYg9KowYjAU6HT0nxsSJEWru0u+n+N2Q==
@@ -8595,6 +8595,15 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
+shell-env@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/shell-env/-/shell-env-3.0.1.tgz#515a62f6cbd5e139365be2535745e8e53438ce77"
+  integrity sha512-b09fpMipAQ9ObwvIeKoQFLDXcEcCpYUUZanlad4OYQscw2I49C/u97OPQg9jWYo36bRDn62fbe07oWYqovIvKA==
+  dependencies:
+    default-shell "^1.0.1"
+    execa "^1.0.0"
+    strip-ansi "^5.2.0"
+
 shell-env@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/shell-env/-/shell-env-0.3.0.tgz#2250339022989165bda4eb7bf383afeaaa92dc34"
@@ -8603,15 +8612,6 @@ shell-env@^0.3.0:
     default-shell "^1.0.0"
     execa "^0.5.0"
     strip-ansi "^3.0.0"
-
-shell-env@^3.x:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/shell-env/-/shell-env-3.0.1.tgz#515a62f6cbd5e139365be2535745e8e53438ce77"
-  integrity sha512-b09fpMipAQ9ObwvIeKoQFLDXcEcCpYUUZanlad4OYQscw2I49C/u97OPQg9jWYo36bRDn62fbe07oWYqovIvKA==
-  dependencies:
-    default-shell "^1.0.1"
-    execa "^1.0.0"
-    strip-ansi "^5.2.0"
 
 shell-path@^2.1.0:
   version "2.1.0"
