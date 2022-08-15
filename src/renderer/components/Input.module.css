@@ -1,0 +1,64 @@
+.inputContainer {
+  position: relative;
+}
+
+.label {
+  color: #555555;
+  font-weight: 400;
+  display: block;
+  font-size: 16px;
+  max-width: 100%;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.input {
+  border: 1px solid #d8dde3;
+  box-sizing: border-box;
+  display: block;
+  font-size: 14px;
+  height: 46px;
+  padding: 6px 12px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.searchInput {
+  padding: 6px 12px 6px 54px;
+}
+
+.searchInput::placeholder {
+  color: #bdbdbd;
+}
+
+.input:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+input[disabled] {
+  color: #bbc3cb;
+  background: #f0f0f0;
+}
+
+.searchIcon {
+  color: #bdbdbd;
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  font-size: 22px;
+}
+
+.showPassword {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+
+.showPassword:hover {
+  cursor: pointer;
+}
+
+.showPassword:focus {
+  outline: 0;
+}

@@ -1,0 +1,57 @@
+.requirementContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.requirementContainer {
+  margin-top: 20px;
+}
+
+.requirementContainer > div {
+  flex: 1;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.requirementLabelStatusContainer {
+  display: flex;
+  align-items: baseline;
+}
+
+.requirementLabel,
+.requirementStatus {
+  color: #000000;
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.dots {
+  flex: 1;
+  border-bottom: 1px dotted #828282;
+  margin: 0 5px;
+}
+
+.technicalDetails {
+  color: #828282;
+  font-family: 'Courier New', serif;
+  font-size: 12px;
+  padding-top: 5px;
+}
+
+.accept {
+  color: #7b971b;
+}
+
+.danger {
+  color: #ce2a2b;
+}
+
+.warning {
+  color: #e8924c;
+}

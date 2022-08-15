@@ -1,0 +1,44 @@
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.loginForm{
+  position: relative;
+  box-sizing: border-box;
+  margin: auto;
+  width: 380px;
+}
+
+.loginTitle {
+  color: #1395f0;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  margin-right: auto;
+  font-weight: 300;
+  font-size: 24px;
+  margin-top: 0;
+  text-align: left;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.loginReset {
+  font-style: italic;
+  color: #555;
+  font-size: 14px;
+  text-align: left;
+  padding: 15px 0;
+}
+
+.buttonLink{
+  color: #1395f0;
+}
+
+.buttonLink:hover{
+  text-decoration: underline;
+}

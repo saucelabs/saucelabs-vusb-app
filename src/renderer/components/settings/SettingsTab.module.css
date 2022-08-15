@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex: 1;
+}
+
+.contentLabel {
+  color: #555555;
+  display: block;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.formGroup {
+  flex: 1;
+  margin-bottom: 30px;
+  width: 350px;
+}
+
+.explain {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.label {
+  color: #555555;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  max-width: 100%;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.link {
+  color: #2874b2;
+}
+
+.bold {
+  font-weight: bold;
+}

@@ -1,0 +1,169 @@
+.background {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: -71px;
+  left: 0;
+  z-index: 30;
+}
+
+.notification {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  margin-top: 15px;
+  box-sizing: border-box;
+  color: #999999;
+  width: 100%;
+  display: flex;
+  min-height: 125px;
+  max-height: 50vh;
+  z-index: 31;
+}
+
+.notification.error {
+  border-color: #e2231a;
+}
+.notification.info  {
+  border-color: #1395f0;
+}
+
+.notification.warning  {
+  border-color: #ff8514;
+}
+
+.notification.success  {
+  border-color: #41990F;
+}
+
+.leftLine {
+  width: 8px;
+}
+.error .leftLine{
+  background-color: #e2231a;
+}
+
+.info .leftLine{
+  background-color: #1395f0;
+}
+
+.warning .leftLine{
+  background-color: #ff8514;
+}
+
+.success .leftLine{
+  background-color: #41990F;
+}
+
+.floatingCenter {
+  position: absolute;
+  top: 50%;
+  left: 150px;
+  right: 150px;
+  margin-top: 0;
+  transform: translateY(-50%);
+  max-width: 800px;
+  width: auto;
+}
+
+.floatingTop {
+  position: absolute;
+  top: 25px;
+  left: 150px;
+  right: 150px;
+  transform: translateY(-50%);
+  max-width: 800px;
+  width: auto;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.iconContainer {
+  padding: 20px 10px;
+  border-radius: 4px 0 0 4px;
+}
+
+.iconContainer {
+  font-size: 22px;
+  display: flex;
+  /* align-items: center; */
+}
+.contentContainer {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+}
+
+.title {
+  color: #555555;
+  font-size: 18px;
+  font-weight: 400;
+  display: block;
+  margin-bottom: 5px;
+}
+.contentContainer span{
+  color: #555555;
+}
+
+.childrenContainer {
+  margin-bottom: 5px;
+  font-weight: 100;
+}
+
+.error {
+  background-color: #ffeceb;
+}
+
+.error i {
+  color: #e2231a;
+}
+
+.info {
+  background-color: #d9f5ff;
+}
+
+.info i {
+  color: #1395f0;
+}
+
+.warning {
+  background-color: #fff2e2;
+}
+
+.warning i {
+  color: #ff8514;
+}
+
+.success {
+  background-color: #ebf8e6;
+}
+
+.success i {
+  color: #41990F;
+}
+
+.notification a {
+  text-decoration: underline;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.close .icon {
+  margin: 0 7px 0 0;
+  font-size: 22px;
+}
+
+.close .icon.hover:hover:not(.disabled) {
+  cursor: pointer;
+}

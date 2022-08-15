@@ -1,0 +1,94 @@
+.container {
+  background-color: #fafafa;
+  flex: 1;
+  display: flex;
+  overflow: auto;
+  padding: 20px 10px 20px 20px;
+}
+
+.devicesWrapper {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 60px;
+}
+
+.searchBox {
+  position: relative;
+  padding-right: 15px;
+}
+
+.textContainer {
+  margin: 30px 0;
+}
+
+.text {
+  color: #7f8892;
+}
+
+.textBold {
+  font-weight: 600;
+}
+
+.flexContainer {
+  display: flex;
+}
+
+.flex-1-2 {
+  flex: 0 50%;
+}
+
+.busy {
+  justify-content: center;
+  background-color: #f68c38;
+}
+
+svg+span {
+  color: #ffffff;
+  border-radius: 4px;
+  position: absolute;
+  background: #000000;
+  bottom: -60px;
+  left: 50px;
+  padding: 6px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 60px;
+  width: 225px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  visibility: hidden;
+  font-size: 0.7rem;
+}
+
+svg:hover+span {
+  visibility: visible;
+}
+
+.dropdownMainContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+.dropdownLabel{
+  align-items: center;
+  display: flex;
+  margin-right: 15px;
+  text-transform: uppercase;
+}
+
+.tunnelInfoIcon {
+  color:  #7f8892;
+  margin-left: 5px;
+}
+
+.dropdownContainer {
+  flex: 1;
+}
+
+.dropdownContainer .buttonLink{
+  color: #0e75dd;
+  margin-left: 5px;
+  text-decoration: none;
+}
+

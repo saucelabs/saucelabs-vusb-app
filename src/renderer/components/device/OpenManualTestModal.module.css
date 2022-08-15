@@ -1,0 +1,106 @@
+.background {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardContainer {
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #999999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 450px;
+  width: 850px;
+  padding: 20px;
+  z-index: 40;
+  position: relative;
+}
+
+.closeButton{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  position: relative;
+}
+
+.alignBottom {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.text {
+  margin-bottom: 5px;
+}
+
+.note{
+  border-left: 1px solid #d8dde3;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 20px;
+  position: absolute;
+  left:20px;
+  right: 20px;
+  bottom: 55px;
+}
+
+.copyToClipboardContainer{
+  background: #1395f0;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #ffffff;
+  white-space: nowrap;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  height: 36px;
+  text-transform: uppercase;
+  padding: 0 28px;
+  width: 100%;
+  position: relative;
+  width: 100%;
+}
+.copyToClipboardIcon{
+  fill: #ffffff;
+  height: 18px;
+  width: 18px;
+  position:absolute;
+  left:10px;
+
+}
+.copyToClipboardContainer:hover .copyToClipboardIcon{
+  color: #1395f0
+}

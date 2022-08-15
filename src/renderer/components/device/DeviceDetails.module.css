@@ -1,0 +1,260 @@
+.container {
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  padding: 5px 10px 5px 0;
+  height: 180px;
+  width: 308px;
+  margin: 1px;
+  position: relative;
+}
+
+.deviceTile {
+  box-shadow: 0 1px 3px hsla(0, 0%, 66.3%, 0.5);
+  border-radius: 4px;
+  color: #444;
+  font-size: 12px;
+  position: relative;
+  background: #fff;
+  padding: 6px;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+.error {
+  border: 1px solid #f68d38;
+  box-shadow: 0 1px 3px hsla(0, 0%, 66.3%, 0.5);
+}
+
+.header {
+  position: relative;
+}
+
+.title {
+  display: block;
+  color: #555;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 88px;
+  height: 88px;
+  margin-right: 10px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.imageWrapper img {
+  display: block;
+  max-width: 88px;
+  max-height: 88px;
+  position: relative;
+  z-index: 1;
+}
+
+.deviceDataWrapper {
+  color: #646464;
+  font-size: 12px;
+  height: 100px;
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+
+.link {
+  text-transform: uppercase;
+  color: #555;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 2px 0;
+  color: #fff;
+  cursor: default;
+  font-size: 0.7rem;
+  font-weight: 600;
+  left: 15px;
+  line-height: 1;
+  padding: 4px;
+  position: absolute;
+  text-transform: uppercase;
+  text-align: center;
+  top: 43px;
+  z-index: 10;
+}
+
+.busy {
+  justify-content: center;
+  background-color: #f68c38;
+}
+
+.inUse {
+  justify-content: center;
+  background-color: #f68c38;
+  width: 80px;
+}
+
+.infoIcon {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 22px;
+  z-index: 20;
+}
+
+.disabledSwitchContainer {
+  display: block;
+}
+
+.disabledSwitchContainer:hover {
+  cursor: pointer;
+}
+
+.disabledSwitchContainer:hover .infoContainer {
+  visibility: visible;
+}
+
+.infoContainer {
+  color: #ffffff;
+  border-radius: 4px;
+  position: absolute;
+  background: #000000;
+  top: -5px;
+  left: 50px;
+  padding: 6px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 60px;
+  width: 225px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+}
+
+.deviceActionWrapper {
+  margin-top: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+  display: flex;
+}
+
+.detailsButton {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.detailsButton:focus {
+  outline: 0;
+}
+
+.detailsLink {
+  color: #555;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/**
+ * Empty card animation
+ */
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.animatedBackground {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 147px;
+  position: relative;
+}
+
+.gradientMask {
+  background: #fff;
+  position: absolute;
+  display: block;
+}
+
+.headerRight {
+  top: 0;
+  left: 175px;
+  right: 0;
+  height: 18px;
+}
+
+.headerBottom {
+  top: 18px;
+  left: 0;
+  right: 0;
+  height: 5px;
+}
+
+.imageRight {
+  top: 23px;
+  left: 88px;
+  right: 186px;
+  height: 88px;
+}
+
+.deviceDataTop {
+  top: 23px;
+  left: 88px;
+  right: 0;
+  height: 10px;
+}
+
+.deviceDataRight {
+  top: 33px;
+  left: 215px;
+  right: 0;
+  height: 50px;
+}
+
+.deviceDataBottom {
+  top: 83px;
+  left: 98px;
+  right: 0;
+  height: 28px;
+}
+
+.deviceActionWrapperTop {
+  top: 111px;
+  left: 0;
+  right: 0;
+  height: 18px;
+}
+
+.deviceActionWrapperCenter {
+  top: 129px;
+  left: 80px;
+  right: 60px;
+  height: 18px;
+}

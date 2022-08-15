@@ -1,0 +1,31 @@
+.tabListItem {
+  border-bottom: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  list-style: none;
+  width: 200px;
+}
+
+.tabListItem button {
+  background-color: transparent;
+  border: 0 transparent;
+  color: #555;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  text-transform: uppercase;
+  padding: 20px;
+  width: 200px;
+}
+
+.tabListItem:hover {
+  background-color: #fafafa;
+  cursor: pointer;
+}
+
+.tabListActive {
+  background-color: #fafafa;
+}
+
+.tabListActive button {
+  color: #555;
+}

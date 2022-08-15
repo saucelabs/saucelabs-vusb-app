@@ -1,17 +1,31 @@
+type Styles = Record<string, string>;
+
 declare module '*.svg' {
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.png' {
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.jpg' {
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  const content: any;
+  const content: string;
+  export default content;
+}
+
+declare module '*.scss' {
+  const content: Styles;
+  export default content;
+}
+
+declare module '*.sass' {
+  const content: Styles;
+  export default content;
+}
+
+declare module '*.css' {
+  const content: Styles;
   export default content;
 }

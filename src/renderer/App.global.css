@@ -1,0 +1,102 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+@font-face {
+  font-family: 'proxima-nova';
+  src: url('/assets/fonts/proximanova-thin.woff2') format('woff2'),
+    url('/assets/fonts/proximanova-thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  src: url('/assets/fonts/proximanova-light.woff2') format('woff2'),
+    url('/assets/fonts/proximanova-light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  src: url('/assets/fonts/proximanova-regular.woff2') format('woff2'),
+    url('/assets/fonts/proximanova-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  src: url('/assets/fonts/proximanova-semibold.woff2') format('woff2'),
+    url('/assets/fonts/proximanova-semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  color: #777;
+  background-color: #faf9fa;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+div,
+span,
+p {
+  font-family: 'proxima-nova', Arial, sans-serif;
+  font-weight: 100;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  overflow: auto;
+  padding: 20px 20px 20px;
+}
+
+button:focus,
+i:focus {
+  outline: 0;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+}

@@ -1,0 +1,75 @@
+.container {
+  background: #fff;
+  display: flex;
+  height: 1080px;
+  width: 100%;
+}
+
+.buttonContainer {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  background-color: transparent;
+  fill: #5d6063;
+  color: #5d6063;
+  width: 70px;
+  height: 56px;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  line-height: 10px;
+  position: relative;
+  cursor: default;
+  border: 0;
+  box-shadow: inset -8px 0 0 transparent;
+  transition: box-shadow 0.3s, background 0.1s;
+  outline: none;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.svg {
+  fill: #6d7584;
+  height: 20px;
+  width: 20px;
+}
+
+.button:hover .svg {
+  fill: #0e75dd;
+}
+
+.endSession {
+  background-color: rgb(239, 242, 246);
+  color: #e2231a;
+  align-items: center;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  line-height: 24px;
+  min-height: 56px;
+  outline: none;
+  width: 100%;
+  position: absolute;
+  bottom: 28px;
+}
+
+.endSession:hover{
+  color: rgb(174,15,15)
+}
+
+.endSession span {
+  font-weight: 700;
+}
