@@ -108,6 +108,9 @@ const DevicesOverview = () => {
     // I can't find the root cause of this.
     // storageData,
   ]);
+  const isFetchDevicesError = deviceApiError?.config.url.includes(
+    'saucelabs.com/v1/rdc/devices/filtered?dataCenterId'
+  );
   /**
    * Fetches the devices that are in use with vUSB
    */
@@ -134,7 +137,7 @@ const DevicesOverview = () => {
     vusbStatus,
   ]);
   /**
-   * Fetches the devices that are in available with the API
+   * Fetches the devices that are available with the API
    */
   useEffect(() => {
     fetchAvailableDevices.current = setInterval(
@@ -452,7 +455,7 @@ const DevicesOverview = () => {
             </div>
           </div>
           <div className={Styles.devicesWrapper}>
-            {(!busyDevicesLoaded && devices.length === 0) || deviceApiError
+            {(!busyDevicesLoaded && devices.length === 0) || isFetchDevicesError
               ? [...Array(6)].map((_num, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <DeviceDetailsEmptyCard key={`empty-card-${index}`} />

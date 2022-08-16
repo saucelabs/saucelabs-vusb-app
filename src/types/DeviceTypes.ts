@@ -55,12 +55,46 @@ type ExtraDeviceStateType = {
 
 type DeviceStateType = DevicesApiType & ExtraDeviceStateType;
 
+type AxiosError = {
+  code: string;
+  config: {
+    transitional: {
+      silentJSONParsing: true;
+      forcedJSONParsing: true;
+      clarifyTimeoutError: false;
+    };
+    transformRequest: [null];
+    transformResponse: [null];
+    timeout: 0;
+    xsrfCookieName: string;
+    xsrfHeaderName: string;
+    maxContentLength: -1;
+    maxBodyLength: -1;
+    env: {
+      FormData: null;
+    };
+    headers: {
+      Accept: string;
+      Authorization: string;
+      'Cache-Control': string;
+    };
+    method: string;
+    url: string;
+  };
+  message: string;
+  name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  request?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  response?: any;
+};
+
 type DevicesStateType = {
   connectedDevices: string[];
   deviceQuery: string;
   devices: DeviceStateType[];
   devicesChecked: boolean;
-  error: Error | null;
+  error: AxiosError | null;
   status: ApiStatusEnum;
   tunnelIdentifier: string | null;
 };
@@ -180,20 +214,20 @@ type DevicesActionType =
       type: DeviceActionEnum.FETCH_DEVICES_SUCCESS;
       devices: DeviceStateType[];
     }
-  | { type: DeviceActionEnum.FETCH_DEVICES_ERROR; error: Error }
+  | { type: DeviceActionEnum.FETCH_DEVICES_ERROR; error: AxiosError }
   | { type: DeviceActionEnum.FETCH_AVAILABLE_DEVICES_LOADING }
   | {
       type: DeviceActionEnum.FETCH_AVAILABLE_DEVICES_SUCCESS;
       availableDevices: string[];
     }
-  | { type: DeviceActionEnum.FETCH_AVAILABLE_DEVICES_ERROR; error: Error }
+  | { type: DeviceActionEnum.FETCH_AVAILABLE_DEVICES_ERROR; error: AxiosError }
   | { type: DeviceActionEnum.SEARCH_DEVICES; searchTerm: string }
   | { type: DeviceActionEnum.SET_TUNNEL_IDENTIFIER; tunnelIdentifier: string }
   | {
       type: DeviceActionEnum.STORE_IN_USE_DEVICES;
       inUseDevices: InUseDevicesType[];
     }
-  | { type: DeviceActionEnum.IN_USE_DEVICES_ERROR; error: Error };
+  | { type: DeviceActionEnum.IN_USE_DEVICES_ERROR; error: AxiosError };
 
 export {
   CreateDeviceConnectionType,

@@ -94,7 +94,9 @@ const StoreProvider = ({
 }): React.ReactElement => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [state, dispatch] = useReducer(
-    process.env.NODE_ENV === 'development' ? logger(mainReducer) : mainReducer,
+    process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true'
+      ? logger(mainReducer)
+      : mainReducer,
     initialState
   );
 

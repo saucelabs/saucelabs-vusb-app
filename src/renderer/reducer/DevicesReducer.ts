@@ -67,8 +67,8 @@ function filterBusyDevices(
         ...device,
         isBusy: !availableDevices.includes(device.descriptorId),
         status:
-          availableDevices.includes(device.descriptorId) ||
-          device.status === DeviceSessionStatusEnum.CONNECTING
+          availableDevices.includes(device.descriptorId) &&
+          device.status !== DeviceSessionStatusEnum.CONNECTING
             ? DeviceSessionStatusEnum.IDLE
             : device.status,
       })),
