@@ -7,9 +7,9 @@ const TunnelsSlide: React.FC = () => {
   return (
     <>
       <div className={Styles.slideTop}>
-        <img alt="No Tunnels" src={noTunnels} width={600} />
+        <img alt="No Tunnels" src={noTunnels} width={525} />
         <br />
-        <img alt="Tunnels" src={tunnels} width={600} />
+        <img alt="Tunnels" src={tunnels} width={525} />
       </div>
       <div className={Styles.slideBottom}>
         <div className={`${Styles.textContainer} ${Styles.widerTextContainer}`}>

@@ -21,7 +21,8 @@ const LabelsSlide: React.FC = () => {
               <div className={`${Styles.badge} ${Styles.busy}`}>Busy</div>
             </div>
             <div className={Styles.secondColumn}>
-              In a cleaning process or used by a colleague
+              In a cleaning process (from a manual or automated session on Sauce
+              Labs) or used by a colleague
             </div>
           </div>
           <div className={Styles.tableRow}>
@@ -34,7 +35,8 @@ const LabelsSlide: React.FC = () => {
             </div>
             <div className={Styles.secondColumn}>
               {' '}
-              Can connect to an existing session. <br />
+              Can connect to an existing live session form the Sauce Labs UI.{' '}
+              <br />
               <strong>NOTE:</strong> You could potentially break a session of a
               colleague
             </div>

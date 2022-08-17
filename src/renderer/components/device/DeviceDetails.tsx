@@ -237,7 +237,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
                 Start Manual Test
               </button>
             )}
-            <div>
+            <>
               <button
                 className={`${Styles.detailsLink} ${Styles.detailsButton}`}
                 onClick={handleDetailsDialog}
@@ -250,7 +250,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
                 handleClose={handleDetailsDialog}
                 open={isDetailsDialogOpen}
               />
-            </div>
+            </>
           </div>
         </div>
       </div>

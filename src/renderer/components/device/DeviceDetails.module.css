@@ -159,6 +159,7 @@
 .detailsButton {
   background-color: transparent;
   border: none;
+  font-size: 12px;
   padding: 0;
 }
 

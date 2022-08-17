@@ -426,8 +426,10 @@ const DevicesOverview = () => {
                       />
                     </svg>
                     <span>
-                      A tunnel can only be used when you start a NEW session,
-                      NOT when you connect to an EXISTING device.
+                      This tunnel can only be used when you start a NEW session,
+                      NOT when you connect to an EXISTING device. An existing
+                      session (manual session from the Sauce Labs UI) can only
+                      use tunnels that are started from the Sauce Labs UI.
                     </span>
                   </div>
                   <div className={Styles.dropdownContainer}>
