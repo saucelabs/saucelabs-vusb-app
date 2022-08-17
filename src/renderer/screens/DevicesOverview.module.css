@@ -87,6 +87,10 @@ svg:hover+span {
   flex: 1;
 }
 
+.link {
+  text-decoration: underline;
+}
+
 .dropdownContainer .buttonLink{
   color: #0e75dd;
   margin-left: 5px;

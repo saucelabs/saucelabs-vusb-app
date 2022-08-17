@@ -1,10 +1,6 @@
 import axios from 'axios';
 import semver from 'semver';
-import {
-  APP_VERSION,
-  MAX_LOG_LINES,
-  // VUSB_SERVER_NAME
-} from './Constants';
+import { APP_VERSION, MAX_LOG_LINES } from './Constants';
 
 /**
  * Trim the log array to the MAX_LOG_LINES
@@ -54,10 +50,4 @@ async function getGuiVersions(): Promise<{
   }
 }
 
-export {
-  getGuiVersions,
-  getLocalTimeString,
-  // getVusbFilePath,
-  trimLogArray,
-  // writeDataToFile,
-};
+export { getGuiVersions, getLocalTimeString, trimLogArray };

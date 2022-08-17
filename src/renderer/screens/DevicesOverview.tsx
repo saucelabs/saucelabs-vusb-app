@@ -39,11 +39,14 @@ import Styles from './DevicesOverview.module.css';
 import ProductTour from './ProductTour';
 import { openProductTour } from '../actions/ProductTourActions';
 import Notification, { NotificationsEnum } from '../components/Notification';
+import { getGuiVersions } from '../utils/Helpers';
 
 const DevicesOverview = () => {
   const [busyDevicesLoaded, setBusyDevicesLoaded] = useState(false);
   const [manualClosedDevices, setManualClosedDevices] = useState<string[]>([]);
   const fetchInUseDevices = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [needToUpdate, setNeedToUpdate] = useState(false);
+  const [isDeprecated, setIsDeprecated] = useState(false);
   const fetchAvailableDevices = useRef<ReturnType<typeof setInterval> | null>(
     null
   );
@@ -189,7 +192,17 @@ const DevicesOverview = () => {
     }
     // }, [appVersion, dispatch, storageData]);
   }, [appVersion, dispatch]);
-
+  /**
+   * Determine if the app is deprecated or needs to be updated
+   */
+  useEffect(() => {
+    async function determineUpdateDeprecated() {
+      const { update, deprecated } = await getGuiVersions();
+      setNeedToUpdate(update);
+      setIsDeprecated(deprecated);
+    }
+    determineUpdateDeprecated();
+  }, []);
   /**
    * Server
    */
@@ -391,6 +404,55 @@ const DevicesOverview = () => {
               Your environment has <strong>NOT</strong> been set up properly,
               please click <Link to={ROUTES.REQUIREMENTS}>here</Link> to go to
               the <em>Requirements</em>-page to see what needs to be fixed.
+            </>
+          </Notification>
+        )}
+        {needToUpdate && !isDeprecated && (
+          <Notification
+            background
+            title="Update version"
+            type={NotificationsEnum.INFO}
+            dismissible
+            onClick={() => setNeedToUpdate(false)}
+          >
+            <>
+              A new version is available and can be downloaded{' '}
+              <button
+                className={Styles.link}
+                onClick={() =>
+                  window.open(
+                    'https://github.com/saucelabs/saucelabs-vusb-app/releases'
+                  )
+                }
+                type="button"
+              >
+                here
+              </button>
+              .
+            </>
+          </Notification>
+        )}
+        {isDeprecated && (
+          <Notification
+            background
+            title="Version deprecated"
+            type={NotificationsEnum.WARNING}
+          >
+            <>
+              Version <span>{APP_VERSION}</span> has been deprecated!
+              <br />A new version needs to be downloaded{' '}
+              <button
+                className={Styles.link}
+                onClick={() =>
+                  window.open(
+                    'https://github.com/saucelabs/saucelabs-vusb-app/releases'
+                  )
+                }
+                type="button"
+              >
+                here
+              </button>
+              .
             </>
           </Notification>
         )}
