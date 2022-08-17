@@ -37,8 +37,7 @@ async function spawnAdbCommand({
       )}'`;
       const adbProcess: ChildProcess = spawn(
         'adb',
-        adbArgs.map((arg) => (arg as string | number).toString()),
-        { shell: true }
+        adbArgs.map((arg) => (arg as string | number).toString())
       );
 
       result.push(startMessage, argumentsMessage);
@@ -300,8 +299,7 @@ async function spawnVusbCommand({
       )}'`;
       const deviceServerProcess: ChildProcess = spawn(
         'java',
-        deviceArgs.map((arg) => (arg as string | number).toString()),
-        { shell: true }
+        deviceArgs.map((arg) => (arg as string | number).toString())
       );
 
       result.push(startMessage, argumentsMessage);
@@ -310,9 +308,11 @@ async function spawnVusbCommand({
         result.push(data.toString('utf-8'));
       });
       deviceServerProcess.stderr?.on('data', (data) => {
+        result.push(data.toString());
         errorMessage.push(data.toString('utf-8'));
       });
       deviceServerProcess.on('error', (error) => {
+        result.push(error.toString());
         errorMessage.push(error.toString());
         reject(errorMessage);
       });
