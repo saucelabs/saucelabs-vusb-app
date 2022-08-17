@@ -5,7 +5,7 @@ interface DefaultSettingsInterface {
 }
 // During development we can find the file in /Users/wimselles/Library/Application Support/Electron
 // After the build we can find it in /Users/wimselles/Library/Application Support/Sauce Labs vUSB GUI
-const STORAGE_FILE_NAME = 'saucelabs-up-vusb-config-v2.1';
+const STORAGE_FILE_NAME = 'saucelabs-up-vusb-config-v2.0.0';
 const DEFAULT_SETTINGS: DefaultSettingsInterface = {
   generic: {
     connection: {

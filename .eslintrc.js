@@ -6,6 +6,8 @@ module.exports = {
     'import/no-unresolved': 'error',
     // Since React 17 and typescript 4.1 you can safely disable the rule
     'react/react-in-jsx-scope': 'off',
+    // We need to use awaits in loops because array iterators are not async
+    'no-await-in-loop': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
