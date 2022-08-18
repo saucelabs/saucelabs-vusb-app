@@ -34,17 +34,41 @@ function EnvVarAndPathCheck(varName: string): SystemDataCheckType {
     };
   }
 
-  return existsSync(varValue)
+  // To make vUSB work we need to run the command `java -jar ...`,
+  // having JAVA_HOME set is not enough,we need to actually make sure
+  // that the java binary is in the PATH
+  const isCheckJava = varName === 'JAVA_HOME';
+  let javaWorks = false;
+  let javaVersion = null;
+  if (isCheckJava) {
+    const { stdout: javaStdout } = spawnSync('java', ['--version']);
+    javaWorks = Boolean(javaStdout);
+    javaVersion = javaWorks
+      ? javaStdout.toString().split(/\r?\n|\r|\n/g)[0]
+      : null;
+  }
+  const isValid = isCheckJava
+    ? existsSync(varValue) && javaWorks
+    : existsSync(varValue);
+  const successMessage = isCheckJava
+    ? `JAVA Version is: '${javaVersion}'\nPath is set to: ${varValue}`
+    : `Set to: ${varValue}`;
+  const errorMessage =
+    isCheckJava && !javaWorks
+      ? `'java' is not a valid command, please check your settings!`
+      : `Set to '${varValue}' but this is NOT a valid path!`;
+
+  return isValid
     ? {
         check: true,
         label,
-        message: `Set to: ${varValue}`,
+        message: successMessage,
         name: varName,
       }
     : {
         check: false,
         label,
-        message: `Set to '${varValue}' but this is NOT a valid path!`,
+        message: errorMessage,
         name: varName,
       };
 }

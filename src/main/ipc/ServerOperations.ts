@@ -1,42 +1,18 @@
 import { ChildProcess, spawn } from 'child_process';
 import fixPath from 'fix-path';
-import { join } from 'path';
-import { writeFileSync } from 'fs';
-import { SERVER_LOGS, VUSB_SERVER_NAME } from '../../renderer/utils/Constants';
+import { SERVER_LOGS } from '../../renderer/utils/Constants';
 import { ElectronStorageType } from '../../types/ElectronStoreTypes';
 import { getLocalTimeString } from '../../renderer/utils/Helpers';
 import { ServerActionEnum } from '../../types/ServerTypes';
 import { ChannelsEnum } from '../../types/ChannelTypes';
-import { sendDataToRenderer } from './helpers';
+import {
+  getVusbFilePath,
+  sendDataToRenderer,
+  writeDataToFile,
+} from './helpers';
 
 let serverProcess: ChildProcess | null = null;
 fixPath();
-
-/**
- * Get the vusb-runner path for a debug/release version
- */
-function getVusbFilePath(): string {
-  const runner = VUSB_SERVER_NAME;
-
-  return process.env.NODE_ENV === 'development'
-    ? join(__dirname, '../../../', 'assets', runner)
-    : join(process.resourcesPath, 'assets', runner);
-}
-
-/**
- * Write data to a file
- */
-function writeDataToFile(logsPath: string, fileName: string, data: string) {
-  try {
-    writeFileSync(join(logsPath, fileName), data, {
-      flag: 'a',
-    });
-  } catch (err) {
-    // @TODO: add a better way to handle this
-    // eslint-disable-next-line no-console
-    console.error(err);
-  }
-}
 
 /**
  * Start the vUSB server
@@ -232,18 +208,4 @@ function stopServer(event: Electron.IpcMainEvent) {
   }
 }
 
-/**
- * Get the connected ADB devices
- */
-// function storeAdbConnectedDeviceLog(dispatch: DispatchType) {
-//   const adbServer = spawn('adb', ['devices', '-l']);
-
-//   adbServer.stdout.on('data', (data) => dispatch(vusbServerLogAdbAction(data)));
-//   // @TODO: add error,but have never seen this go wrong
-// }
-
-export {
-  startServer,
-  // storeAdbConnectedDeviceLog,
-  stopServer,
-};
+export { startServer, stopServer };
