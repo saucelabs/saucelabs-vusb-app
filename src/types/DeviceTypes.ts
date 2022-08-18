@@ -6,6 +6,35 @@ enum ApiStatusEnum {
   ERROR = 'ERROR',
   LOADING = 'LOADING',
 }
+enum DeviceActionEnum {
+  FETCH_DEVICES_LOADING = 'FETCH_DEVICES_LOADING',
+  FETCH_DEVICES_SUCCESS = 'FETCH_DEVICES_SUCCESS',
+  FETCH_DEVICES_ERROR = 'FETCH_DEVICES_ERROR',
+  FETCH_AVAILABLE_DEVICES_LOADING = 'FETCH_AVAILABLE_DEVICES_LOADING',
+  FETCH_AVAILABLE_DEVICES_SUCCESS = 'FETCH_AVAILABLE_DEVICES_SUCCESS',
+  FETCH_AVAILABLE_DEVICES_ERROR = 'FETCH_AVAILABLE_DEVICES_ERROR',
+  STORE_IN_USE_DEVICES = 'STORE_IN_USE_DEVICES',
+  IN_USE_DEVICES_ERROR = 'IN_USE_DEVICES_ERROR',
+  SEARCH_DEVICES = 'SEARCH_DEVICES',
+  SET_TUNNEL_IDENTIFIER = 'SET_TUNNEL_IDENTIFIER',
+  DEVICE_SESSION_ERROR = 'DEVICE_SESSION_ERROR',
+  DEVICE_SESSION_RUNNING = 'DEVICE_SESSION_RUNNING',
+  DEVICE_SESSION_STARTING = 'DEVICE_SESSION_STARTING',
+  DEVICE_SESSION_STOPPING = 'DEVICE_SESSION_STOPPING',
+  DEVICE_SESSION_STOPPED = 'DEVICE_SESSION_STOPPED',
+  DEVICE_LOG_TOGGLE = 'DEVICE_LOG_TOGGLE',
+  DEVICE_SESSION_CLEAR_LOGS = 'DEVICE_SESSION_CLEAR_LOGS',
+}
+enum DeviceSessionStatusEnum {
+  CONNECTED = 'CONNECTED',
+  CONNECTING = 'CONNECTING',
+  ERROR = 'ERROR',
+  IDLE = 'IDLE',
+  STARTED = 'STARTED',
+  STOP = 'STOP',
+  STOPPED = 'STOPPED',
+  STOPPING = 'STOPPING',
+}
 
 type DevicesApiType = {
   abiType: string;
@@ -37,7 +66,6 @@ type DevicesApiType = {
   screenSize: number;
   supportsAppiumWebAppTesting: boolean;
 };
-
 type ExtraDeviceStateType = {
   adbConnected: boolean;
   dc: string;
@@ -46,15 +74,13 @@ type ExtraDeviceStateType = {
   isBusy: boolean;
   log: string[];
   manualConnect: boolean;
-  port: number;
+  portNumber: number;
   sessionID: string;
   showDevice: boolean;
   showLogs: boolean;
   status: string;
 };
-
 type DeviceStateType = DevicesApiType & ExtraDeviceStateType;
-
 type AxiosError = {
   code: string;
   config: {
@@ -88,7 +114,6 @@ type AxiosError = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   response?: any;
 };
-
 type DevicesStateType = {
   connectedDevices: string[];
   deviceQuery: string;
@@ -116,12 +141,11 @@ type StartDeviceType = {
 type StopDeviceType = {
   descriptorId: string;
   manualConnect: boolean;
-  port: number;
+  portNumber: number;
   sessionId: string;
   status: string;
   storageData: ElectronStorageType;
 };
-
 type CreateDeviceConnectionType = {
   adbConnected: boolean;
   connectionError: boolean;
@@ -131,46 +155,13 @@ type CreateDeviceConnectionType = {
   portNumber: number;
   sessionId: string;
 };
-
-enum DeviceActionEnum {
-  FETCH_DEVICES_LOADING = 'FETCH_DEVICES_LOADING',
-  FETCH_DEVICES_SUCCESS = 'FETCH_DEVICES_SUCCESS',
-  FETCH_DEVICES_ERROR = 'FETCH_DEVICES_ERROR',
-  FETCH_AVAILABLE_DEVICES_LOADING = 'FETCH_AVAILABLE_DEVICES_LOADING',
-  FETCH_AVAILABLE_DEVICES_SUCCESS = 'FETCH_AVAILABLE_DEVICES_SUCCESS',
-  FETCH_AVAILABLE_DEVICES_ERROR = 'FETCH_AVAILABLE_DEVICES_ERROR',
-  STORE_IN_USE_DEVICES = 'STORE_IN_USE_DEVICES',
-  IN_USE_DEVICES_ERROR = 'IN_USE_DEVICES_ERROR',
-  SEARCH_DEVICES = 'SEARCH_DEVICES',
-  SET_TUNNEL_IDENTIFIER = 'SET_TUNNEL_IDENTIFIER',
-  DEVICE_SESSION_ERROR = 'DEVICE_SESSION_ERROR',
-  DEVICE_SESSION_RUNNING = 'DEVICE_SESSION_RUNNING',
-  DEVICE_SESSION_STARTING = 'DEVICE_SESSION_STARTING',
-  DEVICE_SESSION_STOPPING = 'DEVICE_SESSION_STOPPING',
-  DEVICE_SESSION_STOPPED = 'DEVICE_SESSION_STOPPED',
-  DEVICE_LOG_TOGGLE = 'DEVICE_LOG_TOGGLE',
-  DEVICE_SESSION_CLEAR_LOGS = 'DEVICE_SESSION_CLEAR_LOGS',
-}
-
-enum DeviceSessionStatusEnum {
-  CONNECTED = 'CONNECTED',
-  CONNECTING = 'CONNECTING',
-  ERROR = 'ERROR',
-  IDLE = 'IDLE',
-  STARTED = 'STARTED',
-  STOP = 'STOP',
-  STOPPED = 'STOPPED',
-  STOPPING = 'STOPPING',
-}
-
 type DeviceActionType = {
   adbConnected?: boolean;
   descriptorId: string;
   log: string;
   manualConnect?: boolean;
-  port?: number;
+  portNumber?: number;
 };
-
 type DevicesActionType =
   | {
       type: DeviceActionEnum.DEVICE_SESSION_ERROR;
@@ -184,7 +175,7 @@ type DevicesActionType =
       descriptorId: string;
       log: string;
       manualConnect: boolean;
-      port: number;
+      portNumber: number;
     }
   | {
       type: DeviceActionEnum.DEVICE_SESSION_STARTING;
@@ -201,7 +192,7 @@ type DevicesActionType =
       adbConnected: boolean;
       descriptorId: string;
       log: string;
-      port: number;
+      portNumber: number;
     }
   | {
       type: DeviceActionEnum.DEVICE_LOG_TOGGLE;
@@ -228,9 +219,26 @@ type DevicesActionType =
       inUseDevices: InUseDevicesType[];
     }
   | { type: DeviceActionEnum.IN_USE_DEVICES_ERROR; error: AxiosError };
+type StartStopAdbConnectionType = {
+  descriptorId: string;
+  logsPath: string;
+  logsToFile: boolean;
+  portNumber: number;
+};
+type ConnectToDeviceType = {
+  descriptorId: string;
+  sessionId: string;
+  storageData: ElectronStorageType;
+};
+type StartDeviceConnection = {
+  descriptorId: string;
+  storageData: ElectronStorageType;
+  tunnelIdentifier: string | null;
+};
 
 export {
   CreateDeviceConnectionType,
+  ConnectToDeviceType,
   DeviceActionEnum,
   DeviceActionType,
   DevicesActionType,
@@ -240,5 +248,7 @@ export {
   ExtraDeviceStateType,
   InUseDevicesType,
   StartDeviceType,
+  StartDeviceConnection,
+  StartStopAdbConnectionType,
   StopDeviceType,
 };

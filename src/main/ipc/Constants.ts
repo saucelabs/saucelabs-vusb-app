@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS: DefaultSettingsInterface = {
     },
     proxy: {
       host: '',
-      port: undefined,
+      portNumber: undefined,
       username: '',
       password: '',
     },
@@ -26,13 +26,13 @@ const DEFAULT_SETTINGS: DefaultSettingsInterface = {
       host: 'http://127.0.0.1',
       logsToFile: false,
       logsPath: '',
-      port: 33657,
+      portNumber: 33657,
       verboseLogs: false,
     },
     device: {
       proxy: {
         host: '',
-        port: undefined,
+        portNumber: undefined,
         username: '',
         password: '',
       },

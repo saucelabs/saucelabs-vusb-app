@@ -20,7 +20,7 @@ function deviceWindow({
   const sessionId = searchString.searchParams.get('sessionId');
   const platform = searchString.searchParams.get('platform');
   const dc = searchString.searchParams.get('dc');
-  const port = searchString.searchParams.get('port');
+  const portNumber = searchString.searchParams.get('portNumber');
   const status = searchString.searchParams.get('status');
   const descriptorIdRes = url.match('devices/(.*)/shared');
   const descriptorId = descriptorIdRes ? descriptorIdRes[1] : '';
@@ -89,7 +89,7 @@ function deviceWindow({
     mainWindow?.webContents.send(ChannelsEnum.MANUAL_SESSION_CLOSE, {
       descriptorId,
       manualConnect: true,
-      port,
+      portNumber,
       sessionId,
       status,
     });

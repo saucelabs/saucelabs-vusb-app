@@ -118,14 +118,14 @@ ipcMain.handle(
     {
       descriptorId,
       manualConnect,
-      port,
+      portNumber,
       sessionId,
       status,
       storageData,
     }: {
       descriptorId: string;
       manualConnect: boolean;
-      port: number;
+      portNumber: number;
       sessionId: string;
       status: DeviceActionEnum;
       storageData: ElectronStorageType;
@@ -139,7 +139,7 @@ ipcMain.handle(
     const result = await stopDeviceSession({
       descriptorId,
       manualConnect,
-      port,
+      portNumber,
       sessionId,
       status,
       storageData,
@@ -182,7 +182,7 @@ const createWindow = async () => {
 
   // Fallback to kill the server if it was already running
   try {
-    await fkill(`:${getGenericStorage().server.port}`);
+    await fkill(`:${getGenericStorage().server.portNumber}`);
     console.log(`
 
 ###################################################################################

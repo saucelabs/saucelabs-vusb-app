@@ -54,7 +54,7 @@ function startServer(
       host: serverHost,
       logsPath,
       logsToFile,
-      port: serverPort,
+      portNumber: serverPort,
       verboseLogs,
     },
     proxy,
@@ -98,13 +98,13 @@ ${getLocalTimeString()} [main] INFO Starting the vUSB server.`;
     }
 
     // Add proxy args
-    const { host, port, username, password } = proxy;
+    const { host, portNumber, username, password } = proxy;
     if (host) {
       serverArgs.push('--proxyHost', host);
     }
 
-    if (port) {
-      serverArgs.push('--proxyPort', port);
+    if (portNumber) {
+      serverArgs.push('--proxyPort', portNumber);
     }
 
     if (username) {

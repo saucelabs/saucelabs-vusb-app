@@ -10,7 +10,7 @@ type ConnectionType = {
 };
 type ServerProxyType = {
   host: string;
-  port: number | undefined;
+  portNumber: number | undefined;
   username: string;
   password: string;
 };
@@ -21,12 +21,12 @@ type ServerType = {
   host: string;
   logsToFile: boolean;
   logsPath: string;
-  port: number;
+  portNumber: number;
   verboseLogs: boolean;
 };
 type DeviceProxyType = {
   host: string;
-  port: number | undefined;
+  portNumber: number | undefined;
   username: string;
   password: string;
 };

@@ -65,7 +65,7 @@ contextBridge.exposeInMainWorld('electron', {
     stop({
       descriptorId,
       manualConnect,
-      port,
+      portNumber,
       sessionId,
       status,
       storageData,
@@ -73,7 +73,7 @@ contextBridge.exposeInMainWorld('electron', {
       return ipcRenderer.invoke(ChannelsEnum.DEVICE_STOP, {
         descriptorId,
         manualConnect,
-        port,
+        portNumber,
         sessionId,
         status,
         storageData,

@@ -25,14 +25,14 @@ function deviceSessionRunning({
   descriptorId,
   log,
   manualConnect,
-  port,
+  portNumber,
 }: DeviceActionType) {
   return {
     adbConnected,
     descriptorId,
     log,
     manualConnect,
-    port,
+    portNumber,
     type: DeviceActionEnum.DEVICE_SESSION_RUNNING,
   };
 }
@@ -66,13 +66,13 @@ function deviceSessionStopped({
   adbConnected,
   descriptorId,
   log,
-  port,
+  portNumber,
 }: DeviceActionType) {
   return {
     adbConnected,
     descriptorId,
     log,
-    port,
+    portNumber,
     type: DeviceActionEnum.DEVICE_SESSION_STOPPED,
   };
 }
@@ -124,7 +124,7 @@ function deviceActions({
   dispatch,
   logLine: log,
   manualConnect,
-  port,
+  portNumber,
   status,
 }: {
   adbConnected?: boolean;
@@ -132,7 +132,7 @@ function deviceActions({
   dispatch: DispatchType;
   logLine: string;
   manualConnect?: boolean;
-  port?: number;
+  portNumber?: number;
   status: DeviceActionEnum;
 }) {
   switch (status) {
@@ -146,7 +146,7 @@ function deviceActions({
           descriptorId,
           log,
           manualConnect,
-          port,
+          portNumber,
         })
       );
       break;
@@ -159,7 +159,7 @@ function deviceActions({
           adbConnected,
           descriptorId,
           log,
-          port,
+          portNumber,
         })
       );
       break;

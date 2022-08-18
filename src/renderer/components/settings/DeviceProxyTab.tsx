@@ -9,7 +9,7 @@ type DeviceProxyTabType = {
 };
 
 const DeviceProxy: React.FC<DeviceProxyTabType> = ({
-  proxyData: { host, password, port, username },
+  proxyData: { host, password, portNumber, username },
   onChange,
 }) => {
   return (
@@ -29,14 +29,14 @@ const DeviceProxy: React.FC<DeviceProxyTabType> = ({
       </div>
       <div className={Styles.formGroup}>
         <Input
-          label="Port"
-          value={port as unknown as string}
-          name="port"
+          label="Port Number"
+          value={portNumber as unknown as string}
+          name="portNumber"
           onChange={onChange}
           type={InputType.NUMBER}
         />
         <span className={Styles.explain}>
-          HTTP proxy port to be set on the device
+          HTTP proxy port number to be set on the device
         </span>
       </div>
       <div className={Styles.formGroup}>

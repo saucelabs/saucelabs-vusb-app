@@ -37,14 +37,14 @@ function writeDataToFile(logsPath: string, fileName: string, data: string) {
 function sendDataToRenderer({
   event,
   channel,
-  data: { descriptorId, logLine, port, status },
+  data: { descriptorId, logLine, portNumber, status },
 }: {
   event: Electron.IpcMainEvent;
   channel: ChannelsEnum;
   data: {
     descriptorId?: string;
     logLine: Buffer | string;
-    port?: number;
+    portNumber?: number;
     status: ServerActionEnum | DeviceActionEnum;
   };
 }) {
@@ -54,7 +54,7 @@ function sendDataToRenderer({
       typeof logLine === 'string'
         ? logLine
         : new TextDecoder('utf-8').decode(logLine),
-    ...(port ? { port } : {}),
+    ...(portNumber && { portNumber }),
     status,
   });
 }

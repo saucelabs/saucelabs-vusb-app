@@ -37,7 +37,7 @@ function filterInUseDevices(
       matchingDevice.length === 0
         ? {
             inUse: false,
-            port: 0,
+            portNumber: 0,
             sessionID: '',
             status: DeviceSessionStatusEnum.STOPPED,
           }
@@ -129,7 +129,7 @@ function determineNewDeviceState({
   error,
   log,
   manualConnect,
-  port,
+  portNumber,
   showLogs,
   state,
   status,
@@ -140,7 +140,7 @@ function determineNewDeviceState({
   descriptorId: string;
   error?: boolean;
   log?: string[] | undefined;
-  port?: number | undefined;
+  portNumber?: number | undefined;
   manualConnect?: boolean;
   showLogs?: boolean;
   state: DevicesStateType;
@@ -172,35 +172,31 @@ function determineNewDeviceState({
           ? {
               ...device,
               ...{
-                ...(typeof adbConnected === 'boolean' ? { adbConnected } : {}),
-                ...(typeof error === 'boolean' ? { error } : {}),
+                ...(typeof adbConnected === 'boolean' && { adbConnected }),
+                ...(typeof error === 'boolean' && { error }),
                 // Clear or add new log
                 log: clearLogs ? [] : log || device.log,
-                ...(typeof port === 'number' ? { port } : {}),
-                ...(typeof manualConnect === 'boolean'
-                  ? { manualConnect }
-                  : {}),
-                ...(typeof showLogs === 'boolean' ? { showLogs } : {}),
-                ...(status
-                  ? {
-                      status:
-                        // If the device was connecting and the status is now connected/error, use that status
-                        // otherwise keep it to connecting
-                        (device.status === DeviceSessionStatusEnum.CONNECTING &&
-                          status !== DeviceSessionStatusEnum.CONNECTED &&
-                          status !== DeviceSessionStatusEnum.ERROR) ||
-                        // If the device was stopping and the status is now stopped, use that status
-                        // otherwise keep it to stopping
-                        (device.status === DeviceSessionStatusEnum.STOPPING &&
-                          status !== DeviceSessionStatusEnum.STOPPED) ||
-                        // If the device was stopped and is now connected again, then keep the stopped status
-                        // otherwise use the new status (which could be connecting/error)
-                        (device.status === DeviceSessionStatusEnum.STOPPED &&
-                          status === DeviceSessionStatusEnum.CONNECTED)
-                          ? device.status
-                          : status,
-                    }
-                  : {}),
+                ...(typeof portNumber === 'number' && { portNumber }),
+                ...(typeof manualConnect === 'boolean' && { manualConnect }),
+                ...(typeof showLogs === 'boolean' && { showLogs }),
+                ...(status && {
+                  status:
+                    // If the device was connecting and the status is now connected/error, use that status
+                    // otherwise keep it to connecting
+                    (device.status === DeviceSessionStatusEnum.CONNECTING &&
+                      status !== DeviceSessionStatusEnum.CONNECTED &&
+                      status !== DeviceSessionStatusEnum.ERROR) ||
+                    // If the device was stopping and the status is now stopped, use that status
+                    // otherwise keep it to stopping
+                    (device.status === DeviceSessionStatusEnum.STOPPING &&
+                      status !== DeviceSessionStatusEnum.STOPPED) ||
+                    // If the device was stopped and is now connected again, then keep the stopped status
+                    // otherwise use the new status (which could be connecting/error)
+                    (device.status === DeviceSessionStatusEnum.STOPPED &&
+                      status === DeviceSessionStatusEnum.CONNECTED)
+                      ? device.status
+                      : status,
+                }),
               },
             }
           : device
@@ -256,7 +252,7 @@ const devicesReducer = (
         descriptorId: action.descriptorId,
         log: trimLogArray(currentLogs.concat(logLineArray)),
         manualConnect: action.manualConnect,
-        port: action.port,
+        portNumber: action.portNumber,
         state,
         status: DeviceSessionStatusEnum.CONNECTED,
       });
@@ -280,7 +276,7 @@ const devicesReducer = (
         connectDevice: false,
         descriptorId: action.descriptorId,
         log: trimLogArray(currentLogs.concat(logLineArray)),
-        port: action.port,
+        portNumber: action.portNumber,
         state,
         status: DeviceSessionStatusEnum.STOPPED,
       });

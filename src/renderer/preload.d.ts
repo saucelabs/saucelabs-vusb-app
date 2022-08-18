@@ -59,7 +59,7 @@ declare global {
         stop({
           descriptorId,
           manualConnect,
-          port,
+          portNumber,
           sessionId,
           status,
           storageData,
@@ -74,13 +74,13 @@ declare global {
           func: ({
             descriptorId,
             manualConnect,
-            port,
+            portNumber,
             sessionId,
             status,
           }: {
             descriptorId: string;
             manualConnect: boolean;
-            port: number;
+            portNumber: number;
             sessionId: string;
             status: DeviceSessionStatusEnum;
           }) => void

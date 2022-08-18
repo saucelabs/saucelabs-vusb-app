@@ -263,7 +263,7 @@ const DevicesOverview = () => {
       dispatch,
       logLine: logLines,
       manualConnect,
-      port: portNumber,
+      portNumber,
       status: connectionError
         ? DeviceActionEnum.DEVICE_SESSION_ERROR
         : DeviceActionEnum.DEVICE_SESSION_RUNNING,
@@ -275,13 +275,13 @@ const DevicesOverview = () => {
   const closeDeviceSession = async ({
     descriptorId,
     manualConnect,
-    port,
+    portNumber,
     sessionId,
     status,
   }: {
     descriptorId: string;
     manualConnect: boolean;
-    port: number;
+    portNumber: number;
     sessionId: string;
     status: DeviceSessionStatusEnum;
   }) => {
@@ -291,21 +291,20 @@ const DevicesOverview = () => {
       logLine: '',
       status: DeviceActionEnum.DEVICE_SESSION_STOPPING,
     });
-    const { adbConnected, logLines, portNumber } =
-      await window.electron.device.stop({
-        descriptorId,
-        manualConnect,
-        port,
-        sessionId,
-        status,
-        storageData,
-      });
+    const { adbConnected, logLines } = await window.electron.device.stop({
+      descriptorId,
+      manualConnect,
+      portNumber,
+      sessionId,
+      status,
+      storageData,
+    });
     deviceActions({
       adbConnected,
       descriptorId,
       dispatch,
       logLine: logLines,
-      port: portNumber,
+      portNumber,
       status: DeviceActionEnum.DEVICE_SESSION_STOPPED,
     });
   };

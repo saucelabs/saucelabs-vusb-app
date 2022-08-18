@@ -9,7 +9,7 @@ type ServerProxyTabType = {
 };
 
 const ServerProxy: React.FC<ServerProxyTabType> = ({
-  proxyData: { host, password, port, username },
+  proxyData: { host, password, portNumber, username },
   onChange,
 }) => {
   return (
@@ -27,13 +27,13 @@ const ServerProxy: React.FC<ServerProxyTabType> = ({
       </div>
       <div className={Styles.formGroup}>
         <Input
-          label="Port"
-          value={port as unknown as string}
-          name="port"
+          label="Port Number"
+          value={portNumber as unknown as string}
+          name="portNumber"
           onChange={onChange}
           type={InputType.NUMBER}
         />
-        <span className={Styles.explain}>HTTP proxy port</span>
+        <span className={Styles.explain}>HTTP proxy port number</span>
       </div>
       <div className={Styles.formGroup}>
         <Input

@@ -18,7 +18,7 @@ const ServerTab: React.FC<ServerTabType> = ({ serverData, onChange }) => {
     host,
     logsToFile,
     logsPath,
-    port,
+    portNumber,
     verboseLogs,
   } = serverData;
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,9 +90,9 @@ const ServerTab: React.FC<ServerTabType> = ({ serverData, onChange }) => {
       </div>
       <div className={Styles.formGroup}>
         <Input
-          label="vUSB-Server port"
-          value={port as unknown as string}
-          name="port"
+          label="vUSB-Server port number"
+          value={portNumber as unknown as string}
+          name="portNumber"
           onChange={onChange}
           type={InputType.NUMBER}
         />
@@ -118,28 +118,28 @@ const ServerTab: React.FC<ServerTabType> = ({ serverData, onChange }) => {
       </div>
       <div className={Styles.formGroup}>
         <Input
-          label="vUSB-Server adb port"
+          label="vUSB-Server adb port number"
           value={adbPortMin as unknown as string}
           name="adbPortMin"
           onChange={onChange}
           type={InputType.NUMBER}
         />
         <span className={Styles.explain}>
-          The ADB Port that is given back to connect to the Android device in
-          the cloud, the default is <em>7000</em>
+          The ADB Port Number that is given back to connect to the Android
+          device in the cloud, the default is <em>7000</em>
         </span>
       </div>
       <div className={Styles.formGroup}>
         <Input
-          label="vUSB-Server adb port range"
+          label="vUSB-Server adb port number range"
           value={adbPortRange as unknown as string}
           name="adbPortRange"
           onChange={onChange}
           type={InputType.NUMBER}
         />
         <span className={Styles.explain}>
-          The range that is used together with the ADB Port if multiple devices
-          are connected, the default is <em>100</em>
+          The range that is used together with the ADB Port Number if multiple
+          devices are connected, the default is <em>100</em>
         </span>
       </div>
     </>

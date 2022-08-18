@@ -14,7 +14,7 @@ const OpenManualTestModal: React.FC<{
   descriptorId: string;
   handleClose: () => void;
   platform: string;
-  port: number;
+  portNumber: number;
   sessionID: string;
   status: DeviceSessionStatusEnum;
   tokenId: string;
@@ -23,7 +23,7 @@ const OpenManualTestModal: React.FC<{
   descriptorId,
   handleClose,
   platform,
-  port,
+  portNumber,
   sessionID,
   status,
   tokenId,
@@ -35,7 +35,7 @@ const OpenManualTestModal: React.FC<{
   const credentialsUrl = `https://accounts.saucelabs.com/am/XUI/?region=${dcUrl}&next=/live/mobile/dataCenters/${dc.toUpperCase()}/devices/${descriptorId}/shared/${sessionID}`;
   const sharedLink = `https://app.${dcUrl}.saucelabs.com/live/mobile/dataCenters/${dc.toUpperCase()}/devices/${descriptorId}/shared`;
   const ssoUrl = `${sharedLink}/${sessionID}`;
-  const guiUrl = `${sharedLink}/?sessionId=${sessionID}&platform=${platform}&dc=${dc}&port=${port}&status=${status}`;
+  const guiUrl = `${sharedLink}/?sessionId=${sessionID}&platform=${platform}&dc=${dc}&portNumber=${portNumber}&status=${status}`;
   const handleCopy = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsCopiedToClipboard(true);

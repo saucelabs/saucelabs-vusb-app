@@ -22,7 +22,7 @@ const EXTRA_INITIAL_DEVICE_STATE: ExtraDeviceStateType = {
   dc: 'eu',
   log: [],
   manualConnect: false,
-  port: 0,
+  portNumber: 0,
   sessionID: '',
   showDevice: true,
   showLogs: false,
@@ -50,7 +50,7 @@ async function getDevices({
     device: {
       proxy: {
         host: deviceProxyHost,
-        port: deviceProxyPort,
+        portNumber: deviceProxyPort,
         username: deviceProxyUsername,
         password: deviceProxyPassword,
       },
@@ -61,7 +61,7 @@ async function getDevices({
   const dcEndpoint = LOCATION[location.toUpperCase()].endpoint;
   const deviceProxy = {
     host: deviceProxyHost,
-    port: deviceProxyPort,
+    portNumber: deviceProxyPort,
     ...(deviceProxyUsername && deviceProxyPassword
       ? {
           auth: {
@@ -134,17 +134,17 @@ async function getInUseDevices(
       device: {
         proxy: {
           host: deviceProxyHost,
-          port: deviceProxyPort,
+          portNumber: deviceProxyPort,
           username: deviceProxyUsername,
           password: deviceProxyPassword,
         },
       },
-      server: { host: serverHost, port: serverPort },
+      server: { host: serverHost, portNumber: serverPort },
     } = storageData;
     const { username, accessKey } = connection;
     const deviceProxy = {
       host: deviceProxyHost,
-      port: deviceProxyPort,
+      portNumber: deviceProxyPort,
       ...(deviceProxyUsername && deviceProxyPassword
         ? {
             auth: {
@@ -185,7 +185,7 @@ async function getAvailableDevices(
     device: {
       proxy: {
         host: deviceProxyHost,
-        port: deviceProxyPort,
+        portNumber: deviceProxyPort,
         username: deviceProxyUsername,
         password: deviceProxyPassword,
       },
@@ -196,7 +196,7 @@ async function getAvailableDevices(
   const dcEndpoint = LOCATION[location.toUpperCase()].endpoint;
   const deviceProxy = {
     host: deviceProxyHost,
-    port: deviceProxyPort,
+    portNumber: deviceProxyPort,
     ...(deviceProxyUsername && deviceProxyPassword
       ? {
           auth: {

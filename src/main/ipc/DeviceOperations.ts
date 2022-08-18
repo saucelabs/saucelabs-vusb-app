@@ -1,8 +1,12 @@
 import { ChildProcess, spawn } from 'child_process';
 import { getLocalTimeString } from '../../renderer/utils/Helpers';
 import {
+  ConnectToDeviceType,
   CreateDeviceConnectionType,
   DeviceSessionStatusEnum,
+  StartDeviceConnection,
+  StartDeviceType,
+  StartStopAdbConnectionType,
   StopDeviceType,
 } from '../../types/DeviceTypes';
 import { ElectronStorageType } from '../../types/ElectronStoreTypes';
@@ -71,14 +75,9 @@ async function startAdbConnection({
   descriptorId,
   logsPath,
   logsToFile,
-  port,
-}: {
-  descriptorId: string;
-  logsPath: string;
-  logsToFile: boolean;
-  port: number;
-}): Promise<string[]> {
-  const adbArgs = ['connect', `localhost:${port}`];
+  portNumber,
+}: StartStopAdbConnectionType): Promise<string[]> {
+  const adbArgs = ['connect', `localhost:${portNumber}`];
   const message = 'Automatically connecting to ADB';
   const adbResult = await spawnAdbCommand({
     descriptorId,
@@ -98,15 +97,10 @@ async function stopAdbConnection({
   descriptorId,
   logsPath,
   logsToFile,
-  port,
-}: {
-  descriptorId: string;
-  logsPath: string;
-  logsToFile: boolean;
-  port: number;
-}): Promise<string[]> {
-  const adbArgs = ['disconnect', `localhost:${port}`];
-  const message = `Automatically stopping the ADB connection on port:'${port}'`;
+  portNumber,
+}: StartStopAdbConnectionType): Promise<string[]> {
+  const adbArgs = ['disconnect', `localhost:${portNumber}`];
+  const message = `Automatically stopping the ADB connection on port:'${portNumber}'`;
   const adbResult = await spawnAdbCommand({
     descriptorId,
     adbArgs,
@@ -133,12 +127,12 @@ function getDeviceConnectArgs({
     device: {
       proxy: {
         host: deviceHost,
-        port: devicePort,
+        portNumber: devicePort,
         username: deviceUsername,
         password: devicePassword,
       },
     },
-    server: { host: serverHost, port: serverPort },
+    server: { host: serverHost, portNumber: serverPort },
   } = storageData;
   const deviceArgs = [
     '-jar',
@@ -183,22 +177,18 @@ function getStartDeviceConnectArgs({
   descriptorId,
   storageData,
   tunnelIdentifier,
-}: {
-  descriptorId: string;
-  storageData: ElectronStorageType;
-  tunnelIdentifier: string | null;
-}): string[] {
+}: StartDeviceConnection): string[] {
   const {
     connection: { username, accessKey },
     device: {
       proxy: {
         host: deviceHost,
-        port: devicePort,
+        portNumber: devicePort,
         username: deviceUsername,
         password: devicePassword,
       },
     },
-    server: { host: serverHost, port: serverPort },
+    server: { host: serverHost, portNumber: serverPort },
   } = storageData;
   const deviceArgs = [
     '-jar',
@@ -253,14 +243,23 @@ function getDeviceDisconnectArgs({
   storageData: ElectronStorageType;
 }): string[] {
   const {
-    server: { host: serverHost, port: serverPort },
+    connection: { username, accessKey },
+    server: { host: serverHost, portNumber: serverPort },
   } = storageData;
   const deviceArgs = [
     '-jar',
     getVusbFilePath(),
-    manualConnect ? 'deleteSession' : 'disconnect',
-    '--sessionId',
-    sessionId,
+    ...(manualConnect
+      ? [
+          'deleteSession',
+          '--sessionId',
+          sessionId,
+          '--username',
+          username,
+          '--accessKey',
+          accessKey,
+        ]
+      : ['disconnect', '--sessionId', sessionId]),
     '--serverHost',
     serverHost,
     '--serverPort',
@@ -333,11 +332,7 @@ async function connectToExistingDevice({
   descriptorId,
   sessionId,
   storageData,
-}: {
-  descriptorId: string;
-  sessionId: string;
-  storageData: ElectronStorageType;
-}): Promise<string[]> {
+}: ConnectToDeviceType): Promise<string[]> {
   const {
     server: { logsPath, logsToFile },
   } = storageData;
@@ -360,11 +355,7 @@ async function startNewDeviceConnection({
   descriptorId,
   storageData,
   tunnelIdentifier,
-}: {
-  descriptorId: string;
-  storageData: ElectronStorageType;
-  tunnelIdentifier: string | null;
-}): Promise<string[]> {
+}: StartDeviceConnection): Promise<string[]> {
   const {
     server: { logsPath, logsToFile },
   } = storageData;
@@ -430,11 +421,7 @@ async function connectToDeviceSession({
   descriptorId,
   sessionId,
   storageData,
-}: {
-  descriptorId: string;
-  sessionId: string;
-  storageData: ElectronStorageType;
-}): Promise<CreateDeviceConnectionType> {
+}: ConnectToDeviceType): Promise<CreateDeviceConnectionType> {
   const {
     server: { autoAdbConnect, logsPath, logsToFile },
   } = storageData;
@@ -465,27 +452,28 @@ async function connectToDeviceSession({
     const iOSOnlinePort = line.match(/(localhost:-1\s+online)/i);
     // Android gives back `localhost:{number}\tonline` and needs to be added to the device details
     const androidPort = line.match(/^(localhost:)(\d+)/i);
+    const portNumber = parseInt((androidPort && androidPort[2]) || '0', 10);
 
     connectionResponse = {
       ...connectionResponse,
-      ...(connectionError ? { connectionError: true } : {}),
-      ...(iOSOnlinePort ? { portNumber: -1 } : {}),
-      ...(androidPort ? { portNumber: parseInt(androidPort[2], 10) } : {}),
+      ...(connectionError && { connectionError: true }),
+      ...(iOSOnlinePort && { portNumber: -1 }),
+      ...(portNumber && { portNumber }),
     };
-    if (androidPort && autoAdbConnect) {
+    if (portNumber && autoAdbConnect) {
       const adbConnectionData = await startAdbConnection({
         descriptorId,
         logsPath,
         logsToFile,
-        port: connectionResponse.portNumber,
+        portNumber,
       });
       // eslint-disable-next-line no-restricted-syntax
       for (const adbLine of adbConnectionData) {
         connectionResponse = {
           ...connectionResponse,
-          ...(adbLine.match(/(connected to localhost:)/)
-            ? { adbConnected: true }
-            : {}),
+          ...(adbLine.match(/(connected to localhost:)/) && {
+            adbConnected: true,
+          }),
         };
       }
       connectionResponse = {
@@ -493,13 +481,6 @@ async function connectToDeviceSession({
         logLines: connectionResponse.logLines.concat(...adbConnectionData),
       };
     }
-
-    connectionResponse = {
-      ...connectionResponse,
-      ...(androidPort ? { portNumber: parseInt(androidPort[2], 10) } : {}),
-      ...(connectionError ? { connectionError: true } : {}),
-      ...(iOSOnlinePort ? { portNumber: -1 } : {}),
-    };
   }
 
   return {
@@ -515,11 +496,7 @@ async function startNewDeviceSession({
   descriptorId,
   storageData,
   tunnelIdentifier,
-}: {
-  descriptorId: string;
-  storageData: ElectronStorageType;
-  tunnelIdentifier: string | null;
-}): Promise<CreateDeviceConnectionType> {
+}: StartDeviceConnection): Promise<CreateDeviceConnectionType> {
   const {
     server: { autoAdbConnect, logsPath, logsToFile },
   } = storageData;
@@ -551,24 +528,25 @@ async function startNewDeviceSession({
     //
     // Android gives back `localhost:{number}\tonline` and needs to be added to the device details
     const androidPort = line.match(/^(localhost:)(\d+)/i);
+    const portNumber = parseInt((androidPort && androidPort[2]) || '0', 10);
     const sessionIDFromLog = line.match(
       /^[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+/i
     );
 
-    if (androidPort && autoAdbConnect) {
+    if (portNumber && autoAdbConnect) {
       const adbConnectionData = await startAdbConnection({
         descriptorId,
         logsPath,
         logsToFile,
-        port: connectionResponse.portNumber,
+        portNumber,
       });
       // eslint-disable-next-line @typescript-eslint/no-loop-func
       adbConnectionData.forEach((adbLine) => {
         connectionResponse = {
           ...connectionResponse,
-          ...(adbLine.match(/(connected to localhost:)/)
-            ? { adbConnected: true }
-            : {}),
+          ...(adbLine.match(/(connected to localhost:)/) && {
+            adbConnected: true,
+          }),
         };
       });
       connectionResponse = {
@@ -579,11 +557,9 @@ async function startNewDeviceSession({
 
     connectionResponse = {
       ...connectionResponse,
-      ...(androidPort ? { portNumber: parseInt(androidPort[2], 10) } : {}),
-      ...(sessionIDFromLog ? { sessionId: sessionIDFromLog[0] } : {}),
-      ...(connectionError
-        ? { connectionError: true, manualConnect: false }
-        : {}),
+      ...(portNumber && { portNumber }),
+      ...(sessionIDFromLog && { sessionId: sessionIDFromLog[0] }),
+      ...(connectionError && { connectionError: true, manualConnect: false }),
     };
   }
 
@@ -602,12 +578,7 @@ async function createDeviceConnection({
   sessionId,
   storageData,
   tunnelIdentifier,
-}: {
-  descriptorId: string;
-  sessionId: string | null;
-  storageData: ElectronStorageType;
-  tunnelIdentifier: string | null;
-}): Promise<CreateDeviceConnectionType> {
+}: StartDeviceType): Promise<CreateDeviceConnectionType> {
   if (sessionId) {
     const result = await connectToDeviceSession({
       descriptorId,
@@ -627,7 +598,7 @@ async function createDeviceConnection({
 async function stopDeviceSession({
   descriptorId,
   manualConnect,
-  port,
+  portNumber,
   sessionId,
   status,
   storageData,
@@ -643,7 +614,7 @@ async function stopDeviceSession({
   const deviceDisconnectionData = await closeDeviceConnection({
     descriptorId,
     manualConnect,
-    port,
+    portNumber,
     sessionId,
     status,
     storageData,
@@ -659,25 +630,25 @@ async function stopDeviceSession({
   deviceDisconnectionData.forEach((line) => {
     connectionResponse = {
       ...connectionResponse,
-      ...(line.match(/(ERROR com.saucelabs.vusb.client.Runner)/)
-        ? { connectionError: true }
-        : {}),
+      ...(line.match(/(ERROR com.saucelabs.vusb.client.Runner)/) && {
+        connectionError: true,
+      }),
     };
   });
 
-  if (autoAdbConnect && port >= 0) {
+  if (autoAdbConnect && portNumber >= 0) {
     const adbConnectionData = await stopAdbConnection({
       descriptorId,
       logsPath,
       logsToFile,
-      port,
+      portNumber,
     });
     adbConnectionData.forEach((adbLine) => {
       connectionResponse = {
         ...connectionResponse,
-        ...(adbLine.match(/(disconnected from localhost:)/)
-          ? { adbConnected: false }
-          : {}),
+        ...(adbLine.match(/(disconnected from localhost:)/) && {
+          adbConnected: false,
+        }),
       };
     });
     connectionResponse = {

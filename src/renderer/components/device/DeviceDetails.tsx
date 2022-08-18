@@ -16,13 +16,13 @@ interface DeviceDetailsInterface {
   closeSession: ({
     descriptorId,
     manualConnect,
-    port,
+    portNumber,
     sessionId,
     status,
   }: {
     descriptorId: string;
     manualConnect: boolean;
-    port: number;
+    portNumber: number;
     sessionId: string;
     status: DeviceSessionStatusEnum;
   }) => void;
@@ -57,14 +57,14 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
     adbAutoConnect: adbConnect,
     device: connectedDevice,
   }: ConnectMessageInterface) => {
-    const { adbConnected, os, port, status } = connectedDevice;
+    const { adbConnected, os, portNumber, status } = connectedDevice;
     const deviceConnected = status === DeviceSessionStatusEnum.CONNECTED;
     const isAndroid = os.toLowerCase() === 'android';
     // eslint-disable-next-line no-nested-ternary
     const adbMessage = adbConnected
-      ? `ADB connected to port: ${port}`
-      : port
-      ? `Connect to port: ${port}`
+      ? `ADB connected to portNumber: ${portNumber}`
+      : portNumber
+      ? `Connect to portNumber: ${portNumber}`
       : 'Waiting for port';
 
     // eslint-disable-next-line no-nested-ternary
@@ -95,7 +95,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
     name,
     os,
     osVersion,
-    port,
+    portNumber,
     resolutionHeight,
     resolutionWidth,
     screenSize,
@@ -196,7 +196,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
                           ? closeSession({
                               descriptorId,
                               manualConnect,
-                              port,
+                              portNumber,
                               sessionId: sessionID,
                               status,
                             })
@@ -260,7 +260,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
           descriptorId={descriptorId}
           handleClose={handleOpenManualTestModal}
           platform={platform}
-          port={port}
+          portNumber={portNumber}
           sessionID={sessionID}
           status={status as DeviceSessionStatusEnum}
           tokenId={tokenId}
