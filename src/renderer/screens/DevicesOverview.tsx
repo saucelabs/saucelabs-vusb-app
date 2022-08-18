@@ -103,9 +103,10 @@ const DevicesOverview = () => {
     connectedDevices,
     deviceQuery,
     dispatch,
-    isWindows,
     isLinux,
     isMac,
+    isUserDataStored,
+    isWindows,
     // @TODO: added the eslint-disable-next-line react-hooks/exhaustive-deps
     // for `storageData`, when I add that to the deps then it keeps re-rendering.
     // I can't find the root cause of this.
@@ -137,6 +138,7 @@ const DevicesOverview = () => {
     // for `storageData`, when I add that to the deps then it keeps re-rendering.
     // I can't find the root cause of this.
     // storageData,
+    isUserDataStored,
     vusbStatus,
   ]);
   /**
@@ -164,6 +166,7 @@ const DevicesOverview = () => {
     // for `storageData`, when I add that to the deps then it keeps re-rendering.
     // I can't find the root cause of this.
     // storageData,
+    isUserDataStored,
     vusbStatus,
   ]);
   /**
@@ -174,7 +177,7 @@ const DevicesOverview = () => {
       () => (isUserDataStored ? getTunnels({ dispatch, storageData }) : null),
       5000
     );
-  }, [dispatch]);
+  }, [dispatch, isUserDataStored]);
   /**
    * Determines if the product tour needs to be shown and if so update the
    * store with the latest version for the next time the app is opened

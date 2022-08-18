@@ -7,15 +7,20 @@ import Input, { InputType } from '../Input';
 
 const UsernameSlide: React.FC = () => {
   const settingsData = window.electron.store.get();
-  const [value, setValue] = useState('');
+  const [username, setUsername] = useState('');
+  const [isError, setIsError] = useState(false);
   const updateUsername = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(event.target.value);
+    setUsername(event.target.value);
   const storeUsername = () => {
-    window.electron.store.set({
+    if (!username) {
+      return setIsError(true);
+    }
+    setIsError(false);
+    return window.electron.store.set({
       ...settingsData,
       connection: {
         ...settingsData.connection,
-        username: value,
+        username,
       },
     });
   };
@@ -35,11 +40,12 @@ const UsernameSlide: React.FC = () => {
           </span>
           <div className={Styles.inputContainer}>
             <Input
-              value={value}
+              value={username}
               name="username"
               onChange={updateUsername}
               onBlur={storeUsername}
               type={InputType.TEXT}
+              error={isError}
             />
           </div>
         </div>

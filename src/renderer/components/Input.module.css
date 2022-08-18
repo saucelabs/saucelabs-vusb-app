@@ -23,6 +23,10 @@
   border-radius: 4px;
 }
 
+.error .input {
+  border-color: #e2231a;
+}
+
 .searchInput {
   padding: 6px 12px 6px 54px;
 }
@@ -53,6 +57,10 @@ input[disabled] {
   position: absolute;
   right: 10px;
   top: 15px;
+}
+
+.error .showPassword{
+  color: #e2231a;
 }
 
 .showPassword:hover {

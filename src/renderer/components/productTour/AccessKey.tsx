@@ -7,15 +7,21 @@ import Input, { InputType } from '../Input';
 
 const AccessKey: React.FC = () => {
   const settingsData = window.electron.store.get();
-  const [value, setValue] = useState('');
+  const [accessKey, setAccessKey] = useState('');
+  const [isError, setIsError] = useState(false);
   const updateAccessKey = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(event.target.value);
+    setAccessKey(event.target.value);
   const storeAccessKey = () => {
-    window.electron.store.set({
+    if (!accessKey) {
+      return setIsError(true);
+    }
+
+    setIsError(false);
+    return window.electron.store.set({
       ...settingsData,
       connection: {
         ...settingsData.connection,
-        accessKey: value,
+        accessKey,
       },
     });
   };
@@ -30,16 +36,16 @@ const AccessKey: React.FC = () => {
           <span className={Styles.textContainerTitle}>Access Key</span>
           <span>
             Please provide your access key. You can easily get this from
-            <br />
             <em>Sauce Labs Dashboard &gt; Top Menu &gt; Access Key</em>.
           </span>
           <div className={Styles.inputContainer}>
             <Input
-              value={value}
+              value={accessKey}
               name="accessKey"
               onChange={updateAccessKey}
               onBlur={storeAccessKey}
               type={InputType.PASSWORD}
+              error={isError}
             />
           </div>
         </div>

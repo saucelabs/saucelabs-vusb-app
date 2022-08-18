@@ -10,6 +10,7 @@ enum InputType {
 }
 interface InputInterface {
   disabled?: boolean;
+  error?: boolean;
   label?: string;
   name: string;
   onBlur?: () => void;
@@ -20,6 +21,7 @@ interface InputInterface {
 }
 const Input: React.FC<InputInterface> = ({
   disabled,
+  error,
   label,
   name,
   onBlur,
@@ -36,7 +38,7 @@ const Input: React.FC<InputInterface> = ({
     <>
       <div>
         {label && <span className={Styles.label}>{label}</span>}
-        <div className={Styles.inputContainer}>
+        <div className={`${Styles.inputContainer} ${error && Styles.error}`}>
           {type === InputType.SEARCH && (
             <i
               aria-label="Show password"
@@ -55,7 +57,7 @@ const Input: React.FC<InputInterface> = ({
             id={name}
             name={name}
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...(onBlur ? { onBlur } : {})}
+            {...(onBlur && { onBlur })}
             onChange={onChange}
             placeholder={placeholder}
             type={

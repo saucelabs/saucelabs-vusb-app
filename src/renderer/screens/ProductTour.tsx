@@ -9,6 +9,7 @@ import FinishedSlide from '../components/productTour/FinishedSlide';
 import HowToSlide from '../components/productTour/HowToSlide';
 import TunnelsSlide from '../components/productTour/Tunnels';
 import OpenManualTest from '../components/productTour/OpenManualTest';
+import DataCenterSlide from '../components/productTour/DataCenterSlide';
 
 const ProductTour: React.FC<{
   isUserDataStored: boolean;
@@ -19,13 +20,17 @@ const ProductTour: React.FC<{
     <WelcomeSlide isUserDataStored={isUserDataStored} key={0} />,
     ...(isUserDataStored
       ? []
-      : [<UsernameSlide key={1} />, <AccessKey key={2} />]),
-    <FeaturesSlide key={3} />,
-    <LabelsSlide key={4} />,
-    <TunnelsSlide key={5} />,
-    <OpenManualTest key={6} />,
-    <HowToSlide key={7} />,
-    <FinishedSlide isUserDataStored={isUserDataStored} key={8} />,
+      : [
+          <UsernameSlide key={1} />,
+          <AccessKey key={2} />,
+          <DataCenterSlide key={3} />,
+        ]),
+    <FeaturesSlide key={4} />,
+    <LabelsSlide key={5} />,
+    <TunnelsSlide key={6} />,
+    <OpenManualTest key={7} />,
+    <HowToSlide key={8} />,
+    <FinishedSlide isUserDataStored={isUserDataStored} key={9} />,
   ];
   const slidesLength = slides.length;
   const Button: React.FC<{

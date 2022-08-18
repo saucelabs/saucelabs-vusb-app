@@ -7,6 +7,7 @@ interface RadioButtonInterface {
   disabled?: boolean;
   label: string;
   name: string;
+  onBlur?: (arg: React.ChangeEvent<HTMLInputElement>) => void;
   onChange: (arg: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
 }
@@ -16,6 +17,7 @@ const RadioButton: React.FC<RadioButtonInterface> = ({
   disabled = false,
   label,
   name,
+  onBlur,
   onChange,
   value,
 }) => {
@@ -24,6 +26,8 @@ const RadioButton: React.FC<RadioButtonInterface> = ({
       <span className={Styles.label}>
         <input
           type="radio"
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...(onBlur && { onBlur })}
           onChange={onChange}
           disabled={disabled}
           name={name}
