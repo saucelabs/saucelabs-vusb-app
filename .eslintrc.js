@@ -8,6 +8,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     // We need to use awaits in loops because array iterators are not async
     'no-await-in-loop': 'off',
+    // We should be able to add for example a @ts-ignore
+    'ban-ts-comment': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

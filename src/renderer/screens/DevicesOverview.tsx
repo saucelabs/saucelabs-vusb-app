@@ -393,7 +393,13 @@ const DevicesOverview = () => {
             <>
               No devices could be found. Reasons for this could be that you
               don&#39;t have private devices, please contact your Customer
-              Success Manager at Sauce Labs
+              Success Manager at Sauce Labs.
+              <br />
+              If you&#39;ve entered incorrect credentials then click{' '}
+              <Link to={ROUTES.SETTINGS} replace>
+                here
+              </Link>{' '}
+              to go to the <em>Settings</em>-page and change them.
             </>
           </Notification>
         )}

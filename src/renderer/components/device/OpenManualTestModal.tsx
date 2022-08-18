@@ -31,9 +31,14 @@ const OpenManualTestModal: React.FC<{
   const [isCopiedToClipboard, setIsCopiedToClipboard] = useState(false);
   const [openVusbGui, setOpenVusbGui] = useState(false);
   // @ts-ignore
-  const dcUrl = LOCATION[dc.toUpperCase()].endpoint;
-  const credentialsUrl = `https://accounts.saucelabs.com/am/XUI/?region=${dcUrl}&next=/live/mobile/dataCenters/${dc.toUpperCase()}/devices/${descriptorId}/shared/${sessionID}`;
-  const sharedLink = `https://app.${dcUrl}.saucelabs.com/live/mobile/dataCenters/${dc.toUpperCase()}/devices/${descriptorId}/shared`;
+  const dcEndpoint = LOCATION[dc.toUpperCase()].endpoint;
+  const credentialsUrl = `https://accounts.saucelabs.com/am/XUI/?region=${dcEndpoint}&next=/live/mobile/dataCenters/${dc.toUpperCase()}/devices/${descriptorId}/shared/${sessionID}`;
+  // The shared link is created below, there is a diff for EU and US
+  // EU: https://app.eu-central-1.saucelabs.com/live/mobile/dataCenters/US/devices/{deviceID}/shared/{sessionId}
+  // US: https://app.saucelabs.com/live/mobile/dataCenters/US/devices/{deviceID}/shared/{sessionId}
+  // So we need to have a different shared link for EU and US
+  const sharedLinkEndpoint = dc.toUpperCase() === 'eu' ? `${dcEndpoint}.` : '';
+  const sharedLink = `https://app.${sharedLinkEndpoint}saucelabs.com/live/mobile/dataCenters/${dc.toUpperCase()}/devices/${descriptorId}/shared`;
   const ssoUrl = `${sharedLink}/${sessionID}`;
   const guiUrl = `${sharedLink}/?sessionId=${sessionID}&platform=${platform}&dc=${dc}&portNumber=${portNumber}&status=${status}`;
   const handleCopy = (e: React.MouseEvent<HTMLDivElement>) => {
