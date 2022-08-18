@@ -37,7 +37,7 @@ const OpenManualTestModal: React.FC<{
   // EU: https://app.eu-central-1.saucelabs.com/live/mobile/dataCenters/US/devices/{deviceID}/shared/{sessionId}
   // US: https://app.saucelabs.com/live/mobile/dataCenters/US/devices/{deviceID}/shared/{sessionId}
   // So we need to have a different shared link for EU and US
-  const sharedLinkEndpoint = dc.toUpperCase() === 'eu' ? `${dcEndpoint}.` : '';
+  const sharedLinkEndpoint = dc.toUpperCase() === 'EU' ? `${dcEndpoint}.` : '';
   const sharedLink = `https://app.${sharedLinkEndpoint}saucelabs.com/live/mobile/dataCenters/${dc.toUpperCase()}/devices/${descriptorId}/shared`;
   const ssoUrl = `${sharedLink}/${sessionID}`;
   const guiUrl = `${sharedLink}/?sessionId=${sessionID}&platform=${platform}&dc=${dc}&portNumber=${portNumber}&status=${status}`;
