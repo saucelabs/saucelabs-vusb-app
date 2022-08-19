@@ -26,12 +26,13 @@ import DeviceDetailsEmptyCard from 'renderer/components/devices/DeviceDetailsEmp
 import Input, { InputType } from 'renderer/components/Input';
 import { StoreContext } from 'renderer/Store';
 import { APP_VERSION, LOCATION, ROUTES } from 'renderer/utils/Constants';
-import getTunnels from 'renderer/api/TunnelsAPI';
+import { getTunnels } from 'renderer/api/TunnelsAPI';
 import Dropdown from 'renderer/components/Dropdown';
 import { Link } from 'react-router-dom';
 import {
   DeviceActionEnum,
   DeviceSessionStatusEnum,
+  ToggleLogsType,
 } from '../../types/DeviceTypes';
 import { ServerActionEnum } from '../../types/ServerTypes';
 import Header from '../components/Header';
@@ -112,6 +113,7 @@ const DevicesOverview = () => {
     // I can't find the root cause of this.
     // storageData,
   ]);
+  // @ts-ignore
   const isFetchDevicesError = deviceApiError?.config.url.includes(
     'saucelabs.com/v1/rdc/devices/filtered?dataCenterId'
   );
@@ -122,7 +124,7 @@ const DevicesOverview = () => {
     fetchInUseDevices.current = setInterval(
       () =>
         isUserDataStored
-          ? getInUseDevices(dispatch, storageData, vusbStatus)
+          ? getInUseDevices({ dispatch, storageData, vusbStatus })
           : null,
       3000
     );
@@ -148,7 +150,7 @@ const DevicesOverview = () => {
     fetchAvailableDevices.current = setInterval(
       () =>
         isUserDataStored
-          ? getAvailableDevices(dispatch, storageData)
+          ? getAvailableDevices({ dispatch, storageData })
               .then(() => setBusyDevicesLoaded(true))
               .catch(() => setBusyDevicesLoaded(false))
           : null,
@@ -311,8 +313,8 @@ const DevicesOverview = () => {
       status: DeviceActionEnum.DEVICE_SESSION_STOPPED,
     });
   };
-  const toggleDeviceLogs = (descriptorId: string, showLogs: boolean) => {
-    dispatch(deviceSessionToggleLogs(descriptorId, showLogs));
+  const toggleDeviceLogs = ({ descriptorId, showLogs }: ToggleLogsType) => {
+    dispatch(deviceSessionToggleLogs({ descriptorId, showLogs }));
   };
   const handleDeviceSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(deviceSearch(event.target.value));

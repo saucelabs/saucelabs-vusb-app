@@ -5,6 +5,7 @@ import DeviceServerMonitor from './DeviceServerMonitor';
 import {
   DeviceSessionStatusEnum,
   DeviceStateType,
+  ToggleLogsType,
 } from '../../../types/DeviceTypes';
 import DeviceDetailsModal from './DeviceDetailsModal';
 import { ServerActionEnum } from '../../../types/ServerTypes';
@@ -28,7 +29,7 @@ interface DeviceDetailsInterface {
   }) => void;
   device: DeviceStateType;
   launchTest: (descriptorId: string, sessionId: string) => void;
-  toggleDeviceLogs: (descriptorId: string, showLogs: boolean) => void;
+  toggleDeviceLogs: ({ descriptorId, showLogs }: ToggleLogsType) => void;
   tokenId: string;
   vusbStatus: string;
 }
@@ -223,7 +224,7 @@ const DeviceDetails: React.FC<DeviceDetailsInterface> = ({
               className={`${Styles.link} ${Styles.detailsButton} ${
                 log.length === 0 ? Styles.disabled : ''
               }`}
-              onClick={() => toggleDeviceLogs(descriptorId, showLogs)}
+              onClick={() => toggleDeviceLogs({ descriptorId, showLogs })}
               type="button"
             >
               View logs

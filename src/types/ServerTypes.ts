@@ -1,3 +1,5 @@
+import { DispatchType } from './GenericTypes';
+
 enum ServerActionEnum {
   VUSB_START = 'VUSB_START',
   VUSB_STARTING = 'VUSB_STARTING',
@@ -16,7 +18,6 @@ type ServerStateType = {
   log: string[];
   error: boolean;
 };
-
 type ServerActionType =
   | { type: ServerActionEnum.VUSB_START; log: string }
   | { type: ServerActionEnum.VUSB_STARTING; log: string }
@@ -29,4 +30,15 @@ type ServerActionType =
   | { type: ServerActionEnum.VUSB_ADB_LOG; log: string }
   | { type: ServerActionEnum.CLEAR_SERVER_LOGS };
 
-export { ServerActionType, ServerActionEnum, ServerStateType };
+type ServerStartCollectionTypes = {
+  dispatch: DispatchType;
+  logLine: string;
+  status: ServerActionEnum;
+};
+
+export {
+  ServerActionType,
+  ServerActionEnum,
+  ServerStartCollectionTypes,
+  ServerStateType,
+};

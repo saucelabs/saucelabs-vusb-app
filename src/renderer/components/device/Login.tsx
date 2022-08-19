@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 import authenticate from '../../api/AuthenticateAPI';
 import { StoreContext } from '../../Store';
 import Button from '../buttons/Button';
@@ -8,7 +9,6 @@ import CloseIconButton from '../buttons/CloseIconButton';
 import Input, { InputType } from '../Input';
 import Styles from './Login.module.css';
 import Notification, { NotificationsEnum } from '../Notification';
-import { AuthenticationErrorType } from '../../../types/AuthenticationTypes';
 
 const Login: React.FC<{
   handleClose: () => void;
@@ -28,8 +28,8 @@ const Login: React.FC<{
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
-  const verifyError = async (data: string | AuthenticationErrorType) => {
-    if (data && typeof data !== 'string' && data?.status !== 200) {
+  const verifyError = async (data: string | AxiosError) => {
+    if (data && typeof data !== 'string' && data?.status !== '200') {
       setIsError(true);
       setTimeout(() => {
         setIsLoading(false);

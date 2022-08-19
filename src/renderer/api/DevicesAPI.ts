@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { LOCATION, MOBILE_OS } from 'renderer/utils/Constants';
-import { ElectronStorageType } from '../../types/ElectronStoreTypes';
 import { ServerActionEnum } from '../../types/ServerTypes';
 import {
   DeviceActionEnum as ACTIONS,
-  DevicesActionType,
   DeviceSessionStatusEnum,
   DeviceStateType,
   ExtraDeviceStateType,
 } from '../../types/DeviceTypes';
-import { DispatchType } from '../../types/GenericTypes';
+import {
+  GetAvailableDevicesType,
+  GetDevicesType,
+  GetInUseDevicesType,
+} from '../../types/DeviceApiTypes';
 
 const upDevicesUrl = 'saucelabs.com/v1/rdc/devices/filtered?dataCenterId=';
 const upAvailableDevicesUrl = 'saucelabs.com/v1/rdc/devices/available';
@@ -38,13 +40,7 @@ async function getDevices({
   isLinux,
   isMac,
   storageData,
-}: {
-  dispatch: DispatchType;
-  isWindows: boolean;
-  isLinux: boolean;
-  isMac: boolean;
-  storageData: ElectronStorageType;
-}) {
+}: GetDevicesType) {
   const {
     connection,
     device: {
@@ -123,11 +119,11 @@ async function getDevices({
  * Get all in use devices, these are the devices that are used by the user
  * with the same username and accessKey
  */
-async function getInUseDevices(
-  dispatch: DispatchType,
-  storageData: ElectronStorageType,
-  vusbStatus: string
-) {
+async function getInUseDevices({
+  dispatch,
+  storageData,
+  vusbStatus,
+}: GetInUseDevicesType) {
   if (vusbStatus === ServerActionEnum.VUSB_RUNNING) {
     const {
       connection,
@@ -176,10 +172,13 @@ async function getInUseDevices(
   }
 }
 
-async function getAvailableDevices(
-  dispatch: (object: DevicesActionType) => void,
-  storageData: ElectronStorageType
-) {
+/**
+ * Get all available devices, this will be a list of descriptors that can be used
+ */
+async function getAvailableDevices({
+  dispatch,
+  storageData,
+}: GetAvailableDevicesType) {
   const {
     connection,
     device: {
@@ -226,8 +225,10 @@ async function getAvailableDevices(
       availableDevices,
     });
   } catch (error) {
-    // @ts-ignore
-    return dispatch({ type: ACTIONS.FETCH_AVAILABLE_DEVICES_ERROR, error });
+    return dispatch({
+      type: ACTIONS.FETCH_AVAILABLE_DEVICES_ERROR,
+      error: error as AxiosError,
+    });
   }
 }
 

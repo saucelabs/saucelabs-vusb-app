@@ -1,45 +1,15 @@
+import { AxiosError } from 'axios';
+import { DispatchType } from './GenericTypes';
+
 enum AuthenticationActionEnum {
   AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR',
   AUTHENTICATION_LOADING = 'AUTHENTICATION_LOADING',
   AUTHENTICATION_SUCCESS = 'AUTHENTICATION_SUCCESS',
 }
 
-type AuthenticationErrorType = {
-  message: string;
-  name: string;
-  config: {
-    transitional: {
-      silentJSONParsing: boolean;
-      forcedJSONParsing: boolean;
-      clarifyTimeoutError: boolean;
-    };
-    transformRequest: [null];
-    transformResponse: [null];
-    timeout: 0;
-    xsrfCookieName: string;
-    xsrfHeaderName: string;
-    maxContentLength: number;
-    maxBodyLength: number;
-    env: {
-      FormData: null;
-    };
-    headers: {
-      Accept: string;
-      'X-OpenAM-Username': string;
-      'X-OpenAM-Password': string;
-      'x-requested-with': string;
-      'Cache-Control': string;
-    };
-    method: string;
-    url: string;
-  };
-  code: string;
-  status: number;
-};
-
 type AuthenticationStateType = {
   tokenId: string;
-  error: null | Error;
+  error: null | AxiosError;
 };
 
 type AuthenticationActionType =
@@ -52,12 +22,17 @@ type AuthenticationActionType =
     }
   | {
       type: AuthenticationActionEnum.AUTHENTICATION_ERROR;
-      error: Error;
+      error: AxiosError;
     };
+type AuthenticationType = {
+  dispatch: DispatchType;
+  password: string;
+  username: string;
+};
 
 export {
   AuthenticationActionEnum,
-  AuthenticationErrorType,
-  AuthenticationStateType,
   AuthenticationActionType,
+  AuthenticationStateType,
+  AuthenticationType,
 };

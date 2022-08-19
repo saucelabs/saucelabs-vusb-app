@@ -4,9 +4,15 @@ import { StartDeviceType, StopDeviceType } from '../types/DeviceTypes';
 import { ElectronStorageType } from '../types/ElectronStoreTypes';
 import { ServerActionEnum } from '../types/ServerTypes';
 
+/**
+ * Create a safe, bi-directional communication channel between the renderer and main processes.
+ */
 contextBridge.exposeInMainWorld('electron', {
+  // Reload the app
   reload: async () => ipcRenderer.invoke(ChannelsEnum.MAIN_THREAD),
+  // Show a native dialog to access the file system
   showDialog: async () => ipcRenderer.invoke(ChannelsEnum.SELECT_DIRECTORY),
+  // Get access to the electron store
   store: {
     get() {
       return ipcRenderer.sendSync(ChannelsEnum.ELECTRON_STORE_GET);
@@ -15,6 +21,7 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send(ChannelsEnum.ELECTRON_STORE_SET, val);
     },
   },
+  // Get all needed information about the system this app is running on
   systemChecks: {
     once(
       channel: ChannelsEnum.SYSTEM_CHECKS,
@@ -26,6 +33,7 @@ contextBridge.exposeInMainWorld('electron', {
       return ipcRenderer.sendSync(ChannelsEnum.SYSTEM_CHECKS);
     },
   },
+  // All vusb server commands
   vusb: {
     start(status: ServerActionEnum) {
       ipcRenderer.send(ChannelsEnum.VUSB_SERVER_START, status);
@@ -48,6 +56,7 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.removeAllListeners(ChannelsEnum.VUSB_SERVER_STOP);
     },
   },
+  // All vusb device commands
   device: {
     start({
       descriptorId,

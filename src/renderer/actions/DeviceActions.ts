@@ -1,5 +1,9 @@
-import { DispatchType } from 'types/GenericTypes';
-import { DeviceActionEnum, DeviceActionType } from '../../types/DeviceTypes';
+import {
+  DeviceActionCollectionType,
+  DeviceActionEnum,
+  DeviceActionType,
+  ToggleLogsType,
+} from '../../types/DeviceTypes';
 
 /**
  * Store an error from the device connection
@@ -100,7 +104,7 @@ function setTunnelIdentifier(tunnelIdentifier: string) {
 /**
  * Open our close the device logs
  */
-function deviceSessionToggleLogs(descriptorId: string, showLogs: boolean) {
+function deviceSessionToggleLogs({ descriptorId, showLogs }: ToggleLogsType) {
   return {
     descriptorId,
     showLogs,
@@ -126,15 +130,7 @@ function deviceActions({
   manualConnect,
   portNumber,
   status,
-}: {
-  adbConnected?: boolean;
-  descriptorId: string;
-  dispatch: DispatchType;
-  logLine: string;
-  manualConnect?: boolean;
-  portNumber?: number;
-  status: DeviceActionEnum;
-}) {
+}: DeviceActionCollectionType) {
   switch (status) {
     case DeviceActionEnum.DEVICE_SESSION_ERROR:
       dispatch(deviceSessionError({ descriptorId, log, manualConnect }));

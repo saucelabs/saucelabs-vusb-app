@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { AuthenticationActionEnum } from 'types/AuthenticationTypes';
 
 /**
@@ -25,9 +26,9 @@ export function authenticationSuccess({ tokenId }: { tokenId: string }): {
 /**
  * Store the error
  */
-export function authenticationError(error: Error): {
+export function authenticationError(error: AxiosError): {
   type: string;
-  error: Error;
+  error: AxiosError;
 } {
   return {
     type: AuthenticationActionEnum.AUTHENTICATION_ERROR,

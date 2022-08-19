@@ -156,6 +156,12 @@
   display: flex;
 }
 
+.detailsLink {
+  color: #555;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .detailsButton {
   background-color: transparent;
   border: none;
@@ -165,12 +171,6 @@
 
 .detailsButton:focus {
   outline: 0;
-}
-
-.detailsLink {
-  color: #555;
-  font-size: 14px;
-  font-weight: 700;
 }
 
 /**

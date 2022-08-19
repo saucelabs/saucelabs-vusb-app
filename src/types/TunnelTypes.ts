@@ -1,4 +1,7 @@
+import { AxiosError } from 'axios';
 import { OptionType } from 'renderer/components/Dropdown';
+import { ElectronStorageType } from './ElectronStoreTypes';
+import { DispatchType } from './GenericTypes';
 
 enum TunnelsActionEnum {
   FETCH_TUNNELS_LOADING = 'FETCH_TUNNELS_LOADING',
@@ -42,12 +45,10 @@ type TunnelResponseType = {
   user_shutdown: null | string;
   vm_version: string;
 };
-
 type TunnelsStateType = {
   tunnels: OptionType[];
-  error: null | Error;
+  error: null | AxiosError;
 };
-
 type TunnelsActionType =
   | {
       type: TunnelsActionEnum.FETCH_TUNNELS_LOADING;
@@ -58,10 +59,15 @@ type TunnelsActionType =
     }
   | {
       type: TunnelsActionEnum.FETCH_TUNNELS_ERROR;
-      error: Error;
+      error: AxiosError;
     };
+type GetTunnelsType = {
+  dispatch: DispatchType;
+  storageData: ElectronStorageType;
+};
 
 export {
+  GetTunnelsType,
   TunnelResponseType,
   TunnelsActionEnum,
   TunnelsActionType,

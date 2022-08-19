@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
 /**

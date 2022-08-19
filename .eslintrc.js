@@ -9,7 +9,9 @@ module.exports = {
     // We need to use awaits in loops because array iterators are not async
     'no-await-in-loop': 'off',
     // We should be able to add for example a @ts-ignore
-    'ban-ts-comment': 'off',
+    'typescript-eslint/ban-ts-comment': 'off',
+    // We prefer to to disable this for possible future use
+    'import/prefer-default-export': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

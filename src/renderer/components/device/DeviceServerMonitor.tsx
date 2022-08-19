@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
+import { ToggleLogsType } from 'types/DeviceTypes';
 import CloseIconButton from '../buttons/CloseIconButton';
 import ServerMonitor from '../server/ServerMonitor';
 import Styles from './DeviceServerMonitor.module.css';
@@ -13,7 +14,7 @@ interface DeviceServerMonitorInterface {
   serverError: boolean;
   serverStatus: string;
   showLogs: boolean;
-  toggleDeviceLogs: (deviceId: string, showLogs: boolean) => void;
+  toggleDeviceLogs: ({ descriptorId, showLogs }: ToggleLogsType) => void;
 }
 
 const DeviceServerMonitor: React.FC<DeviceServerMonitorInterface> = ({
@@ -33,7 +34,7 @@ const DeviceServerMonitor: React.FC<DeviceServerMonitorInterface> = ({
       headerRightComponent={
         <div
           onClick={() => {
-            toggleDeviceLogs(descriptorId, showLogs);
+            toggleDeviceLogs({ descriptorId, showLogs });
           }}
         >
           <CloseIconButton />

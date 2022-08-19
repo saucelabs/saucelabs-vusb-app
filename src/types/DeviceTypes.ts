@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import { ElectronStorageType } from './ElectronStoreTypes';
+import { DispatchType } from './GenericTypes';
 
 enum ApiStatusEnum {
   IDLE = 'IDLE',
@@ -81,39 +83,6 @@ type ExtraDeviceStateType = {
   status: string;
 };
 type DeviceStateType = DevicesApiType & ExtraDeviceStateType;
-type AxiosError = {
-  code: string;
-  config: {
-    transitional: {
-      silentJSONParsing: true;
-      forcedJSONParsing: true;
-      clarifyTimeoutError: false;
-    };
-    transformRequest: [null];
-    transformResponse: [null];
-    timeout: 0;
-    xsrfCookieName: string;
-    xsrfHeaderName: string;
-    maxContentLength: -1;
-    maxBodyLength: -1;
-    env: {
-      FormData: null;
-    };
-    headers: {
-      Accept: string;
-      Authorization: string;
-      'Cache-Control': string;
-    };
-    method: string;
-    url: string;
-  };
-  message: string;
-  name: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  request?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  response?: any;
-};
 type DevicesStateType = {
   connectedDevices: string[];
   deviceQuery: string;
@@ -219,6 +188,19 @@ type DevicesActionType =
       inUseDevices: InUseDevicesType[];
     }
   | { type: DeviceActionEnum.IN_USE_DEVICES_ERROR; error: AxiosError };
+type DeviceActionCollectionType = {
+  adbConnected?: boolean;
+  descriptorId: string;
+  dispatch: DispatchType;
+  logLine: string;
+  manualConnect?: boolean;
+  portNumber?: number;
+  status: DeviceActionEnum;
+};
+type ToggleLogsType = {
+  descriptorId: string;
+  showLogs: boolean;
+};
 type StartStopAdbConnectionType = {
   descriptorId: string;
   logsPath: string;
@@ -239,6 +221,7 @@ type StartDeviceConnection = {
 export {
   CreateDeviceConnectionType,
   ConnectToDeviceType,
+  DeviceActionCollectionType,
   DeviceActionEnum,
   DeviceActionType,
   DevicesActionType,
@@ -251,4 +234,5 @@ export {
   StartDeviceConnection,
   StartStopAdbConnectionType,
   StopDeviceType,
+  ToggleLogsType,
 };

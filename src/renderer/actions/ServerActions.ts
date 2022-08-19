@@ -1,5 +1,7 @@
-import { DispatchType } from 'types/GenericTypes';
-import { ServerActionEnum } from 'types/ServerTypes';
+import {
+  ServerActionEnum,
+  ServerStartCollectionTypes,
+} from '../../types/ServerTypes';
 
 /**
  * Trigger the server to start
@@ -104,11 +106,7 @@ function vusbServerStartActions({
   dispatch,
   logLine,
   status,
-}: {
-  dispatch: DispatchType;
-  logLine: string;
-  status: ServerActionEnum;
-}) {
+}: ServerStartCollectionTypes) {
   switch (status) {
     case ServerActionEnum.VUSB_ERROR:
       dispatch(vusbServerErrorAction(logLine));

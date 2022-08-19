@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { AuthenticationErrorType } from 'types/AuthenticationTypes';
-import { DispatchType } from '../../types/GenericTypes';
+import axios, { AxiosError } from 'axios';
+import { AuthenticationType } from '../../types/AuthenticationTypes';
 import {
   authenticationError,
   authenticationStart,
@@ -17,11 +16,7 @@ async function authenticate({
   dispatch,
   password,
   username,
-}: {
-  dispatch: DispatchType;
-  password: string;
-  username: string;
-}): Promise<string | AuthenticationErrorType> {
+}: AuthenticationType): Promise<string | AxiosError> {
   dispatch(authenticationStart());
 
   try {
@@ -42,9 +37,9 @@ async function authenticate({
 
     return tokenId;
   } catch (error) {
-    dispatch(authenticationError(error as AuthenticationErrorType));
+    dispatch(authenticationError(error as AxiosError));
 
-    return error as AuthenticationErrorType;
+    return error as AxiosError;
   }
 }
 

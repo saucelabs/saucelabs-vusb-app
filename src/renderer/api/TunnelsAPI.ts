@@ -2,20 +2,16 @@
 import axios from 'axios';
 import { LOCATION } from 'renderer/utils/Constants';
 import { OptionType } from 'renderer/components/Dropdown';
-import { ElectronStorageType } from '../../types/ElectronStoreTypes';
 import {
+  GetTunnelsType,
   TunnelResponseType,
   TunnelsActionEnum as ACTIONS,
 } from '../../types/TunnelTypes';
-import { DispatchType } from '../../types/GenericTypes';
 
-async function getTunnels({
-  dispatch,
-  storageData,
-}: {
-  dispatch: DispatchType;
-  storageData: ElectronStorageType;
-}) {
+/**
+ * Get all existing Sauce Connect tunnels
+ */
+async function getTunnels({ dispatch, storageData }: GetTunnelsType) {
   const {
     connection: { location, username, accessKey },
   } = storageData;
@@ -37,7 +33,6 @@ async function getTunnels({
         }
       )
     ).data;
-
     const tunnels: OptionType[] =
       response.length > 0
         ? response
@@ -60,4 +55,4 @@ async function getTunnels({
   }
 }
 
-export default getTunnels;
+export { getTunnels };
