@@ -1,7 +1,7 @@
 # Virtual USB GUI
 
 This project is an Open Source Virtual USB (vUSB) GUI for
-[Sauce Labs vUSB](https://docs.saucelabs.com/mobile-apps/virtual-usb). It provides a simple GUI to start an Android or iOS vUSB session with only a few clicks.
+[Sauce Labs vUSB](https://docs.saucelabs.com/mobile-apps/features/virtual-usb/). It provides a simple GUI to start an Android or iOS vUSB session with only a few clicks.
 
 > **NOTE:** Docs for version `1.0.1` can be found [here](https://github.com/saucelabs/saucelabs-vusb-app/tree/v1.0.1)
 
